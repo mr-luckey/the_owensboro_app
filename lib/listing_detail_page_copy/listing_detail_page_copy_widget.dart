@@ -1294,7 +1294,7 @@ class _ListingDetailPageCopyWidgetState
                       padding: EdgeInsetsDirectional.fromSTEB(
                           10.0, 100.0, 0.0, 100.0),
                       child: Text(
-                        'Contact Us',
+                        'Contact',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               font: GoogleFonts.inter(
                                 fontWeight: FontWeight.normal,

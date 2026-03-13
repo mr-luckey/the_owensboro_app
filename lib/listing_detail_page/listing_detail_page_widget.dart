@@ -240,7 +240,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               }
                             },
                             child: Text(
-                              'Wheel of Adventure',
+                              'Spin',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -826,7 +826,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           10.0, 0.0, 10.0, 0.0),
                                       child: Text(
-                                        'Wheel of Adventure',
+                                        'Spin',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -3795,7 +3795,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 100.0, 0.0, 0.0),
                               child: Text(
-                                'Contact Us',
+                                'Contact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -4675,7 +4675,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         size: 24.0,
                                       ),
                                       Text(
-                                        'Wheel of Adventure',
+                                        'Spin',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -4777,7 +4777,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                       size: 24.0,
                                     ),
                                     Text(
-                                      'Owensboro Games',
+                                      'Games',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -4828,7 +4828,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                     size: 24.0,
                                   ),
                                   Text(
-                                    'Contact Us',
+                                    'Contact',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

@@ -200,7 +200,7 @@ class _WheelAdventureScreenWidgetState
                           );
                         },
                         child: Text(
-                          'Wheel of Adventure',
+                          'Spin',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -3001,7 +3001,7 @@ class _WheelAdventureScreenWidgetState
                                     size: 24.0,
                                   ),
                                   Text(
-                                    'Wheel of Adventure',
+                                    'Spin',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -3100,7 +3100,7 @@ class _WheelAdventureScreenWidgetState
                                   size: 24.0,
                                 ),
                                 Text(
-                                  'Owensboro Games',
+                                  'Games',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -3149,7 +3149,7 @@ class _WheelAdventureScreenWidgetState
                                 size: 24.0,
                               ),
                               Text(
-                                'Contact Us',
+                                'Contact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

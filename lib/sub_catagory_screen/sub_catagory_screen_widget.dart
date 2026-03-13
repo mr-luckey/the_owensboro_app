@@ -204,7 +204,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                           }
                         },
                         child: Text(
-                          'Wheel of Adventure',
+                          'Spin',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
@@ -767,7 +767,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 10.0, 0.0),
                                     child: Text(
-                                      'Wheel of Adventure',
+                                      'Spin',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -2925,7 +2925,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 100.0, 0.0, 0.0),
                             child: Text(
-                              'Contact Us',
+                              'Contact',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -3755,7 +3755,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                     size: 24.0,
                                   ),
                                   Text(
-                                    'Wheel of Adventure',
+                                    'Spin',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -3852,7 +3852,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                   size: 24.0,
                                 ),
                                 Text(
-                                  'Owensboro Games',
+                                  'Games',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -3901,7 +3901,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                 size: 24.0,
                               ),
                               Text(
-                                'Contact Us',
+                                'Contact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

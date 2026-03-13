@@ -185,7 +185,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                           }
                         },
                         child: Text(
-                          'Wheel of Adventure',
+                          'Spin',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
@@ -695,8 +695,8 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                   context.pushNamed(
                                       WheelAdventureScreenWidget.routeName);
                                 },
-                                child: Text(
-                                  'Wheel of Adventure',
+                        child: Text(
+                          'Spin',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

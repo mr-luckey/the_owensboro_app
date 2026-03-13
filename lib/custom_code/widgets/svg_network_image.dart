@@ -46,6 +46,9 @@ class _SvgNetworkImageState extends State<SvgNetworkImage> {
           child: SvgPicture.network(
             widget.url!,
             fit: BoxFit.cover,
+            placeholderBuilder: (context) => const Center(
+              child: CircularProgressIndicator(),
+            ),
           ),
         ),
       );
@@ -59,7 +62,22 @@ class _SvgNetworkImageState extends State<SvgNetworkImage> {
         child: Image.network(
           widget.url!,
           fit: BoxFit.cover,
-          errorBuilder: (_, __, ___) => const SizedBox(),
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) {
+              return child;
+            }
+            final expectedBytes = loadingProgress.expectedTotalBytes;
+            final loadedBytes = loadingProgress.cumulativeBytesLoaded;
+            return Center(
+              child: CircularProgressIndicator(
+                value: expectedBytes != null
+                    ? loadedBytes / expectedBytes
+                    : null,
+              ),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) =>
+              const Icon(Icons.broken_image),
         ),
       ),
     );

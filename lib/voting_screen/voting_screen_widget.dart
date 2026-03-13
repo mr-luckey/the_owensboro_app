@@ -174,7 +174,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                           );
                         },
                         child: Text(
-                          'Wheel of Adventure',
+                          'Spin',
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
@@ -636,7 +636,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 0.0, 10.0, 0.0),
                                   child: Text(
-                                    'Wheel of Adventure',
+                                    'Spin',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -991,7 +991,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                     size: 24.0,
                                   ),
                                   Text(
-                                    'Wheel of Adventure',
+                                    'Spin',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -1087,7 +1087,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                   size: 24.0,
                                 ),
                                 Text(
-                                  'Owensboro Games',
+                                  'Games',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -1136,7 +1136,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                 size: 24.0,
                               ),
                               Text(
-                                'Contact Us',
+                                'Contact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

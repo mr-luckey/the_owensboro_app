@@ -618,8 +618,8 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                         FlutterFlowTheme.of(context).textColor,
                                     size: 24.0,
                                   ),
-                                  Text(
-                                    'Wheel of Adventure',
+                              Text(
+                                'Spin',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -671,7 +671,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                 size: 24.0,
                               ),
                               Text(
-                                'Owensboro Games',
+                                'Games',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -717,7 +717,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                 size: 24.0,
                               ),
                               Text(
-                                'Contact Us',
+                                'Contact',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

@@ -146,7 +146,7 @@ class _AdminCatagoryScreenWidgetState extends State<AdminCatagoryScreenWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     10.0, 0.0, 10.0, 0.0),
                                 child: Text(
-                                  'Wheel of Adventure',
+                                  'Spin',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

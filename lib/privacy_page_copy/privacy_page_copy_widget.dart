@@ -140,7 +140,7 @@ class _PrivacyPageCopyWidgetState extends State<PrivacyPageCopyWidget> {
                   Padding(
                     padding: EdgeInsets.all(20.0),
                     child: Text(
-                      'Wheel of Adventure',
+                      'Spin',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
@@ -287,7 +287,7 @@ class _PrivacyPageCopyWidgetState extends State<PrivacyPageCopyWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 0.0, 10.0, 0.0),
                               child: Text(
-                                'Wheel of Adventure',
+                                'Spin',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

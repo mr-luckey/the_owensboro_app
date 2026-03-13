@@ -183,7 +183,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                           }
                         },
                         child: Text(
-                          'Wheel of Adventure',
+                          'Spin',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     font: GoogleFonts.inter(
@@ -694,7 +694,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                       WheelAdventureScreenWidget.routeName);
                                 },
                                 child: Text(
-                                  'Wheel of Adventure',
+                                  'Spin',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
