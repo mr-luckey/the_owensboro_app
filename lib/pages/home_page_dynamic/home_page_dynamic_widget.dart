@@ -13,6 +13,7 @@ import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import '/main.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
       }
 
       _model.selectedTab = 'HOME';
+      safeSetState(() {});
+
+      // Notify root app that the first home frame is ready so it can hide splash.
+      AppStateNotifier.instance.showSplashImage = false;
       safeSetState(() {});
     });
 
@@ -320,7 +325,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
+                                  Get.toNamed(
+                                      UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -386,7 +392,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
+                                  Get.toNamed(
+                                      UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -750,7 +757,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                Get.toNamed(WheelAdventureScreenWidget.routePath);
+                                Get.toNamed(
+                                    WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -1103,20 +1111,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                     catagoriesRecord.orderBy('order'),
                               ),
                               builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
+                                  // Lightweight placeholder while categories load
+                                  return const SizedBox.shrink();
                                 }
                                 List<CatagoriesRecord>
                                     columnCatagoriesRecordList = snapshot.data!;
@@ -1137,10 +1134,15 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          if (columnCatagoriesRecord == null) return;
+                                          if (columnCatagoriesRecord == null)
+                                            return;
                                           Get.toNamed(
-                                            EventsEntertainmentScreenCopyWidget.routePath,
-                                            arguments: {'catagories': columnCatagoriesRecord},
+                                            EventsEntertainmentScreenCopyWidget
+                                                .routePath,
+                                            arguments: {
+                                              'catagories':
+                                                  columnCatagoriesRecord
+                                            },
                                           );
                                         },
                                         child: Container(
@@ -1278,21 +1280,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         catagoriesRecord.orderBy('order'),
                                   ),
                                   builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      // Lightweight placeholder while categories load
+                                      return const SizedBox.shrink();
                                     }
                                     List<CatagoriesRecord>
                                         gridViewCatagoriesRecordList =
@@ -1334,10 +1324,15 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    if (gridViewCatagoriesRecord == null) return;
+                                                    if (gridViewCatagoriesRecord ==
+                                                        null) return;
                                                     Get.toNamed(
-                                                      EventsEntertainmentScreenCopyWidget.routePath,
-                                                      arguments: {'catagories': gridViewCatagoriesRecord},
+                                                      EventsEntertainmentScreenCopyWidget
+                                                          .routePath,
+                                                      arguments: {
+                                                        'catagories':
+                                                            gridViewCatagoriesRecord
+                                                      },
                                                     );
                                                   },
                                                   child: Container(
@@ -1411,21 +1406,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         catagoriesRecord.orderBy('order'),
                                   ),
                                   builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: CircularProgressIndicator(
-                                            valueColor:
-                                                AlwaysStoppedAnimation<Color>(
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                            ),
-                                          ),
-                                        ),
-                                      );
+                                      // Lightweight placeholder while categories load
+                                      return const SizedBox.shrink();
                                     }
                                     List<CatagoriesRecord>
                                         gridViewCatagoriesRecordList =
@@ -1467,10 +1450,15 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    if (gridViewCatagoriesRecord == null) return;
+                                                    if (gridViewCatagoriesRecord ==
+                                                        null) return;
                                                     Get.toNamed(
-                                                      EventsEntertainmentScreenCopyWidget.routePath,
-                                                      arguments: {'catagories': gridViewCatagoriesRecord},
+                                                      EventsEntertainmentScreenCopyWidget
+                                                          .routePath,
+                                                      arguments: {
+                                                        'catagories':
+                                                            gridViewCatagoriesRecord
+                                                      },
                                                     );
                                                   },
                                                   child: Container(
@@ -1490,7 +1478,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             ),
                                             Align(
                                               alignment: AlignmentDirectional(
-                                                0.0, 0.0),
+                                                  0.0, 0.0),
                                               child: Text(
                                                 gridViewCatagoriesRecord
                                                     .catagoryName,
@@ -1540,19 +1528,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           child: StreamBuilder<List<BannerRecord>>(
                             stream: queryBannerRecord(),
                             builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
                               if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
-                                  ),
-                                );
+                                // Do not show a loader here; keep space reserved
+                                // so that when data arrives, it appears without animation.
+                                return const SizedBox.shrink();
                               }
                               List<BannerRecord>
                                   scrollableTextWidgetBannerRecordList =
@@ -3788,10 +3767,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         ?.unfocus();
                                   },
                                   child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.3,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.35,
                                     child: AlertLoginSignUpWidget(),
                                   ),
                                 ),
@@ -3833,10 +3812,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         ?.unfocus();
                                   },
                                   child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 0.3,
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 0.35,
                                     child: AlertLoginSignUpWidget(),
                                   ),
                                 ),
@@ -4013,19 +3992,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                   StreamBuilder<List<BannerRecord>>(
                     stream: queryBannerRecord(),
                     builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
+                        // Lightweight placeholder while banner loads
+                        return const SizedBox.shrink();
                       }
                       List<BannerRecord> scrollableTextWidgetBannerRecordList =
                           snapshot.data!;

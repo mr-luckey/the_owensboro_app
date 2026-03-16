@@ -11,6 +11,7 @@ import 'auth/firebase_auth/firebase_user_provider.dart';
 import 'auth/firebase_auth/auth_util.dart';
 
 import 'backend/firebase/firebase_config.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/nav/nav.dart';
@@ -57,6 +58,9 @@ class _MyAppState extends State<MyApp> {
   late AppStateNotifier _appStateNotifier;
   late Stream<BaseAuthUser> userStream;
 
+  // Local splash flag to avoid getting stuck on global auth loading.
+  bool _showSplash = true;
+
   final authUserSub = authenticatedUserStream.listen((_) {});
 
   @override
@@ -69,10 +73,9 @@ class _MyAppState extends State<MyApp> {
         _appStateNotifier.update(user);
       });
     jwtTokenStream.listen((_) {});
-    Future.delayed(
-      const Duration(milliseconds: 1000),
-      () => _appStateNotifier.stopShowingSplashImage(),
-    );
+
+    // Preload home categories data while splash is visible.
+    _preloadHomeData();
   }
 
   @override
@@ -86,6 +89,24 @@ class _MyAppState extends State<MyApp> {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
       });
+
+  Future<void> _preloadHomeData() async {
+    try {
+      // Wait for the first batch of categories used by the home grid.
+      await queryCatagoriesRecord(
+        queryBuilder: (catagoriesRecord) =>
+            catagoriesRecord.orderBy('order'),
+      ).first;
+    } catch (_) {
+      // Ignore errors; we still want to proceed to the home screen.
+    } finally {
+      if (mounted) {
+        setState(() {
+          _showSplash = false;
+        });
+      }
+    }
+  }
 
   String getRoute() => Get.currentRoute;
 
@@ -114,9 +135,21 @@ class _MyAppState extends State<MyApp> {
       themeMode: _themeMode,
       initialRoute: AppRoutes.initial,
       getPages: AppPages.pages,
-      // Temporarily bypass FlutterFlow splash and always show the routed child.
-      // This ensures the home screen opens even if AppStateNotifier.loading misbehaves.
-      builder: (context, child) => child ?? const SizedBox.shrink(),
+      builder: (context, child) {
+        if (_showSplash) {
+          return Container(
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            child: Center(
+              child: Image.asset(
+                'assets/images/New_TOA_Logo.png',
+                width: 200.0,
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        }
+        return child ?? const SizedBox.shrink();
+      },
     );
   }
 }
