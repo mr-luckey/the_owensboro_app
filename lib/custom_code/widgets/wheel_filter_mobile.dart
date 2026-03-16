@@ -1,9 +1,11 @@
 // Automatic FlutterFlow imports
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
+import '/index.dart';
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
@@ -256,7 +258,7 @@ class _WheelFilterMobileState extends State<WheelFilterMobile> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: const Text('Cancel'),
                 ),
@@ -288,7 +290,7 @@ class _WheelFilterMobileState extends State<WheelFilterMobile> {
                       allSubcategories = [];
                     });
 
-                    Navigator.of(context).pop();
+                    Get.back();
 
                     // Load products by categories only
                     await loadProducts();
@@ -389,7 +391,7 @@ class _WheelFilterMobileState extends State<WheelFilterMobile> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: const Text('Cancel'),
                 ),
@@ -418,7 +420,7 @@ class _WheelFilterMobileState extends State<WheelFilterMobile> {
                           .toList();
                     });
 
-                    Navigator.of(context).pop();
+                    Get.back();
 
                     // Load products based on selected subcategories
                     await loadProducts();
@@ -457,12 +459,7 @@ class _WheelFilterMobileState extends State<WheelFilterMobile> {
         // // Call your action here
         // // await widget.action?.call();
         // // Assuming ProductRecord can be cast to ProductsRecord
-        context.pushNamed(
-          "ListingDetailPage",
-          extra: <String, dynamic>{
-            "product": selectedProductRecord, // Pass ProductRecord directly
-          },
-        );
+        Get.toNamed(ListingDetailPageWidget.routePath, arguments: <String, dynamic>{'product': selectedProductRecord});
         // selectedProductRef = doc.reference;
         // selectedProductRecord = ProductRecord.fromSnapshot(doc);
 

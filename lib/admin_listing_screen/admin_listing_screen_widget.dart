@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/components/add_listing_alert_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -128,7 +129,7 @@ class _AdminListingScreenWidgetState extends State<AdminListingScreenWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(SignUpScreenWidget.routeName);
+                            Get.toNamed(SignUpScreenWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,

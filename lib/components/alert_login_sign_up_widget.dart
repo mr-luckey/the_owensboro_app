@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -71,7 +72,7 @@ class _AlertLoginSignUpWidgetState extends State<AlertLoginSignUpWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    Navigator.pop(context);
+                    Get.back();
                   },
                   child: Icon(
                     Icons.cancel,
@@ -151,7 +152,7 @@ class _AlertLoginSignUpWidgetState extends State<AlertLoginSignUpWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(UserSideLoginScreenWidget.routeName);
+                        Get.toNamed(UserSideLoginScreenWidget.routePath);
                       },
                       text: 'Login',
                       options: FFButtonOptions(
@@ -191,7 +192,7 @@ class _AlertLoginSignUpWidgetState extends State<AlertLoginSignUpWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pushNamed(UserSideSignUpScreenWidget.routeName);
+                        Get.toNamed(UserSideSignUpScreenWidget.routePath);
                       },
                       text: 'Sign Up',
                       options: FFButtonOptions(

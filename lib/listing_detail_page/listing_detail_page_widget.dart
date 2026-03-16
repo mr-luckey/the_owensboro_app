@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -141,7 +142,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             onTap: () async {
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey.currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
                             },
                             child: Icon(
@@ -163,7 +164,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Text(
                             'HOME',
@@ -202,8 +203,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -278,7 +278,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             _model.selectedTab = 'CUSTOMER SERVICES';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Text(
                             'CUSTOMER SERVICES',
@@ -322,8 +322,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed(
-                                          UserSideSignUpScreenWidget.routeName);
+                                      Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                     },
                                     child: Text(
                                       'Sign Up',
@@ -390,8 +389,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed(
-                                          UserSideLoginScreenWidget.routeName);
+                                      Get.toNamed(UserSideLoginScreenWidget.routePath);
                                     },
                                     child: Text(
                                       'Login',
@@ -581,8 +579,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context
-                                      .pushNamed(PrivacyPageWidget.routeName);
+                                  Get.toNamed(PrivacyPageWidget.routePath);
                                 },
                                 child: Text(
                                   'PRIVACY POLICY',
@@ -623,8 +620,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      TermConditionPageWidget.routeName);
+                                  Get.toNamed(TermConditionPageWidget.routePath);
                                 },
                                 child: Text(
                                   'TERMS & CONDITION',
@@ -724,8 +720,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context
-                                    .pushNamed(HomePageDynamicWidget.routeName);
+                                Get.toNamed(HomePageDynamicWidget.routePath);
                               },
                               child: Container(
                                 width: 100.0,
@@ -777,8 +772,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   if (loggedIn) {
-                                    context.pushNamed(
-                                        WheelAdventureScreenWidget.routeName);
+                                    Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                     return;
                                   } else {
@@ -867,7 +861,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(ContactUsWidget.routeName);
+                                Get.toNamed(ContactUsWidget.routePath);
                               },
                               child: Container(
                                 width: 200.0,
@@ -917,7 +911,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(PrivacyPageWidget.routeName);
+                                Get.toNamed(PrivacyPageWidget.routePath);
                               },
                               child: Container(
                                 width: 180.0,
@@ -967,8 +961,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(
-                                    TermConditionPageWidget.routeName);
+                                Get.toNamed(TermConditionPageWidget.routePath);
                               },
                               child: Container(
                                 width: 200.0,
@@ -3703,18 +3696,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(
-                                  ViewAllReviewsScreenWidget.routeName,
-                                  queryParameters: {
-                                    'product': serializeParam(
-                                      widget!.product,
-                                      ParamType.Document,
-                                    ),
-                                  }.withoutNulls,
-                                  extra: <String, dynamic>{
-                                    'product': widget!.product,
-                                  },
-                                );
+                                Get.toNamed(ViewAllReviewsScreenWidget.routePath, arguments: {'product': widget!.product});
                               },
                               child: Text(
                                 'View All',
@@ -4549,19 +4531,18 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                         ),
                         child: BottomNavBarWidget(
                           onHomeTap: () async {
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           onSpinTap: () async {
                             _model.selectedTab = 'Wheel of Adventure';
                             safeSetState(() {});
                             if (loggedIn) {
-                              context.pushNamed(
-                                  WheelAdventureScreenWidget.routeName);
+                              Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey
                                       .currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
 
                               return;
@@ -4601,13 +4582,12 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                           onGamesTap: () async {
                             safeSetState(() {});
                             if (loggedIn) {
-                              context
-                                  .pushNamed(OwensboroGamesWidget.routeName);
+                              Get.toNamed(OwensboroGamesWidget.routePath);
 
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey
                                       .currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
 
                               safeSetState(() {});
@@ -4646,7 +4626,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             }
                           },
                           onContactTap: () async {
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                         ),
                       ),

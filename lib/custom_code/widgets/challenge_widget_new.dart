@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -198,7 +199,7 @@ class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
     //                                   context: context,
     //                                   builder: (context) => CustomDeleteDialog(
     //                                     onCancel: () {
-    //                                       Navigator.pop(context);
+    //                                       Get.back();
     //                                     },
     //                                     onDelete: () async {
     //                                       await FirebaseFirestore.instance
@@ -207,7 +208,7 @@ class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
     //                                           .delete();
 
     //                                       setState(() {});
-    //                                       Navigator.pop(context);
+    //                                       Get.back();
     //                                     },
     //                                   ),
     //                                 );
@@ -315,11 +316,11 @@ class _ChallengeDisplayWidgetState extends State<ChallengeDisplayWidget>
                           context: context,
                           builder: (context) => CustomDeleteDialog(
                             onCancel: () {
-                              Navigator.pop(context);
+                              Get.back();
                             },
                             onDelete: () async {
                               await widget.onDelete();
-                              Navigator.pop(context);
+                              Get.back();
                             },
                           ),
                         );
@@ -601,7 +602,7 @@ class _AdminVideoPlayerState extends State<AdminVideoPlayer>
 //                                       context: context,
 //                                       builder: (context) => CustomDeleteDialog(
 //                                         onCancel: () {
-//                                           Navigator.pop(context);
+//                                           Get.back();
 //                                         },
 //                                         onDelete: () async {
 //                                           await FirebaseFirestore.instance
@@ -610,7 +611,7 @@ class _AdminVideoPlayerState extends State<AdminVideoPlayer>
 //                                               .delete();
 
 //                                           setState(() {});
-//                                           Navigator.pop(context);
+//                                           Get.back();
 //                                         },
 //                                       ),
 //                                     );
@@ -893,7 +894,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
           _isLoading = false;
         });
 
-        Navigator.of(context).pop();
+        Get.back();
       }
     } catch (e) {
       log("Error: ${e.toString()}");
@@ -947,7 +948,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: Container(
                     padding: const EdgeInsets.all(4),
@@ -1109,10 +1110,10 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
                                         _challengeDescription.text,
                                         videoWrapper,
                                       );
-                                      Navigator.pop(context);
+                                      Get.back();
                                     },
                                     onNo: () {
-                                      Navigator.pop(context);
+                                      Get.back();
                                     },
                                   ),
                                 );
@@ -1572,7 +1573,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
                   kIsWeb ? 'Pick from your files' : 'Pick from your videos',
               color: primaryColor,
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
                 _pickVideo(ImageSource.gallery);
               },
             ),
@@ -1584,7 +1585,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
                 subtitle: 'Record a new video',
                 color: Colors.red,
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
                   _pickVideo(ImageSource.camera);
                 },
               ),

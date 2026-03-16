@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -136,7 +137,7 @@ class _DeleteSubCatagoryWidgetState extends State<DeleteSubCatagoryWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -177,7 +178,7 @@ class _DeleteSubCatagoryWidgetState extends State<DeleteSubCatagoryWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         await widget!.subCatagoryDoc!.reference.delete();
-                        Navigator.pop(context);
+                        Get.back();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

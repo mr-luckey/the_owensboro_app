@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/components/alert_login_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -133,7 +134,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             onTap: () async {
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey.currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
                             },
                             child: Icon(
@@ -157,7 +158,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         _model.selectedTab = 'HOME';
                         safeSetState(() {});
 
-                        context.pushNamed(HomePageWidget.routeName);
+                        Get.toNamed(HomePageWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -258,7 +259,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         _model.selectedTab = 'CUSTOMER SERVICES';
                         safeSetState(() {});
 
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -330,7 +331,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageWidget.routeName);
+                            Get.toNamed(HomePageWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -390,8 +391,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -488,7 +488,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             _model.selectedTab = 'CUSTOMER SERVICE';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -678,8 +678,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -764,8 +763,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -850,8 +848,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -936,8 +933,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1013,8 +1009,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1090,8 +1085,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1171,8 +1165,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1248,8 +1241,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1325,8 +1317,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1406,8 +1397,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          context.pushNamed(
-                              EventsEntertainmentScreenWidget.routeName);
+                          Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                         },
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1475,8 +1465,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1535,8 +1524,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1595,8 +1583,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1655,8 +1642,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1715,8 +1701,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1775,8 +1760,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1835,8 +1819,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1895,8 +1878,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -1955,8 +1937,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2015,8 +1996,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2075,8 +2055,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2135,8 +2114,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2195,8 +2173,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2255,8 +2232,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2315,8 +2291,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2375,8 +2350,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2435,8 +2409,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2495,8 +2468,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2555,8 +2527,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2615,8 +2586,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2675,8 +2645,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2735,8 +2704,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2795,8 +2763,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2855,8 +2822,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2915,8 +2881,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -2975,8 +2940,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -3035,8 +2999,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -3095,8 +3058,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,
@@ -3155,8 +3117,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(
-                            EventsEntertainmentScreenWidget.routeName);
+                        Get.toNamed(EventsEntertainmentScreenWidget.routePath);
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 0.9,

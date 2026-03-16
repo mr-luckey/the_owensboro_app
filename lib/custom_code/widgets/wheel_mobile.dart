@@ -1,9 +1,11 @@
 // Automatic FlutterFlow imports
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
+import '/index.dart';
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
@@ -209,7 +211,7 @@ class _WheelMobileState extends State<WheelMobile> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: const Text('Cancel'),
                 ),
@@ -224,7 +226,7 @@ class _WheelMobileState extends State<WheelMobile> {
                     });
 
                     print('Selected Categories: $selectedCategories');
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: const Text('Update'),
                 ),
@@ -263,12 +265,7 @@ class _WheelMobileState extends State<WheelMobile> {
 
         // await widget.selectedDoc?.call(selectedCategoryRecord);
 
-        context.pushNamed(
-          "EventsEntertainmentScreenCopy",
-          extra: <String, dynamic>{
-            "catagories": selectedCategoryRecord,
-          },
-        );
+        Get.toNamed(EventsEntertainmentScreenCopyWidget.routePath, arguments: <String, dynamic>{'catagories': selectedCategoryRecord});
       } else {
         print("❌ Category document not found: $categoryName");
         selectedCategoryRecord = null;

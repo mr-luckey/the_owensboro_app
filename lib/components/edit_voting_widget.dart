@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -143,7 +144,7 @@ class _EditVotingWidgetState extends State<EditVotingWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            Navigator.pop(context);
+                            Get.back();
                           },
                           child: Icon(
                             Icons.cancel,
@@ -453,7 +454,7 @@ class _EditVotingWidgetState extends State<EditVotingWidget> {
                               title: _model.titleTextController1.text,
                               link: _model.titleTextController2.text,
                             ));
-                            Navigator.pop(context);
+                            Get.back();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(

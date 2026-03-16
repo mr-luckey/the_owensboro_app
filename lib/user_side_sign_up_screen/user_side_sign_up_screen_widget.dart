@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -884,8 +885,6 @@ class _UserSideSignUpScreenWidgetState
                               safeSetState(() => _model.form1 = false);
                               return;
                             }
-                            GoRouter.of(context).prepareAuthEvent();
-
                             final user =
                                 await authManager.createAccountWithEmail(
                               context,
@@ -920,8 +919,7 @@ class _UserSideSignUpScreenWidgetState
                               ),
                             );
 
-                            context.goNamedAuth(HomePageDynamicWidget.routeName,
-                                context.mounted);
+                            Get.offAllNamed(HomePageDynamicWidget.routePath);
 
                             safeSetState(() {
                               _model.textController1?.clear();
@@ -1014,8 +1012,7 @@ class _UserSideSignUpScreenWidgetState
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    context.pushNamed(
-                                        UserSideLoginScreenWidget.routeName);
+                                    Get.toNamed(UserSideLoginScreenWidget.routePath);
                                   },
                               )
                             ],

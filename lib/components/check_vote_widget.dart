@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -141,7 +142,7 @@ class _CheckVoteWidgetState extends State<CheckVoteWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -186,7 +187,7 @@ class _CheckVoteWidgetState extends State<CheckVoteWidget> {
                           title: widget!.title,
                           link: widget!.link,
                         ));
-                        Navigator.pop(context);
+                        Get.back();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

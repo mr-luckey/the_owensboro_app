@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/components/alert_login_sign_up_widget.dart';
 import '/components/delete_user_alert_widget.dart';
@@ -87,7 +88,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                         onTap: () async {
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
                         },
                         child: Icon(
@@ -106,7 +107,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -141,12 +142,11 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                           _model.selectedTab = 'Wheel of Adventure';
                           safeSetState(() {});
                           if (loggedIn) {
-                            context.pushNamed(
-                                WheelAdventureScreenWidget.routeName);
+                            Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                             if (scaffoldKey.currentState!.isDrawerOpen ||
                                 scaffoldKey.currentState!.isEndDrawerOpen) {
-                              Navigator.pop(context);
+                              Get.back();
                             }
 
                             return;
@@ -213,7 +213,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -252,8 +252,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideSignUpScreenWidget.routeName);
+                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -316,8 +315,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideLoginScreenWidget.routeName);
+                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -500,7 +498,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(PrivacyPageWidget.routeName);
+                              Get.toNamed(PrivacyPageWidget.routePath);
                             },
                             child: Text(
                               'PRIVACY POLICY',
@@ -540,8 +538,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context
-                                  .pushNamed(TermConditionPageWidget.routeName);
+                              Get.toNamed(TermConditionPageWidget.routePath);
                             },
                             child: Text(
                               'TERMS & CONDITION',
@@ -641,8 +638,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      HomePageDynamicWidget.routeName);
+                                  Get.toNamed(HomePageDynamicWidget.routePath);
                                 },
                                 child: Text(
                                   'HOME',
@@ -690,8 +686,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      WheelAdventureScreenWidget.routeName);
+                                  Get.toNamed(WheelAdventureScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Spin',
@@ -739,7 +734,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(ContactUsWidget.routeName);
+                                  Get.toNamed(ContactUsWidget.routePath);
                                 },
                                 child: Text(
                                   'CUSTOMER SERVICE',

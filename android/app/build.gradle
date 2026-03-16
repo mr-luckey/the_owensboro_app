@@ -55,7 +55,10 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        // Application ID must match Firebase Android app package name (com.techorphic.TheOwensboroApp).
+        // If you see DEVELOPER_ERROR or "Unknown calling package name 'com.google.android.gms'",
+        // add your debug/release SHA-1 and SHA-256 in Firebase Console → Project settings → Your apps.
+        // Get fingerprints: cd android && ./gradlew signingReport
         applicationId "com.techorphic.TheOwensboroApp"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion 36

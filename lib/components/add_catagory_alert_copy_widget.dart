@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -132,7 +133,7 @@ class _AddCatagoryAlertCopyWidgetState
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -172,12 +173,7 @@ class _AddCatagoryAlertCopyWidgetState
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        GoRouter.of(context).prepareAuthEvent();
                         await authManager.signOut();
-                        GoRouter.of(context).clearRedirectLocation();
-
-                        context.goNamedAuth(
-                            LoginScreenWidget.routeName, context.mounted);
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -193,6 +189,7 @@ class _AddCatagoryAlertCopyWidgetState
                                 FlutterFlowTheme.of(context).success,
                           ),
                         );
+                        Get.offAllNamed(LoginScreenWidget.routePath);
                       },
                       text: 'Yes',
                       options: FFButtonOptions(

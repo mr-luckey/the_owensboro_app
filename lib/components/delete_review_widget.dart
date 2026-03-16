@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -137,7 +138,7 @@ class _DeleteReviewWidgetState extends State<DeleteReviewWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -178,7 +179,7 @@ class _DeleteReviewWidgetState extends State<DeleteReviewWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         await widget!.review!.reference.delete();
-                        Navigator.pop(context);
+                        Get.back();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

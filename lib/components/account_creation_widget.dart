@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -72,7 +73,7 @@ class _AccountCreationWidgetState extends State<AccountCreationWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     child: Icon(
                       Icons.cancel,

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -121,7 +122,7 @@ class _EditSubCatagoryAlertWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       child: Icon(
                         Icons.cancel,
@@ -531,7 +532,7 @@ class _EditSubCatagoryAlertWidgetState
                                   FlutterFlowTheme.of(context).primary,
                             ),
                           );
-                          Navigator.pop(context);
+                          Get.back();
                           FFAppState().selectedImagePath = '\'\'';
                           safeSetState(() {});
 

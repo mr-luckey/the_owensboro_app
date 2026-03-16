@@ -1,4 +1,5 @@
 // Automatic FlutterFlow imports
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -378,7 +379,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
         setState(() {
           _isLoading = false;
         });
-        Navigator.of(context).pop();
+        Get.back();
       } catch (e) {
         setState(() {
           _isLoading = false;
@@ -427,7 +428,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pop();
+                    Get.back();
                   },
                   child: Container(
                     padding: const EdgeInsets.all(4),
@@ -749,7 +750,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
                   kIsWeb ? 'Pick from your files' : 'Pick from your videos',
               color: primaryColor,
               onTap: () {
-                Navigator.pop(context);
+                Get.back();
                 _pickVideo(ImageSource.gallery);
               },
             ),
@@ -761,7 +762,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
                 subtitle: 'Record a new video',
                 color: Colors.red,
                 onTap: () {
-                  Navigator.pop(context);
+                  Get.back();
                   _pickVideo(ImageSource.camera);
                 },
               ),

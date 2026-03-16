@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -141,7 +142,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                               onTap: () async {
                                 if (scaffoldKey.currentState!.isDrawerOpen ||
                                     scaffoldKey.currentState!.isEndDrawerOpen) {
-                                  Navigator.pop(context);
+                                  Get.back();
                                 }
                               },
                               child: Icon(
@@ -166,7 +167,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                         _model.selectedTab = 'HOME';
                         safeSetState(() {});
 
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -203,8 +204,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           _model.selectedTab = 'Wheel of Adventure';
                           safeSetState(() {});
                           if (loggedIn) {
-                            context.pushNamed(
-                                WheelAdventureScreenWidget.routeName);
+                            Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                             return;
                           } else {
@@ -277,7 +277,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                         _model.selectedTab = 'CUSTOMER SERVICES';
                         safeSetState(() {});
 
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -318,8 +318,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideSignUpScreenWidget.routeName);
+                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -382,8 +381,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideLoginScreenWidget.routeName);
+                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -566,7 +564,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(PrivacyPageWidget.routeName);
+                              Get.toNamed(PrivacyPageWidget.routePath);
                             },
                             child: Text(
                               'PRIVACY POLICY',
@@ -606,8 +604,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context
-                                  .pushNamed(TermConditionPageWidget.routeName);
+                              Get.toNamed(TermConditionPageWidget.routePath);
                             },
                             child: Text(
                               'TERMS & CONDITION',
@@ -703,7 +700,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -763,8 +760,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -862,7 +858,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                             _model.selectedTab = 'CUSTOMER SERVICE';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -917,7 +913,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(PrivacyPageWidget.routeName);
+                            Get.toNamed(PrivacyPageWidget.routePath);
                           },
                           child: Container(
                             width: 180.0,
@@ -965,8 +961,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context
-                                .pushNamed(TermConditionPageWidget.routeName);
+                            Get.toNamed(TermConditionPageWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -1245,19 +1240,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed(
-                                        SubCatagoryScreenWidget.routeName,
-                                        queryParameters: {
-                                          'subCatagoriesRef': serializeParam(
-                                            columnSubCatagoriesRecord,
-                                            ParamType.Document,
-                                          ),
-                                        }.withoutNulls,
-                                        extra: <String, dynamic>{
-                                          'subCatagoriesRef':
-                                              columnSubCatagoriesRecord,
-                                        },
-                                      );
+                                      Get.toNamed(SubCatagoryScreenWidget.routePath, arguments: {'subCatagoriesRef': columnSubCatagoriesRecord});
                                     },
                                     child: Container(
                                       width: MediaQuery.sizeOf(context).width *
@@ -2631,7 +2614,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -2684,13 +2667,12 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                                 _model.selectedTab = 'Wheel of Adventure';
                                 safeSetState(() {});
                                 if (loggedIn) {
-                                  context.pushNamed(
-                                      WheelAdventureScreenWidget.routeName);
+                                  Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                   if (scaffoldKey.currentState!.isDrawerOpen ||
                                       scaffoldKey
                                           .currentState!.isEndDrawerOpen) {
-                                    Navigator.pop(context);
+                                    Get.back();
                                   }
 
                                   _model.selectedTab = '.';
@@ -2782,7 +2764,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(OwensboroGamesWidget.routeName);
+                            Get.toNamed(OwensboroGamesWidget.routePath);
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -2828,7 +2810,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Column(
                             mainAxisSize: MainAxisSize.max,

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -520,7 +521,6 @@ class _UserSideLoginScreenWidgetState extends State<UserSideLoginScreenWidget> {
                               safeSetState(() => _model.form1 = false);
                               return;
                             }
-                            GoRouter.of(context).prepareAuthEvent();
 
                             final user = await authManager.signInWithEmail(
                               context,
@@ -546,8 +546,7 @@ class _UserSideLoginScreenWidgetState extends State<UserSideLoginScreenWidget> {
                               ),
                             );
 
-                            context.goNamedAuth(HomePageDynamicWidget.routeName,
-                                context.mounted);
+                            Get.offAllNamed(HomePageDynamicWidget.routePath);
 
                             safeSetState(() {
                               _model.emailTextController?.clear();
@@ -639,8 +638,7 @@ class _UserSideLoginScreenWidgetState extends State<UserSideLoginScreenWidget> {
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    context.pushNamed(
-                                        UserSideSignUpScreenWidget.routeName);
+                                    Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                   },
                               )
                             ],

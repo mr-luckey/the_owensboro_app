@@ -386,6 +386,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "get",
+      "rootUri": "file:///Users/naseerahmed/.pub-cache/hosted/pub.dev/get-4.7.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "go_router",
       "rootUri": "file:///Users/naseerahmed/.pub-cache/hosted/pub.dev/go_router-12.1.3",
       "packageUri": "lib/",

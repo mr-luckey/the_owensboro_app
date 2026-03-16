@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/components/alert_login_sign_up_widget.dart';
 import '/components/delete_user_alert_widget.dart';
@@ -89,7 +90,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                         onTap: () async {
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
                         },
                         child: Icon(
@@ -108,7 +109,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -143,12 +144,11 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                           _model.selectedTab = 'Wheel of Adventure';
                           safeSetState(() {});
                           if (loggedIn) {
-                            context.pushNamed(
-                                WheelAdventureScreenWidget.routeName);
+                            Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                             if (scaffoldKey.currentState!.isDrawerOpen ||
                                 scaffoldKey.currentState!.isEndDrawerOpen) {
-                              Navigator.pop(context);
+                              Get.back();
                             }
 
                             return;
@@ -215,7 +215,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -254,8 +254,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideSignUpScreenWidget.routeName);
+                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -318,8 +317,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideLoginScreenWidget.routeName);
+                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -502,7 +500,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(PrivacyPageWidget.routeName);
+                              Get.toNamed(PrivacyPageWidget.routePath);
                             },
                             child: Text(
                               'PRIVACY POLICY',
@@ -542,8 +540,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context
-                                  .pushNamed(TermConditionPageWidget.routeName);
+                              Get.toNamed(TermConditionPageWidget.routePath);
                             },
                             child: Text(
                               'TERMS & CONDITION',
@@ -643,8 +640,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      HomePageDynamicWidget.routeName);
+                                  Get.toNamed(HomePageDynamicWidget.routePath);
                                 },
                                 child: Text(
                                   'HOME',
@@ -692,8 +688,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      WheelAdventureScreenWidget.routeName);
+                                  Get.toNamed(WheelAdventureScreenWidget.routePath);
                                 },
                         child: Text(
                           'Spin',
@@ -741,7 +736,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(ContactUsWidget.routeName);
+                                  Get.toNamed(ContactUsWidget.routePath);
                                 },
                                 child: Text(
                                   'CUSTOMER SERVICE',
@@ -789,8 +784,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context
-                                      .pushNamed(PrivacyPageWidget.routeName);
+                                  Get.toNamed(PrivacyPageWidget.routePath);
                                 },
                                 child: Text(
                                   'Privacy',

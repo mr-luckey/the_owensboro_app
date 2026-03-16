@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'home_page_dynamic_model.dart';
@@ -52,7 +53,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
       setDarkModeSetting(context, ThemeMode.light);
       if (scaffoldKey.currentState!.isDrawerOpen ||
           scaffoldKey.currentState!.isEndDrawerOpen) {
-        Navigator.pop(context);
+        Get.back();
       }
 
       _model.selectedTab = 'HOME';
@@ -139,7 +140,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         onTap: () async {
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
                         },
                         child: Icon(
@@ -161,7 +162,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         _model.selectedTab = 'HOME';
                         safeSetState(() {});
 
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -198,12 +199,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           _model.selectedTab = 'Wheel of Adventure';
                           safeSetState(() {});
                           if (loggedIn) {
-                            context.pushNamed(
-                                WheelAdventureScreenWidget.routeName);
+                            Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                             if (scaffoldKey.currentState!.isDrawerOpen ||
                                 scaffoldKey.currentState!.isEndDrawerOpen) {
-                              Navigator.pop(context);
+                              Get.back();
                             }
 
                             _model.selectedTab = '.';
@@ -279,7 +279,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         _model.selectedTab = 'CUSTOMER SERVICES';
                         safeSetState(() {});
 
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -320,8 +320,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideSignUpScreenWidget.routeName);
+                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -387,8 +386,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideLoginScreenWidget.routeName);
+                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -571,7 +569,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(PrivacyPageWidget.routeName);
+                              Get.toNamed(PrivacyPageWidget.routePath);
                             },
                             child: Text(
                               'PRIVACY POLICY',
@@ -614,8 +612,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context
-                                  .pushNamed(TermConditionPageWidget.routeName);
+                              Get.toNamed(TermConditionPageWidget.routePath);
                             },
                             child: Text(
                               'TERMS & CONDITION',
@@ -693,7 +690,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -753,8 +750,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -851,7 +847,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             _model.selectedTab = 'CUSTOMER SERVICE';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -906,7 +902,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(PrivacyPageWidget.routeName);
+                            Get.toNamed(PrivacyPageWidget.routePath);
                           },
                           child: Container(
                             width: 180.0,
@@ -954,8 +950,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context
-                                .pushNamed(TermConditionPageWidget.routeName);
+                            Get.toNamed(TermConditionPageWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -1003,12 +998,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            GoRouter.of(context).prepareAuthEvent();
                             await authManager.signOut();
-                            GoRouter.of(context).clearRedirectLocation();
 
-                            context.goNamedAuth(HomePageDynamicWidget.routeName,
-                                context.mounted);
+                            Get.offAllNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Icon(
                             Icons.arrow_back,
@@ -1145,19 +1137,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context.pushNamed(
-                                            EventsEntertainmentScreenCopyWidget
-                                                .routeName,
-                                            queryParameters: {
-                                              'catagories': serializeParam(
-                                                columnCatagoriesRecord,
-                                                ParamType.Document,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
-                                              'catagories':
-                                                  columnCatagoriesRecord,
-                                            },
+                                          if (columnCatagoriesRecord == null) return;
+                                          Get.toNamed(
+                                            EventsEntertainmentScreenCopyWidget.routePath,
+                                            arguments: {'catagories': columnCatagoriesRecord},
                                           );
                                         },
                                         child: Container(
@@ -1351,20 +1334,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
-                                                      EventsEntertainmentScreenCopyWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'catagories':
-                                                            serializeParam(
-                                                          gridViewCatagoriesRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
-                                                        'catagories':
-                                                            gridViewCatagoriesRecord,
-                                                      },
+                                                    if (gridViewCatagoriesRecord == null) return;
+                                                    Get.toNamed(
+                                                      EventsEntertainmentScreenCopyWidget.routePath,
+                                                      arguments: {'catagories': gridViewCatagoriesRecord},
                                                     );
                                                   },
                                                   child: Container(
@@ -1494,20 +1467,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
-                                                      EventsEntertainmentScreenCopyWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'catagories':
-                                                            serializeParam(
-                                                          gridViewCatagoriesRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
-                                                        'catagories':
-                                                            gridViewCatagoriesRecord,
-                                                      },
+                                                    if (gridViewCatagoriesRecord == null) return;
+                                                    Get.toNamed(
+                                                      EventsEntertainmentScreenCopyWidget.routePath,
+                                                      arguments: {'catagories': gridViewCatagoriesRecord},
                                                     );
                                                   },
                                                   child: Container(
@@ -1527,7 +1490,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             ),
                                             Align(
                                               alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
+                                                0.0, 0.0),
                                               child: Text(
                                                 gridViewCatagoriesRecord
                                                     .catagoryName,
@@ -3792,18 +3755,17 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                     ),
                     child: BottomNavBarWidget(
                       onHomeTap: () async {
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       onSpinTap: () async {
                         _model.selectedTab = 'Wheel of Adventure';
                         safeSetState(() {});
                         if (loggedIn) {
-                          context.pushNamed(
-                              WheelAdventureScreenWidget.routeName);
+                          Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
 
                           _model.selectedTab = '.';
@@ -3844,11 +3806,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         _model.selectedTab = 'Wheel of Adventure';
                         safeSetState(() {});
                         if (loggedIn) {
-                          context.pushNamed(OwensboroGamesWidget.routeName);
+                          Get.toNamed(OwensboroGamesWidget.routePath);
 
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
 
                           _model.selectedTab = '.';
@@ -3886,7 +3848,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         }
                       },
                       onContactTap: () async {
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                     ),
                   ),

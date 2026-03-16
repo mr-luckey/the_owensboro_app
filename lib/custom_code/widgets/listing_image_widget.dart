@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
@@ -163,7 +164,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
                     leading: const Icon(Icons.camera_alt, color: Colors.blue),
                     title: const Text('Camera'),
                     onTap: () {
-                      Navigator.pop(context);
+                      Get.back();
                       _pickImage(ImageSource.camera);
                     },
                   ),
@@ -172,7 +173,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
                         const Icon(Icons.photo_library, color: Colors.green),
                     title: const Text('Gallery'),
                     onTap: () {
-                      Navigator.pop(context);
+                      Get.back();
                       _pickImage(ImageSource.gallery);
                     },
                   ),
@@ -181,7 +182,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
                       leading: const Icon(Icons.delete, color: Colors.red),
                       title: const Text('Remove Image'),
                       onTap: () {
-                        Navigator.pop(context);
+                        Get.back();
                         _removeImage();
                       },
                     ),

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/components/add_catagory_alert_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -134,7 +135,7 @@ class _AdminCatagoryScreenWidgetState extends State<AdminCatagoryScreenWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(SignUpScreenWidget.routeName);
+                            Get.toNamed(SignUpScreenWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,

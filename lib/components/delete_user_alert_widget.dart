@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,7 +73,7 @@ class _DeleteUserAlertWidgetState extends State<DeleteUserAlertWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    Navigator.pop(context);
+                    Get.back();
                   },
                   child: Icon(
                     Icons.cancel,
@@ -152,7 +153,7 @@ class _DeleteUserAlertWidgetState extends State<DeleteUserAlertWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'No',
                       options: FFButtonOptions(
@@ -193,9 +194,7 @@ class _DeleteUserAlertWidgetState extends State<DeleteUserAlertWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         await authManager.deleteUser(context);
-                        GoRouter.of(context).prepareAuthEvent();
                         await authManager.signOut();
-                        GoRouter.of(context).clearRedirectLocation();
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -211,11 +210,7 @@ class _DeleteUserAlertWidgetState extends State<DeleteUserAlertWidget> {
                           ),
                         );
 
-                        context.goNamedAuth(
-                            UserSideSignUpScreenWidget.routeName,
-                            context.mounted);
-
-                        Navigator.pop(context);
+                        Get.offAllNamed(UserSideSignUpScreenWidget.routePath);
                       },
                       text: 'Yes',
                       options: FFButtonOptions(

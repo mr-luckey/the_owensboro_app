@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -103,7 +104,7 @@ class _ViewMessageWidgetState extends State<ViewMessageWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       child: Icon(
                         Icons.close,

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -104,7 +105,7 @@ class _PrivacyPageCopyWidgetState extends State<PrivacyPageCopyWidget> {
                             onTap: () async {
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey.currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
                             },
                             child: Icon(

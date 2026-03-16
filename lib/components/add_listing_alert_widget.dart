@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -122,7 +123,7 @@ class _AddListingAlertWidgetState extends State<AddListingAlertWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       child: Icon(
                         Icons.cancel,
@@ -1057,7 +1058,7 @@ class _AddListingAlertWidgetState extends State<AddListingAlertWidget> {
                                   FlutterFlowTheme.of(context).primary,
                             ),
                           );
-                          Navigator.pop(context);
+                          Get.back();
                           FFAppState().listingImage = '';
                           safeSetState(() {});
                         } else {

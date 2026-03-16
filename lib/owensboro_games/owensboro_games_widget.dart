@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/alert_login_sign_up_widget.dart';
@@ -121,7 +122,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           onTap: () async {
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -171,7 +172,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           onTap: () async {
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -219,7 +220,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(PrivacyPageWidget.routeName);
+                            Get.toNamed(PrivacyPageWidget.routePath);
                           },
                           child: Container(
                             width: 180.0,
@@ -267,8 +268,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context
-                                .pushNamed(TermConditionPageWidget.routeName);
+                            Get.toNamed(TermConditionPageWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -350,8 +350,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      ChallengeScreenWidget.routeName);
+                                  Get.toNamed(ChallengeScreenWidget.routePath);
                                 },
                                 child: Container(
                                   width: 200.0,
@@ -401,8 +400,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context
-                                      .pushNamed(VotingScreenWidget.routeName);
+                                  Get.toNamed(VotingScreenWidget.routePath);
                                 },
                                 child: Container(
                                   width: 200.0,
@@ -502,16 +500,16 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                     ),
                     child: BottomNavBarWidget(
                       onHomeTap: () async {
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       onSpinTap: () async {
                         safeSetState(() {});
                         if (loggedIn) {
-                          context.pushNamed(WheelAdventureScreenWidget.routeName);
+                          Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
 
                           safeSetState(() {});
@@ -548,10 +546,10 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                         }
                       },
                       onGamesTap: () async {
-                        context.pushNamed(OwensboroGamesWidget.routeName);
+                        Get.toNamed(OwensboroGamesWidget.routePath);
                       },
                       onContactTap: () async {
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                     ),
                   ),

@@ -7,6 +7,8 @@ import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '/index.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
@@ -103,12 +105,7 @@ class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
         // Fetch the product document and navigate to ProductDetailScreen
         DocumentSnapshot productDoc = await productRef.get();
         var selectedProductRecord = ProductsRecord.fromSnapshot(productDoc);
-        context.pushNamed(
-          "ListingDetailPage",
-          extra: {
-            "product": selectedProductRecord,
-          },
-        );
+        Get.toNamed(ListingDetailPageWidget.routePath, arguments: {'product': selectedProductRecord});
 
         log("Product Detail");
       } else if (subcategoryRef != null) {
@@ -116,24 +113,14 @@ class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
         DocumentSnapshot subCatagoryDoc = await subcategoryRef.get();
         var selectedSubCategoryRecord =
             SubCatagoriesRecord.fromSnapshot(subCatagoryDoc);
-        context.pushNamed(
-          "SubCatagoryScreen",
-          extra: {
-            "subCatagoriesRef": selectedSubCategoryRecord,
-          },
-        );
+        Get.toNamed(SubCatagoryScreenWidget.routePath, arguments: {'subCatagoriesRef': selectedSubCategoryRecord});
 
         log("Sub Category");
       } else {
         // Fetch the category document and navigate to EventsEntertainmentScreenCopy
         DocumentSnapshot catDoc = await categoryRef.get();
         var selectedCategoryRecord = CatagoriesRecord.fromSnapshot(catDoc);
-        context.pushNamed(
-          "EventsEntertainmentScreenCopy",
-          extra: <String, dynamic>{
-            "catagories": selectedCategoryRecord,
-          },
-        );
+        Get.toNamed(EventsEntertainmentScreenCopyWidget.routePath, arguments: {'catagories': selectedCategoryRecord});
       }
     }
   }

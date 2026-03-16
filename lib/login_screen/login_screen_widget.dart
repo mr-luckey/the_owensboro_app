@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -493,8 +494,6 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                             safeSetState(() => _model.form1 = false);
                             return;
                           }
-                          GoRouter.of(context).prepareAuthEvent();
-
                           final user = await authManager.signInWithEmail(
                             context,
                             _model.emailTextController.text,
@@ -519,9 +518,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                             ),
                           );
 
-                          context.goNamedAuth(
-                              AdminDashboardScreenWidget.routeName,
-                              context.mounted);
+                          Get.offAllNamed(AdminDashboardScreenWidget.routePath);
 
                           safeSetState(() {
                             _model.emailTextController?.clear();

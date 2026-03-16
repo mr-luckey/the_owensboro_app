@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/gestures.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -712,8 +713,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                               ),
                             );
 
-                            context
-                                .goNamed(AdminDashboardScreenWidget.routeName);
+                            Get.offAllNamed(AdminDashboardScreenWidget.routePath);
 
                             safeSetState(() {
                               _model.textController1?.clear();
@@ -806,8 +806,7 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    context
-                                        .pushNamed(LoginScreenWidget.routeName);
+                                    Get.toNamed(LoginScreenWidget.routePath);
                                   },
                               )
                             ],

@@ -7,6 +7,8 @@ import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '/index.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
@@ -185,11 +187,9 @@ class _SearchWidgetState extends State<SearchWidget> {
         });
 
         var selectedProductRecord = ProductsRecord.fromSnapshot(docSnapshot);
-        context.pushNamed(
-          "ListingDetailPage",
-          extra: {
-            "product": selectedProductRecord,
-          },
+        Get.toNamed(
+          ListingDetailPageWidget.routePath,
+          arguments: {'product': selectedProductRecord},
         );
       }
     } catch (e) {

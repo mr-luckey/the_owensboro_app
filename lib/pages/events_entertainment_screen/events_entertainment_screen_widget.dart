@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/alert_login_sign_up_widget.dart';
@@ -113,7 +114,7 @@ class _EventsEntertainmentScreenWidgetState
                             onTap: () async {
                               if (scaffoldKey.currentState!.isDrawerOpen ||
                                   scaffoldKey.currentState!.isEndDrawerOpen) {
-                                Navigator.pop(context);
+                                Get.back();
                               }
                             },
                             child: Icon(
@@ -137,7 +138,7 @@ class _EventsEntertainmentScreenWidgetState
                         _model.selectedTab = 'HOME';
                         safeSetState(() {});
 
-                        context.pushNamed(HomePageWidget.routeName);
+                        Get.toNamed(HomePageWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -174,8 +175,7 @@ class _EventsEntertainmentScreenWidgetState
                           _model.selectedTab = 'Wheel of Adventure';
                           safeSetState(() {});
                           if (loggedIn) {
-                            context.pushNamed(
-                                WheelAdventureScreenWidget.routeName);
+                            Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                             return;
                           } else {
@@ -248,7 +248,7 @@ class _EventsEntertainmentScreenWidgetState
                         _model.selectedTab = 'CUSTOMER SERVICES';
                         safeSetState(() {});
 
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -320,7 +320,7 @@ class _EventsEntertainmentScreenWidgetState
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageWidget.routeName);
+                            Get.toNamed(HomePageWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -380,8 +380,7 @@ class _EventsEntertainmentScreenWidgetState
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -479,7 +478,7 @@ class _EventsEntertainmentScreenWidgetState
                             _model.selectedTab = 'CUSTOMER SERVICE';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,

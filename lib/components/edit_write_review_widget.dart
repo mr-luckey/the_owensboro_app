@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -109,7 +110,7 @@ class _EditWriteReviewWidgetState extends State<EditWriteReviewWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      Navigator.pop(context);
+                      Get.back();
                     },
                     child: Icon(
                       Icons.cancel,
@@ -306,7 +307,7 @@ class _EditWriteReviewWidgetState extends State<EditWriteReviewWidget> {
                         backgroundColor: FlutterFlowTheme.of(context).primary,
                       ),
                     );
-                    Navigator.pop(context);
+                    Get.back();
                   },
                   text: 'Submit',
                   options: FFButtonOptions(

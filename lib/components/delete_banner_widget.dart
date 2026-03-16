@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -135,7 +136,7 @@ class _DeleteBannerWidgetState extends State<DeleteBannerWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        Navigator.pop(context);
+                        Get.back();
                       },
                       text: 'Cancel',
                       options: FFButtonOptions(
@@ -176,7 +177,7 @@ class _DeleteBannerWidgetState extends State<DeleteBannerWidget> {
                     child: FFButtonWidget(
                       onPressed: () async {
                         await widget!.bannerDoc!.reference.delete();
-                        Navigator.pop(context);
+                        Get.back();
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(

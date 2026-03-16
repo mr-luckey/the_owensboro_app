@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/alert_login_sign_up_widget.dart';
@@ -89,7 +90,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                         onTap: () async {
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
                         },
                         child: Icon(
@@ -111,7 +112,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                         _model.selectedTab = 'HOME';
                         safeSetState(() {});
 
-                        context.pushNamed(HomePageWidget.routeName);
+                        Get.toNamed(HomePageWidget.routePath);
                       },
                       child: Text(
                         'HOME',
@@ -212,7 +213,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                         _model.selectedTab = 'CUSTOMER SERVICES';
                         safeSetState(() {});
 
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -253,8 +254,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideSignUpScreenWidget.routeName);
+                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Sign Up',
@@ -317,8 +317,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.pushNamed(
-                                      UserSideLoginScreenWidget.routeName);
+                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
                                 },
                                 child: Text(
                                   'Login',
@@ -549,7 +548,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -676,7 +675,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -873,18 +872,17 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                     ),
                     child: BottomNavBarWidget(
                       onHomeTap: () async {
-                        context.pushNamed(HomePageDynamicWidget.routeName);
+                        Get.toNamed(HomePageDynamicWidget.routePath);
                       },
                       onSpinTap: () async {
                         _model.selectedTab = 'Wheel of Adventure';
                         safeSetState(() {});
                         if (loggedIn) {
-                          context
-                              .pushNamed(WheelAdventureScreenWidget.routeName);
+                          Get.toNamed(WheelAdventureScreenWidget.routePath);
 
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
 
                           safeSetState(() {});
@@ -923,11 +921,11 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                       onGamesTap: () async {
                         safeSetState(() {});
                         if (loggedIn) {
-                          context.pushNamed(OwensboroGamesWidget.routeName);
+                          Get.toNamed(OwensboroGamesWidget.routePath);
 
                           if (scaffoldKey.currentState!.isDrawerOpen ||
                               scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Navigator.pop(context);
+                            Get.back();
                           }
 
                           return;
@@ -963,7 +961,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                         }
                       },
                       onContactTap: () async {
-                        context.pushNamed(ContactUsWidget.routeName);
+                        Get.toNamed(ContactUsWidget.routePath);
                       },
                     ),
                   ),
