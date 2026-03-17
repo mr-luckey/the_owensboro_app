@@ -1046,7 +1046,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Hello ',
+                            'The Owensboro App',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -1058,6 +1058,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         .bodyMedium
                                         .fontStyle,
                                   ),
+                                  color: FlutterFlowTheme.of(context).textColor,
+                                  fontSize: 24.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -1067,15 +1069,39 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                       .fontStyle,
                                 ),
                           ),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              'assets/images/Screenshot_2026-01-29_at_2.36.22_PM.png',
-                              width: 50.0,
-                              height: 50.0,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+
+                          // Text(
+                          //   'Hello ',
+                          //   style: FlutterFlowTheme.of(context)
+                          //       .bodyMedium
+                          //       .override(
+                          //         font: GoogleFonts.inter(
+                          //           fontWeight: FlutterFlowTheme.of(context)
+                          //               .bodyMedium
+                          //               .fontWeight,
+                          //           fontStyle: FlutterFlowTheme.of(context)
+                          //               .bodyMedium
+                          //               .fontStyle,
+                          //         ),
+                          //         letterSpacing: 0.0,
+                          //         fontWeight: FlutterFlowTheme.of(context)
+                          //             .bodyMedium
+                          //             .fontWeight,
+                          //         fontStyle: FlutterFlowTheme.of(context)
+                          //             .bodyMedium
+                          //             .fontStyle,
+                          //       ),
+                          // ),
+                          // ClipRRect(
+                          //   borderRadius: BorderRadius.circular(8.0),
+                          //   child: Image.asset(
+                          //     'assets/images/Screenshot_2026-01-29_at_2.36.22_PM.png',
+                          //     width: 50.0,
+                          //     height: 50.0,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          // ),
+
                           InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1214,45 +1240,45 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'The Owensboro App',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.inter(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  color: FlutterFlowTheme.of(context).textColor,
-                                  fontSize: 24.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
-                            },
-                            child: Icon(
-                              Icons.menu,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              size: 34.0,
-                            ),
-                          ),
+                          // Text(
+                          //   'The Owensboro App',
+                          //   style: FlutterFlowTheme.of(context)
+                          //       .bodyMedium
+                          //       .override(
+                          //         font: GoogleFonts.inter(
+                          //           fontWeight: FlutterFlowTheme.of(context)
+                          //               .bodyMedium
+                          //               .fontWeight,
+                          //           fontStyle: FlutterFlowTheme.of(context)
+                          //               .bodyMedium
+                          //               .fontStyle,
+                          //         ),
+                          //         color: FlutterFlowTheme.of(context).textColor,
+                          //         fontSize: 24.0,
+                          //         letterSpacing: 0.0,
+                          //         fontWeight: FlutterFlowTheme.of(context)
+                          //             .bodyMedium
+                          //             .fontWeight,
+                          //         fontStyle: FlutterFlowTheme.of(context)
+                          //             .bodyMedium
+                          //             .fontStyle,
+                          //       ),
+                          // ),
+                          // // InkWell(
+                          //   splashColor: Colors.transparent,
+                          //   focusColor: Colors.transparent,
+                          //   hoverColor: Colors.transparent,
+                          //   highlightColor: Colors.transparent,
+                          //   onTap: () async {
+                          //     scaffoldKey.currentState!.openEndDrawer();
+                          //   },
+                          //   child: Icon(
+                          //     Icons.menu,
+                          //     color: FlutterFlowTheme.of(context)
+                          //         .secondaryBackground,
+                          //     size: 34.0,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
