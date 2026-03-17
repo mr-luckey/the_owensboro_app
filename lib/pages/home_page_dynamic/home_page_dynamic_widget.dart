@@ -1826,7 +1826,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .textColor,
-                                                        fontSize: 20.0,
+                                                        fontSize: 10.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -1870,7 +1870,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .textColor,
-                                                        fontSize: 24.0,
+                                                        fontSize: 10.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
@@ -2087,7 +2087,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .textColor,
-                                                        fontSize: 24.0,
+                                                        fontSize: 10.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
@@ -2304,7 +2304,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .textColor,
-                                                        fontSize: 24.0,
+                                                        fontSize: 10.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
                                                             FlutterFlowTheme.of(
@@ -3829,15 +3829,19 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
 }
 
 class _BannerHeaderDelegate extends SliverPersistentHeaderDelegate {
-  _BannerHeaderDelegate({required this.child});
+  _BannerHeaderDelegate({
+    required this.child,
+    this.height = 60.0,
+  });
 
   final Widget child;
+  final double height;
 
   @override
-  double get minExtent => 60.0;
+  double get minExtent => height;
 
   @override
-  double get maxExtent => 60.0;
+  double get maxExtent => height;
 
   @override
   Widget build(
@@ -3845,14 +3849,16 @@ class _BannerHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return Material(
-      color: Colors.transparent,
-      child: child,
+    return SizedBox.expand(
+      child: Material(
+        color: Colors.transparent,
+        child: child,
+      ),
     );
   }
 
   @override
   bool shouldRebuild(covariant _BannerHeaderDelegate oldDelegate) {
-    return oldDelegate.child != child;
+    return oldDelegate.child != child || oldDelegate.height != height;
   }
 }
