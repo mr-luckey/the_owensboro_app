@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:the_owensboro_app/widgets/app_end_drawer.dart';
 import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/alert_login_sign_up_widget.dart';
@@ -63,432 +64,441 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        endDrawer: Drawer(
-          elevation: 16.0,
-          child: Container(
-            width: MediaQuery.sizeOf(context).width * 2.0,
-            height: 100.0,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).primaryBackground,
-            ),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(1.0, -1.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Get.back();
-                          }
-                        },
-                        child: Icon(
-                          Icons.menu,
-                          color: FlutterFlowTheme.of(context).primary,
-                          size: 50.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        _model.selectedTab = 'HOME';
-                        safeSetState(() {});
-
-                        Get.toNamed(HomePageWidget.routePath);
-                      },
-                      child: Text(
-                        'HOME',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              color: _model.selectedTab == 'HOME'
-                                  ? FlutterFlowTheme.of(context).primary
-                                  : FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                              fontSize: 20.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Builder(
-                    builder: (context) => Padding(
-                      padding: EdgeInsets.all(20.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.3,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.35,
-                                    child: AlertLoginSignUpWidget(),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Spin',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color:
-                                    _model.selectedTab == 'Wheel of Adventure'
-                                        ? FlutterFlowTheme.of(context).primary
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                fontSize: 20.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        _model.selectedTab = 'CUSTOMER SERVICES';
-                        safeSetState(() {});
-
-                        Get.toNamed(ContactUsWidget.routePath);
-                      },
-                      child: Text(
-                        'CUSTOMER SERVICES',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.inter(
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              color: _model.selectedTab == 'CUSTOMER SERVICES'
-                                  ? FlutterFlowTheme.of(context).primary
-                                  : FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                              fontSize: 20.0,
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                    ),
-                  ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  Get.toNamed(UserSideSignUpScreenWidget.routePath);
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                '/',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context).error,
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  Get.toNamed(UserSideLoginScreenWidget.routePath);
-                                },
-                                child: Text(
-                                  'Login',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      if (loggedIn)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(dialogContext)
-                                                .unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: Container(
-                                            height: 200.0,
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.5,
-                                            child: LogoutAlertWidget(),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  'Log Out',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      if (loggedIn)
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            FocusScope.of(dialogContext)
-                                                .unfocus();
-                                            FocusManager.instance.primaryFocus
-                                                ?.unfocus();
-                                          },
-                                          child: Container(
-                                            height: 220.0,
-                                            width: MediaQuery.sizeOf(context)
-                                                    .width *
-                                                0.55,
-                                            child: DeleteUserAlertWidget(),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Text(
-                                  'Delete Account',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+        endDrawer: AppEndDrawer(
+          scaffoldKey: scaffoldKey,
+          selectedTab: _model.selectedTab,
+          onSelectedTabChanged: (value) {
+            _model.selectedTab = value;
+            safeSetState(() {});
+          },
         ),
+        // endDrawer: Drawer(
+        //   elevation: 16.0,
+        //   child: Container(
+        //     width: MediaQuery.sizeOf(context).width * 2.0,
+        //     height: 100.0,
+        //     decoration: BoxDecoration(
+        //       color: FlutterFlowTheme.of(context).primaryBackground,
+        //     ),
+        //     child: Padding(
+        //       padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 10.0, 0.0),
+        //       child: Column(
+        //         mainAxisSize: MainAxisSize.max,
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Align(
+        //             alignment: AlignmentDirectional(1.0, -1.0),
+        //             child: Padding(
+        //               padding:
+        //                   EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+        //               child: InkWell(
+        //                 splashColor: Colors.transparent,
+        //                 focusColor: Colors.transparent,
+        //                 hoverColor: Colors.transparent,
+        //                 highlightColor: Colors.transparent,
+        //                 onTap: () async {
+        //                   if (scaffoldKey.currentState!.isDrawerOpen ||
+        //                       scaffoldKey.currentState!.isEndDrawerOpen) {
+        //                     Get.back();
+        //                   }
+        //                 },
+        //                 child: Icon(
+        //                   Icons.menu,
+        //                   color: FlutterFlowTheme.of(context).primary,
+        //                   size: 50.0,
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //           Padding(
+        //             padding: EdgeInsets.all(20.0),
+        //             child: InkWell(
+        //               splashColor: Colors.transparent,
+        //               focusColor: Colors.transparent,
+        //               hoverColor: Colors.transparent,
+        //               highlightColor: Colors.transparent,
+        //               onTap: () async {
+        //                 _model.selectedTab = 'HOME';
+        //                 safeSetState(() {});
+
+        //                 Get.toNamed(HomePageWidget.routePath);
+        //               },
+        //               child: Text(
+        //                 'HOME',
+        //                 style: FlutterFlowTheme.of(context).bodyMedium.override(
+        //                       font: GoogleFonts.inter(
+        //                         fontWeight: FontWeight.w600,
+        //                         fontStyle: FlutterFlowTheme.of(context)
+        //                             .bodyMedium
+        //                             .fontStyle,
+        //                       ),
+        //                       color: _model.selectedTab == 'HOME'
+        //                           ? FlutterFlowTheme.of(context).primary
+        //                           : FlutterFlowTheme.of(context)
+        //                               .secondaryBackground,
+        //                       fontSize: 20.0,
+        //                       letterSpacing: 0.0,
+        //                       fontWeight: FontWeight.w600,
+        //                       fontStyle: FlutterFlowTheme.of(context)
+        //                           .bodyMedium
+        //                           .fontStyle,
+        //                     ),
+        //               ),
+        //             ),
+        //           ),
+        //           Builder(
+        //             builder: (context) => Padding(
+        //               padding: EdgeInsets.all(20.0),
+        //               child: InkWell(
+        //                 splashColor: Colors.transparent,
+        //                 focusColor: Colors.transparent,
+        //                 hoverColor: Colors.transparent,
+        //                 highlightColor: Colors.transparent,
+        //                 onTap: () async {
+        //                   _model.selectedTab = 'Wheel of Adventure';
+        //                   safeSetState(() {});
+        //                   await showDialog(
+        //                     context: context,
+        //                     builder: (dialogContext) {
+        //                       return Dialog(
+        //                         elevation: 0,
+        //                         insetPadding: EdgeInsets.zero,
+        //                         backgroundColor: Colors.transparent,
+        //                         alignment: AlignmentDirectional(0.0, 0.0)
+        //                             .resolve(Directionality.of(context)),
+        //                         child: GestureDetector(
+        //                           onTap: () {
+        //                             FocusScope.of(dialogContext).unfocus();
+        //                             FocusManager.instance.primaryFocus
+        //                                 ?.unfocus();
+        //                           },
+        //                           child: Container(
+        //                             height:
+        //                                 MediaQuery.sizeOf(context).height * 0.3,
+        //                             width:
+        //                                 MediaQuery.sizeOf(context).width * 0.35,
+        //                             child: AlertLoginSignUpWidget(),
+        //                           ),
+        //                         ),
+        //                       );
+        //                     },
+        //                   );
+        //                 },
+        //                 child: Text(
+        //                   'Spin',
+        //                   style: FlutterFlowTheme.of(context)
+        //                       .bodyMedium
+        //                       .override(
+        //                         font: GoogleFonts.inter(
+        //                           fontWeight: FontWeight.w600,
+        //                           fontStyle: FlutterFlowTheme.of(context)
+        //                               .bodyMedium
+        //                               .fontStyle,
+        //                         ),
+        //                         color:
+        //                             _model.selectedTab == 'Wheel of Adventure'
+        //                                 ? FlutterFlowTheme.of(context).primary
+        //                                 : FlutterFlowTheme.of(context)
+        //                                     .secondaryBackground,
+        //                         fontSize: 20.0,
+        //                         letterSpacing: 0.0,
+        //                         fontWeight: FontWeight.w600,
+        //                         fontStyle: FlutterFlowTheme.of(context)
+        //                             .bodyMedium
+        //                             .fontStyle,
+        //                       ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //           Padding(
+        //             padding: EdgeInsets.all(20.0),
+        //             child: InkWell(
+        //               splashColor: Colors.transparent,
+        //               focusColor: Colors.transparent,
+        //               hoverColor: Colors.transparent,
+        //               highlightColor: Colors.transparent,
+        //               onTap: () async {
+        //                 _model.selectedTab = 'CUSTOMER SERVICES';
+        //                 safeSetState(() {});
+
+        //                 Get.toNamed(ContactUsWidget.routePath);
+        //               },
+        //               child: Text(
+        //                 'CUSTOMER SERVICES',
+        //                 style: FlutterFlowTheme.of(context).bodyMedium.override(
+        //                       font: GoogleFonts.inter(
+        //                         fontWeight: FontWeight.w600,
+        //                         fontStyle: FlutterFlowTheme.of(context)
+        //                             .bodyMedium
+        //                             .fontStyle,
+        //                       ),
+        //                       color: _model.selectedTab == 'CUSTOMER SERVICES'
+        //                           ? FlutterFlowTheme.of(context).primary
+        //                           : FlutterFlowTheme.of(context)
+        //                               .secondaryBackground,
+        //                       fontSize: 20.0,
+        //                       letterSpacing: 0.0,
+        //                       fontWeight: FontWeight.w600,
+        //                       fontStyle: FlutterFlowTheme.of(context)
+        //                           .bodyMedium
+        //                           .fontStyle,
+        //                     ),
+        //               ),
+        //             ),
+        //           ),
+        //           Column(
+        //             mainAxisSize: MainAxisSize.max,
+        //             children: [
+        //               Row(
+        //                 mainAxisSize: MainAxisSize.max,
+        //                 children: [
+        //                   Align(
+        //                     alignment: AlignmentDirectional(0.0, 0.0),
+        //                     child: Padding(
+        //                       padding: EdgeInsets.all(20.0),
+        //                       child: InkWell(
+        //                         splashColor: Colors.transparent,
+        //                         focusColor: Colors.transparent,
+        //                         hoverColor: Colors.transparent,
+        //                         highlightColor: Colors.transparent,
+        //                         onTap: () async {
+        //                           Get.toNamed(UserSideSignUpScreenWidget.routePath);
+        //                         },
+        //                         child: Text(
+        //                           'Sign Up',
+        //                           style: FlutterFlowTheme.of(context)
+        //                               .bodyMedium
+        //                               .override(
+        //                                 font: GoogleFonts.inter(
+        //                                   fontWeight: FontWeight.w600,
+        //                                   fontStyle:
+        //                                       FlutterFlowTheme.of(context)
+        //                                           .bodyMedium
+        //                                           .fontStyle,
+        //                                 ),
+        //                                 color:
+        //                                     FlutterFlowTheme.of(context).error,
+        //                                 fontSize: 20.0,
+        //                                 letterSpacing: 0.0,
+        //                                 fontWeight: FontWeight.w600,
+        //                                 fontStyle: FlutterFlowTheme.of(context)
+        //                                     .bodyMedium
+        //                                     .fontStyle,
+        //                               ),
+        //                         ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                   Align(
+        //                     alignment: AlignmentDirectional(0.0, 0.0),
+        //                     child: Padding(
+        //                       padding: EdgeInsets.all(20.0),
+        //                       child: Text(
+        //                         '/',
+        //                         style: FlutterFlowTheme.of(context)
+        //                             .bodyMedium
+        //                             .override(
+        //                               font: GoogleFonts.inter(
+        //                                 fontWeight: FontWeight.w600,
+        //                                 fontStyle: FlutterFlowTheme.of(context)
+        //                                     .bodyMedium
+        //                                     .fontStyle,
+        //                               ),
+        //                               color: FlutterFlowTheme.of(context).error,
+        //                               fontSize: 20.0,
+        //                               letterSpacing: 0.0,
+        //                               fontWeight: FontWeight.w600,
+        //                               fontStyle: FlutterFlowTheme.of(context)
+        //                                   .bodyMedium
+        //                                   .fontStyle,
+        //                             ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                   Align(
+        //                     alignment: AlignmentDirectional(0.0, 0.0),
+        //                     child: Padding(
+        //                       padding: EdgeInsets.all(20.0),
+        //                       child: InkWell(
+        //                         splashColor: Colors.transparent,
+        //                         focusColor: Colors.transparent,
+        //                         hoverColor: Colors.transparent,
+        //                         highlightColor: Colors.transparent,
+        //                         onTap: () async {
+        //                           Get.toNamed(UserSideLoginScreenWidget.routePath);
+        //                         },
+        //                         child: Text(
+        //                           'Login',
+        //                           style: FlutterFlowTheme.of(context)
+        //                               .bodyMedium
+        //                               .override(
+        //                                 font: GoogleFonts.inter(
+        //                                   fontWeight: FontWeight.w600,
+        //                                   fontStyle:
+        //                                       FlutterFlowTheme.of(context)
+        //                                           .bodyMedium
+        //                                           .fontStyle,
+        //                                 ),
+        //                                 color:
+        //                                     FlutterFlowTheme.of(context).error,
+        //                                 fontSize: 20.0,
+        //                                 letterSpacing: 0.0,
+        //                                 fontWeight: FontWeight.w600,
+        //                                 fontStyle: FlutterFlowTheme.of(context)
+        //                                     .bodyMedium
+        //                                     .fontStyle,
+        //                               ),
+        //                         ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ],
+        //               ),
+        //               if (loggedIn)
+        //                 Align(
+        //                   alignment: AlignmentDirectional(0.0, 0.0),
+        //                   child: Builder(
+        //                     builder: (context) => Padding(
+        //                       padding: EdgeInsets.all(20.0),
+        //                       child: InkWell(
+        //                         splashColor: Colors.transparent,
+        //                         focusColor: Colors.transparent,
+        //                         hoverColor: Colors.transparent,
+        //                         highlightColor: Colors.transparent,
+        //                         onTap: () async {
+        //                           await showDialog(
+        //                             context: context,
+        //                             builder: (dialogContext) {
+        //                               return Dialog(
+        //                                 elevation: 0,
+        //                                 insetPadding: EdgeInsets.zero,
+        //                                 backgroundColor: Colors.transparent,
+        //                                 alignment:
+        //                                     AlignmentDirectional(0.0, 0.0)
+        //                                         .resolve(
+        //                                             Directionality.of(context)),
+        //                                 child: GestureDetector(
+        //                                   onTap: () {
+        //                                     FocusScope.of(dialogContext)
+        //                                         .unfocus();
+        //                                     FocusManager.instance.primaryFocus
+        //                                         ?.unfocus();
+        //                                   },
+        //                                   child: Container(
+        //                                     height: 200.0,
+        //                                     width: MediaQuery.sizeOf(context)
+        //                                             .width *
+        //                                         0.5,
+        //                                     child: LogoutAlertWidget(),
+        //                                   ),
+        //                                 ),
+        //                               );
+        //                             },
+        //                           );
+        //                         },
+        //                         child: Text(
+        //                           'Log Out',
+        //                           style: FlutterFlowTheme.of(context)
+        //                               .bodyMedium
+        //                               .override(
+        //                                 font: GoogleFonts.inter(
+        //                                   fontWeight: FontWeight.w600,
+        //                                   fontStyle:
+        //                                       FlutterFlowTheme.of(context)
+        //                                           .bodyMedium
+        //                                           .fontStyle,
+        //                                 ),
+        //                                 color:
+        //                                     FlutterFlowTheme.of(context).error,
+        //                                 fontSize: 20.0,
+        //                                 letterSpacing: 0.0,
+        //                                 fontWeight: FontWeight.w600,
+        //                                 fontStyle: FlutterFlowTheme.of(context)
+        //                                     .bodyMedium
+        //                                     .fontStyle,
+        //                               ),
+        //                         ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ),
+        //               if (loggedIn)
+        //                 Align(
+        //                   alignment: AlignmentDirectional(0.0, 0.0),
+        //                   child: Builder(
+        //                     builder: (context) => Padding(
+        //                       padding: EdgeInsets.all(20.0),
+        //                       child: InkWell(
+        //                         splashColor: Colors.transparent,
+        //                         focusColor: Colors.transparent,
+        //                         hoverColor: Colors.transparent,
+        //                         highlightColor: Colors.transparent,
+        //                         onTap: () async {
+        //                           await showDialog(
+        //                             context: context,
+        //                             builder: (dialogContext) {
+        //                               return Dialog(
+        //                                 elevation: 0,
+        //                                 insetPadding: EdgeInsets.zero,
+        //                                 backgroundColor: Colors.transparent,
+        //                                 alignment:
+        //                                     AlignmentDirectional(0.0, 0.0)
+        //                                         .resolve(
+        //                                             Directionality.of(context)),
+        //                                 child: GestureDetector(
+        //                                   onTap: () {
+        //                                     FocusScope.of(dialogContext)
+        //                                         .unfocus();
+        //                                     FocusManager.instance.primaryFocus
+        //                                         ?.unfocus();
+        //                                   },
+        //                                   child: Container(
+        //                                     height: 220.0,
+        //                                     width: MediaQuery.sizeOf(context)
+        //                                             .width *
+        //                                         0.55,
+        //                                     child: DeleteUserAlertWidget(),
+        //                                   ),
+        //                                 ),
+        //                               );
+        //                             },
+        //                           );
+        //                         },
+        //                         child: Text(
+        //                           'Delete Account',
+        //                           style: FlutterFlowTheme.of(context)
+        //                               .bodyMedium
+        //                               .override(
+        //                                 font: GoogleFonts.inter(
+        //                                   fontWeight: FontWeight.w600,
+        //                                   fontStyle:
+        //                                       FlutterFlowTheme.of(context)
+        //                                           .bodyMedium
+        //                                           .fontStyle,
+        //                                 ),
+        //                                 color:
+        //                                     FlutterFlowTheme.of(context).error,
+        //                                 fontSize: 20.0,
+        //                                 letterSpacing: 0.0,
+        //                                 fontWeight: FontWeight.w600,
+        //                                 fontStyle: FlutterFlowTheme.of(context)
+        //                                     .bodyMedium
+        //                                     .fontStyle,
+        //                               ),
+        //                         ),
+        //                       ),
+        //                     ),
+        //                   ),
+        //                 ),
+        //             ],
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+
         appBar: MediaQuery.sizeOf(context).width >= 450.0
             ? AppBar(
                 backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -859,114 +869,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                   ),
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).dashboardSelection,
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: BottomNavBarWidget(
-                      onHomeTap: () async {
-                        Get.toNamed(HomePageDynamicWidget.routePath);
-                      },
-                      onSpinTap: () async {
-                        _model.selectedTab = 'Wheel of Adventure';
-                        safeSetState(() {});
-                        if (loggedIn) {
-                          Get.toNamed(WheelAdventureScreenWidget.routePath);
-
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Get.back();
-                          }
-
-                          safeSetState(() {});
-                          return;
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
-                                    child: AlertLoginSignUpWidget(),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-
-                          return;
-                        }
-                      },
-                      onGamesTap: () async {
-                        safeSetState(() {});
-                        if (loggedIn) {
-                          Get.toNamed(OwensboroGamesWidget.routePath);
-
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Get.back();
-                          }
-
-                          return;
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
-                                    child: AlertLoginSignUpWidget(),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-
-                          return;
-                        }
-                      },
-                      onContactTap: () async {
-                        Get.toNamed(ContactUsWidget.routePath);
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              // Bottom navigation bar intentionally disabled on voting screen.
             ],
           ),
         ),

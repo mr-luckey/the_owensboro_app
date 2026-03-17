@@ -13,6 +13,7 @@ import '/pages/wheel_adventure_screen/wheel_adventure_screen_widget.dart';
 import '/privacy_page/privacy_page_widget.dart';
 import '/term_condition_page/term_condition_page_widget.dart';
 import '/contact_us/contact_us_widget.dart';
+import '/voting_screen/voting_screen_widget.dart';
 import '/user_side_sign_up_screen/user_side_sign_up_screen_widget.dart';
 import '/user_side_login_screen/user_side_login_screen_widget.dart';
 
@@ -75,8 +76,7 @@ class AppEndDrawer extends StatelessWidget {
                           onThemeSwitchChanged?.call(newValue);
                         },
                         activeColor: FlutterFlowTheme.of(context).primary,
-                        activeTrackColor:
-                            FlutterFlowTheme.of(context).primary,
+                        activeTrackColor: FlutterFlowTheme.of(context).primary,
                         inactiveTrackColor:
                             FlutterFlowTheme.of(context).alternate,
                         inactiveThumbColor:
@@ -137,9 +137,44 @@ class AppEndDrawer extends StatelessWidget {
                           fontSize: 20.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    onSelectedTabChanged('VOTING');
+                    _closeDrawerIfOpen();
+                    if (Get.currentRoute != VotingScreenWidget.routePath) {
+                      Get.offNamed(VotingScreenWidget.routePath);
+                    }
+                  },
+                  child: Text(
+                    'VOTING',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.inter(
+                            fontWeight: FontWeight.w600,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                          color: selectedTab == 'VOTING'
+                              ? FlutterFlowTheme.of(context).primary
+                              : FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                          fontSize: 20.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.w600,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ),
@@ -171,8 +206,7 @@ class AppEndDrawer extends StatelessWidget {
                               child: GestureDetector(
                                 onTap: () {
                                   FocusScope.of(dialogContext).unfocus();
-                                  FocusManager.instance.primaryFocus
-                                      ?.unfocus();
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                 },
                                 child: SizedBox(
                                   height:
@@ -190,9 +224,7 @@ class AppEndDrawer extends StatelessWidget {
                     },
                     child: Text(
                       'Wheel of adventure',
-                      style: FlutterFlowTheme.of(context)
-                          .bodyMedium
-                          .override(
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.inter(
                               fontWeight: FontWeight.w600,
                               fontStyle: FlutterFlowTheme.of(context)
@@ -241,9 +273,8 @@ class AppEndDrawer extends StatelessWidget {
                           fontSize: 20.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ),
@@ -276,9 +307,8 @@ class AppEndDrawer extends StatelessWidget {
                           fontSize: 20.0,
                           letterSpacing: 0.0,
                           fontWeight: FontWeight.w600,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
                   ),
                 ),
@@ -314,8 +344,7 @@ class AppEndDrawer extends StatelessWidget {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color:
-                                        FlutterFlowTheme.of(context).error,
+                                    color: FlutterFlowTheme.of(context).error,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -342,8 +371,7 @@ class AppEndDrawer extends StatelessWidget {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color:
-                                      FlutterFlowTheme.of(context).error,
+                                  color: FlutterFlowTheme.of(context).error,
                                   fontSize: 20.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w600,
@@ -379,8 +407,7 @@ class AppEndDrawer extends StatelessWidget {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color:
-                                        FlutterFlowTheme.of(context).error,
+                                    color: FlutterFlowTheme.of(context).error,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -417,8 +444,7 @@ class AppEndDrawer extends StatelessWidget {
                                         .resolve(Directionality.of(context)),
                                     child: GestureDetector(
                                       onTap: () {
-                                        FocusScope.of(dialogContext)
-                                            .unfocus();
+                                        FocusScope.of(dialogContext).unfocus();
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
                                       },
@@ -445,8 +471,7 @@ class AppEndDrawer extends StatelessWidget {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color:
-                                        FlutterFlowTheme.of(context).error,
+                                    color: FlutterFlowTheme.of(context).error,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -482,8 +507,7 @@ class AppEndDrawer extends StatelessWidget {
                                         .resolve(Directionality.of(context)),
                                     child: GestureDetector(
                                       onTap: () {
-                                        FocusScope.of(dialogContext)
-                                            .unfocus();
+                                        FocusScope.of(dialogContext).unfocus();
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
                                       },
@@ -510,8 +534,7 @@ class AppEndDrawer extends StatelessWidget {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color:
-                                        FlutterFlowTheme.of(context).error,
+                                    color: FlutterFlowTheme.of(context).error,
                                     fontSize: 20.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
@@ -554,24 +577,23 @@ class AppEndDrawer extends StatelessWidget {
                         },
                         child: Text(
                           'PRIVACY POLICY',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                fontSize: 10.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    fontSize: 10.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                         ),
                       ),
                     ),
@@ -594,24 +616,23 @@ class AppEndDrawer extends StatelessWidget {
                         },
                         child: Text(
                           'TERMS & CONDITION',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                font: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                fontSize: 10.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    font: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    fontSize: 10.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                         ),
                       ),
                     ),
@@ -625,4 +646,3 @@ class AppEndDrawer extends StatelessWidget {
     );
   }
 }
-
