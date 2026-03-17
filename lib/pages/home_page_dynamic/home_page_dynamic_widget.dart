@@ -5491,8 +5491,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                     fontSize:
                                         MediaQuery.sizeOf(context).width <=
                                                 450.0
-                                            ? 30.0
-                                            : 60.0,
+                                            ? 24.0
+                                            : 40.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.normal,
                                     fontStyle: FlutterFlowTheme.of(context)
@@ -5533,33 +5533,37 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                               child: Text(
                                                 'If you have questions, concerns, or if you have Events or Businesses you would like added, please contact us here or by email and we will get to you shortly.',
                                                 textAlign: TextAlign.center,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 20.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 5.0),
+
+                                                // style: FlutterFlowTheme.of(
+                                                //         context)
+                                                //     .bodyMedium
+                                                //     .override(
+                                                //       font: GoogleFonts.inter(
+                                                //         fontWeight:
+                                                //             FontWeight.normal,
+                                                //         fontStyle:
+                                                //             FlutterFlowTheme.of(
+                                                //                     context)
+                                                //                 .bodyMedium
+                                                //                 .fontStyle,
+                                                //       ),
+                                                //       color:
+                                                //           FlutterFlowTheme.of(
+                                                //                   context)
+                                                //               .textColor,
+                                                //       fontSize: 10.0,
+                                                //       letterSpacing: 0.0,
+                                                //       fontWeight:
+                                                //           FontWeight.normal,
+                                                //       fontStyle:
+                                                //           FlutterFlowTheme.of(
+                                                //                   context)
+                                                //               .bodyMedium
+                                                //               .fontStyle,
+                                                //     ),
                                               ),
                                             ),
                                           ),
@@ -5573,42 +5577,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Name *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -5630,6 +5599,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText: 'Name *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -5675,6 +5645,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                                         .labelMedium
                                                                         .fontStyle,
                                                                   ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -5800,42 +5773,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Email address *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -5857,6 +5795,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText:
+                                                            'Email address *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -5902,6 +5842,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                                         .labelMedium
                                                                         .fontStyle,
                                                                   ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -6027,42 +5970,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Message *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -6084,6 +5992,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText: 'Message *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -6129,6 +6038,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                                         .labelMedium
                                                                         .fontStyle,
                                                                   ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
                                                                   letterSpacing:
                                                                       0.0,
                                                                   fontWeight: FlutterFlowTheme.of(
@@ -6574,7 +6486,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .textColor,
-                                                  fontSize: 20.0,
+                                                  fontSize: 14.0,
                                                   letterSpacing: 0.0,
                                                   fontWeight: FontWeight.normal,
                                                   fontStyle:
@@ -6594,42 +6506,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Name *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -6651,6 +6528,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText: 'Name *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -6821,42 +6699,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Email address *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -6878,6 +6721,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText:
+                                                            'Email address *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -7048,42 +6893,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Message *',
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      font: GoogleFonts.inter(
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .textColor,
-                                                      fontSize: 24.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                              ),
+                                              const SizedBox.shrink(),
                                               Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -7105,6 +6915,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText: 'Message *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -7643,120 +7454,6 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                   ),
                 ),
               ),
-              // Align(
-              //   alignment: AlignmentDirectional(0.0, 1.0),
-              //   child: Padding(
-              //     padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-              //     child: Container(
-              //       width: MediaQuery.sizeOf(context).width * 0.9,
-              //       height: 60.0,
-              //       decoration: BoxDecoration(
-              //         color: FlutterFlowTheme.of(context).dashboardSelection,
-              //         borderRadius: BorderRadius.circular(100.0),
-              //       ),
-              //       child: BottomNavBarWidget(
-              //         onHomeTap: () async {
-              //           context.pushNamed(HomePageDynamicWidget.routeName);
-              //         },
-              //         onSpinTap: () async {
-              //           _model.selectedTab = 'Wheel of Adventure';
-              //           safeSetState(() {});
-              //           if (loggedIn) {
-              //             context
-              //                 .pushNamed(WheelAdventureScreenWidget.routeName);
-
-              //             if (scaffoldKey.currentState!.isDrawerOpen ||
-              //                 scaffoldKey.currentState!.isEndDrawerOpen) {
-              //               Navigator.pop(context);
-              //             }
-
-              //             _model.selectedTab = '.';
-              //             safeSetState(() {});
-              //             return;
-              //           } else {
-              //             await showDialog(
-              //               context: context,
-              //               builder: (dialogContext) {
-              //                 return Dialog(
-              //                   elevation: 0,
-              //                   insetPadding: EdgeInsets.zero,
-              //                   backgroundColor: Colors.transparent,
-              //                   alignment: AlignmentDirectional(0.0, 0.0)
-              //                       .resolve(Directionality.of(context)),
-              //                   child: GestureDetector(
-              //                     onTap: () {
-              //                       FocusScope.of(dialogContext).unfocus();
-              //                       FocusManager.instance.primaryFocus
-              //                           ?.unfocus();
-              //                     },
-              //                     child: Container(
-              //                       height:
-              //                           MediaQuery.sizeOf(context).height * 0.3,
-              //                       width:
-              //                           MediaQuery.sizeOf(context).width * 0.35,
-              //                       child: AlertLoginSignUpWidget(),
-              //                     ),
-              //                   ),
-              //                 );
-              //               },
-              //             );
-
-              //             return;
-              //           }
-              //         },
-              //         onGamesTap: () async {
-              //           _model.selectedTab = 'Wheel of Adventure';
-              //           safeSetState(() {});
-              //           if (loggedIn) {
-              //             context.pushNamed(OwensboroGamesWidget.routeName);
-
-              //             if (scaffoldKey.currentState!.isDrawerOpen ||
-              //                 scaffoldKey.currentState!.isEndDrawerOpen) {
-              //               Navigator.pop(context);
-              //             }
-
-              //             _model.selectedTab = '.';
-              //             safeSetState(() {});
-              //             return;
-              //           } else {
-              //             await showDialog(
-              //               context: context,
-              //               builder: (dialogContext) {
-              //                 return Dialog(
-              //                   elevation: 0,
-              //                   insetPadding: EdgeInsets.zero,
-              //                   backgroundColor: Colors.transparent,
-              //                   alignment: AlignmentDirectional(0.0, 0.0)
-              //                       .resolve(Directionality.of(context)),
-              //                   child: GestureDetector(
-              //                     onTap: () {
-              //                       FocusScope.of(dialogContext).unfocus();
-              //                       FocusManager.instance.primaryFocus
-              //                           ?.unfocus();
-              //                     },
-              //                     child: Container(
-              //                       height:
-              //                           MediaQuery.sizeOf(context).height * 0.3,
-              //                       width:
-              //                           MediaQuery.sizeOf(context).width * 0.35,
-              //                       child: AlertLoginSignUpWidget(),
-              //                     ),
-              //                   ),
-              //                 );
-              //               },
-              //             );
-
-              //             return;
-              //           }
-              //         },
-              //         onContactTap: () async {
-              //           context.pushNamed(ContactUsWidget.routeName);
-              //         },
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

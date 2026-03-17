@@ -225,7 +225,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                Get.toNamed(WheelAdventureScreenWidget.routePath);
+                                Get.toNamed(
+                                    WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -344,7 +345,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      Get.toNamed(UserSideSignUpScreenWidget.routePath);
+                                      Get.toNamed(
+                                          UserSideSignUpScreenWidget.routePath);
                                     },
                                     child: Text(
                                       'Sign Up',
@@ -411,7 +413,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      Get.toNamed(UserSideLoginScreenWidget.routePath);
+                                      Get.toNamed(
+                                          UserSideLoginScreenWidget.routePath);
                                     },
                                     child: Text(
                                       'Login',
@@ -642,7 +645,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  Get.toNamed(TermConditionPageWidget.routePath);
+                                  Get.toNamed(
+                                      TermConditionPageWidget.routePath);
                                 },
                                 child: Text(
                                   'TERMS & CONDITION',
@@ -804,7 +808,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                   _model.selectedTab = 'Wheel of Adventure';
                                   safeSetState(() {});
                                   if (loggedIn) {
-                                    Get.toNamed(WheelAdventureScreenWidget.routePath);
+                                    Get.toNamed(
+                                        WheelAdventureScreenWidget.routePath);
 
                                     return;
                                   } else {
@@ -4144,33 +4149,36 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                 child: Text(
                                                   'If you have questions, concerns, or if you have Events or Businesses you would like added, please contact us here or by email and we will get to you shortly.',
                                                   textAlign: TextAlign.center,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 5.0),
+                                                  // style: FlutterFlowTheme.of(
+                                                  //         context)
+                                                  //     .bodyMedium
+                                                  //     .override(
+                                                  //       font: GoogleFonts.inter(
+                                                  //         fontWeight:
+                                                  //             FontWeight.normal,
+                                                  //         fontStyle:
+                                                  //             FlutterFlowTheme.of(
+                                                  //                     context)
+                                                  //                 .bodyMedium
+                                                  //                 .fontStyle,
+                                                  //       ),
+                                                  //       color:
+                                                  //           FlutterFlowTheme.of(
+                                                  //                   context)
+                                                  //               .textColor,
+                                                  //       fontSize: 20.0,
+                                                  //       letterSpacing: 0.0,
+                                                  //       fontWeight:
+                                                  //           FontWeight.normal,
+                                                  //       fontStyle:
+                                                  //           FlutterFlowTheme.of(
+                                                  //                   context)
+                                                  //               .bodyMedium
+                                                  //               .fontStyle,
+                                                  //     ),
                                                 ),
                                               ),
                                             ),
@@ -4741,7 +4749,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                     _model.selectedTab = 'Wheel of Adventure';
                                     safeSetState(() {});
                                     if (loggedIn) {
-                                      Get.toNamed(WheelAdventureScreenWidget.routePath);
+                                      Get.toNamed(
+                                          WheelAdventureScreenWidget.routePath);
 
                                       if (scaffoldKey
                                               .currentState!.isDrawerOpen ||

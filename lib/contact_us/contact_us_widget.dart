@@ -1021,36 +1021,6 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    'Name *',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .textColor,
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -1071,6 +1041,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                         decoration:
                                                             InputDecoration(
                                                           isDense: true,
+                                                          labelText: 'Name *',
                                                           labelStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1116,6 +1087,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                           .labelMedium
                                                                           .fontStyle,
                                                                     ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
@@ -1236,41 +1210,11 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 20.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Email address *',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .textColor,
-                                                          fontSize: 20.0,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
                                                   Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
@@ -1278,9 +1222,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                 0.0, 0.0),
                                                     child: Container(
                                                       width: MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width *
-                                                          0.4,
+                                                              context)
+                                                          .width *
+                                                      0.4,
                                                       child: TextFormField(
                                                         controller: _model
                                                             .textController2,
@@ -1291,6 +1235,8 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                         decoration:
                                                             InputDecoration(
                                                           isDense: true,
+                                                          labelText:
+                                                              'Email address *',
                                                           labelStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1336,6 +1282,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                           .labelMedium
                                                                           .fontStyle,
                                                                     ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
@@ -1511,6 +1460,8 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                         decoration:
                                                             InputDecoration(
                                                           isDense: true,
+                                                          labelText:
+                                                              'Message *',
                                                           labelStyle:
                                                               FlutterFlowTheme.of(
                                                                       context)
@@ -1556,6 +1507,9 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                           .labelMedium
                                                                           .fontStyle,
                                                                     ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
                                                                     letterSpacing:
                                                                         0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
@@ -1853,36 +1807,6 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  'Name *',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
@@ -1902,6 +1826,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText: 'Name *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -2073,45 +1998,15 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  'Email address *',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        font: GoogleFonts.inter(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
                                                           0.0, 20.0, 0.0, 0.0),
                                                   child: Container(
                                                     width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.8,
+                                                            context)
+                                                        .width *
+                                                    0.8,
                                                     child: TextFormField(
                                                       controller: _model
                                                           .textController5,
@@ -2122,6 +2017,8 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                       decoration:
                                                           InputDecoration(
                                                         isDense: true,
+                                                        labelText:
+                                                            'Email address *',
                                                         labelStyle:
                                                             FlutterFlowTheme.of(
                                                                     context)

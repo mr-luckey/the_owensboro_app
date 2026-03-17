@@ -94,8 +94,7 @@ class _MyAppState extends State<MyApp> {
     try {
       // Wait for the first batch of categories used by the home grid.
       await queryCatagoriesRecord(
-        queryBuilder: (catagoriesRecord) =>
-            catagoriesRecord.orderBy('order'),
+        queryBuilder: (catagoriesRecord) => catagoriesRecord.orderBy('order'),
       ).first;
     } catch (_) {
       // Ignore errors; we still want to proceed to the home screen.
