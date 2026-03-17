@@ -1046,7 +1046,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
             child: CustomScrollView(slivers: [
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 100.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -1141,7 +1141,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                         ),
                       Container(
                         width: double.infinity,
-                        height: 160.0,
+                        height: 200.0,
                         decoration: BoxDecoration(),
                         child: Stack(
                           children: [
