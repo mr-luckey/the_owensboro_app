@@ -2621,74 +2621,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                   ],
                 ),
               ),
-              Align(
-                alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).dashboardSelection,
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: BottomNavBarWidget(
-                      onHomeTap: () async {
-                        Get.toNamed(HomePageDynamicWidget.routePath);
-                      },
-                      onSpinTap: () async {
-                        _model.selectedTab = 'Wheel of Adventure';
-                        safeSetState(() {});
-                        if (loggedIn) {
-                          Get.toNamed(WheelAdventureScreenWidget.routePath);
-
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Get.back();
-                          }
-
-                          return;
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
-                                    child: AlertLoginSignUpWidget(),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-
-                          return;
-                        }
-                      },
-                      onGamesTap: () async {
-                        Get.toNamed(OwensboroGamesWidget.routePath);
-                      },
-                      onContactTap: () async {
-                        Get.toNamed(ContactUsWidget.routePath);
-                      },
-                    ),
-                  ),
-                ),
-              ),
+              // Bottom navigation removed; handled globally by MainBottomNavWidget.
               Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

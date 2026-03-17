@@ -2,12 +2,13 @@ import 'package:get/get.dart';
 
 import '/backend/backend.dart';
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 
 /// Central GetX route names (paths). Use these for [Get.toNamed], [Get.offNamed], etc.
 class AppRoutes {
   AppRoutes._();
 
-  static String get initial => HomePageDynamicWidget.routePath;
+  static String get initial => MainBottomNavWidget.routePath;
   static String get homePage => HomePageWidget.routePath;
   static String get eventsEntertainmentScreen =>
       EventsEntertainmentScreenWidget.routePath;
@@ -22,10 +23,8 @@ class AppRoutes {
   static String get votingScreen => VotingScreenWidget.routePath;
   static String get adminDashboardScreen =>
       AdminDashboardScreenWidget.routePath;
-  static String get adminCatagoryScreen =>
-      AdminCatagoryScreenWidget.routePath;
-  static String get adminListingScreen =>
-      AdminListingScreenWidget.routePath;
+  static String get adminCatagoryScreen => AdminCatagoryScreenWidget.routePath;
+  static String get adminListingScreen => AdminListingScreenWidget.routePath;
   static String get adminSubCatagoryScreen =>
       AdminSubCatagoryScreenWidget.routePath;
   static String get contactUs => ContactUsWidget.routePath;
@@ -34,8 +33,7 @@ class AppRoutes {
   static String get homePageDynamic => HomePageDynamicWidget.routePath;
   static String get eventsEntertainmentScreenCopy =>
       EventsEntertainmentScreenCopyWidget.routePath;
-  static String get userSideLoginScreen =>
-      UserSideLoginScreenWidget.routePath;
+  static String get userSideLoginScreen => UserSideLoginScreenWidget.routePath;
   static String get userSideSignUpScreen =>
       UserSideSignUpScreenWidget.routePath;
   static String get homePageWithData => HomePageWithDataWidget.routePath;
@@ -43,23 +41,21 @@ class AppRoutes {
   static String get viewAllReviewsScreen =>
       ViewAllReviewsScreenWidget.routePath;
   static String get editScreen => EditScreenWidget.routePath;
-  static String get editCatagoryScreen =>
-      EditCatagoryScreenWidget.routePath;
+  static String get editCatagoryScreen => EditCatagoryScreenWidget.routePath;
   static String get privacyPage => PrivacyPageWidget.routePath;
-  static String get termConditionPage =>
-      TermConditionPageWidget.routePath;
+  static String get termConditionPage => TermConditionPageWidget.routePath;
   static String get privacyPageCopy => PrivacyPageCopyWidget.routePath;
   static String get listingPage => ListingPageWidget.routePath;
   static String get challengeScreen => ChallengeScreenWidget.routePath;
   static String get owensboroGames => OwensboroGamesWidget.routePath;
   static String get listingDetailPageCopy2 =>
       ListingDetailPageCopy2Widget.routePath;
-  static String get homePageDynamicCopy =>
-      HomePageDynamicCopyWidget.routePath;
+  static String get homePageDynamicCopy => HomePageDynamicCopyWidget.routePath;
   static String get eventsEntertainmentScreenCopyCopy =>
       EventsEntertainmentScreenCopyCopyWidget.routePath;
   static String get adminDashboardScreenCopy =>
       AdminDashboardScreenCopyWidget.routePath;
+  static String get mainBottomNav => MainBottomNavWidget.routePath;
 }
 
 /// GetX pages for [GetMaterialApp.getPages].
@@ -67,6 +63,10 @@ class AppPages {
   AppPages._();
 
   static final List<GetPage<dynamic>> pages = <GetPage<dynamic>>[
+    GetPage<void>(
+      name: MainBottomNavWidget.routePath,
+      page: () => MainBottomNavWidget(),
+    ),
     GetPage<void>(
       name: HomePageWidget.routePath,
       page: () => const HomePageWidget(),
@@ -93,8 +93,7 @@ class AppPages {
       page: () {
         final args = Get.arguments as Map<String, dynamic>?;
         return SubCatagoryScreenWidget(
-          subCatagoriesRef:
-              args?['subCatagoriesRef'] as SubCatagoriesRecord?,
+          subCatagoriesRef: args?['subCatagoriesRef'] as SubCatagoriesRecord?,
         );
       },
     ),
@@ -206,8 +205,7 @@ class AppPages {
       page: () {
         final args = Get.arguments as Map<String, dynamic>?;
         return ListingPageWidget(
-          subCatagoriesRef:
-              args?['subCatagoriesRef'] as SubCatagoriesRecord?,
+          subCatagoriesRef: args?['subCatagoriesRef'] as SubCatagoriesRecord?,
         );
       },
     ),
