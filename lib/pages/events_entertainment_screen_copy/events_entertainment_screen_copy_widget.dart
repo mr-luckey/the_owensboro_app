@@ -699,7 +699,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                             size: 24.0,
                           ),
                           onPressed: () async {
-                            context.pop();
+                            Get.back();
                           },
                         ),
                         Padding(
@@ -1169,17 +1169,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      context.pushNamed(
+                                                      Get.toNamed(
                                                         SubCatagoryScreenWidget
-                                                            .routeName,
-                                                        queryParameters: {
-                                                          'subCatagoriesRef':
-                                                              serializeParam(
-                                                            columnSubCatagoriesRecord,
-                                                            ParamType.Document,
-                                                          ),
-                                                        }.withoutNulls,
-                                                        extra: <String,
+                                                            .routePath,
+                                                        arguments: <String,
                                                             dynamic>{
                                                           'subCatagoriesRef':
                                                               columnSubCatagoriesRecord,
@@ -1392,20 +1385,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                context
-                                                                    .pushNamed(
+                                                                Get.toNamed(
                                                                   SubCatagoryScreenWidget
-                                                                      .routeName,
-                                                                  queryParameters:
-                                                                      {
-                                                                    'subCatagoriesRef':
-                                                                        serializeParam(
-                                                                      gridViewSubCatagoriesRecord,
-                                                                      ParamType
-                                                                          .Document,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                  extra: <String,
+                                                                      .routePath,
+                                                                  arguments: <String,
                                                                       dynamic>{
                                                                     'subCatagoriesRef':
                                                                         gridViewSubCatagoriesRecord,
@@ -1563,20 +1546,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                context
-                                                                    .pushNamed(
+                                                                Get.toNamed(
                                                                   SubCatagoryScreenWidget
-                                                                      .routeName,
-                                                                  queryParameters:
-                                                                      {
-                                                                    'subCatagoriesRef':
-                                                                        serializeParam(
-                                                                      gridViewSubCatagoriesRecord,
-                                                                      ParamType
-                                                                          .Document,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                  extra: <String,
+                                                                      .routePath,
+                                                                  arguments: <String,
                                                                       dynamic>{
                                                                     'subCatagoriesRef':
                                                                         gridViewSubCatagoriesRecord,
@@ -1728,17 +1701,11 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
+                                                    Get.toNamed(
                                                       ListingDetailPageWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'product':
-                                                            serializeParam(
-                                                          gridViewProductsRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
+                                                          .routePath,
+                                                      arguments: <String,
+                                                          dynamic>{
                                                         'product':
                                                             gridViewProductsRecord,
                                                       },
@@ -1918,20 +1885,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                   FFButtonWidget(
                                                                 onPressed:
                                                                     () async {
-                                                                  context
-                                                                      .pushNamed(
+                                                                  Get.toNamed(
                                                                     ListingDetailPageWidget
-                                                                        .routeName,
-                                                                    queryParameters:
-                                                                        {
-                                                                      'product':
-                                                                          serializeParam(
-                                                                        gridViewProductsRecord,
-                                                                        ParamType
-                                                                            .Document,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                    extra: <String,
+                                                                        .routePath,
+                                                                    arguments: <String,
                                                                         dynamic>{
                                                                       'product':
                                                                           gridViewProductsRecord,
@@ -2176,18 +2133,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          context.pushNamed(
+                                                          Get.toNamed(
                                                             ListingDetailPageWidget
-                                                                .routeName,
-                                                            queryParameters: {
-                                                              'product':
-                                                                  serializeParam(
-                                                                columnProductsRecord,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                            }.withoutNulls,
-                                                            extra: <String,
+                                                                .routePath,
+                                                            arguments: <String,
                                                                 dynamic>{
                                                               'product':
                                                                   columnProductsRecord,
@@ -2337,19 +2286,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                         FFButtonWidget(
                                                                       onPressed:
                                                                           () async {
-                                                                        context
-                                                                            .pushNamed(
+                                                                        Get.toNamed(
                                                                           ListingDetailPageWidget
-                                                                              .routeName,
-                                                                          queryParameters:
-                                                                              {
-                                                                            'product':
-                                                                                serializeParam(
-                                                                              columnProductsRecord,
-                                                                              ParamType.Document,
-                                                                            ),
-                                                                          }.withoutNulls,
-                                                                          extra: <String,
+                                                                              .routePath,
+                                                                          arguments: <String,
                                                                               dynamic>{
                                                                             'product':
                                                                                 columnProductsRecord,
@@ -2550,18 +2490,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                           highlightColor: Colors
                                                               .transparent,
                                                           onTap: () async {
-                                                            context.pushNamed(
+                                                            Get.toNamed(
                                                               ListingDetailPageWidget
-                                                                  .routeName,
-                                                              queryParameters: {
-                                                                'product':
-                                                                    serializeParam(
-                                                                  rowProductsRecord,
-                                                                  ParamType
-                                                                      .Document,
-                                                                ),
-                                                              }.withoutNulls,
-                                                              extra: <String,
+                                                                  .routePath,
+                                                              arguments: <String,
                                                                   dynamic>{
                                                                 'product':
                                                                     rowProductsRecord,
@@ -2706,17 +2638,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                           FFButtonWidget(
                                                                         onPressed:
                                                                             () async {
-                                                                          context
-                                                                              .pushNamed(
-                                                                            ListingDetailPageWidget.routeName,
-                                                                            queryParameters:
-                                                                                {
-                                                                              'product': serializeParam(
-                                                                                rowProductsRecord,
-                                                                                ParamType.Document,
-                                                                              ),
-                                                                            }.withoutNulls,
-                                                                            extra: <String,
+                                                                          Get.toNamed(
+                                                                            ListingDetailPageWidget.routePath,
+                                                                            arguments: <String,
                                                                                 dynamic>{
                                                                               'product': rowProductsRecord,
                                                                             },
@@ -2913,17 +2837,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      context.pushNamed(
+                                                      Get.toNamed(
                                                         ListingDetailPageWidget
-                                                            .routeName,
-                                                        queryParameters: {
-                                                          'product':
-                                                              serializeParam(
-                                                            columnProductsRecord,
-                                                            ParamType.Document,
-                                                          ),
-                                                        }.withoutNulls,
-                                                        extra: <String,
+                                                            .routePath,
+                                                        arguments: <String,
                                                             dynamic>{
                                                           'product':
                                                               columnProductsRecord,
@@ -3126,20 +3043,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                                     FFButtonWidget(
                                                                   onPressed:
                                                                       () async {
-                                                                    context
-                                                                        .pushNamed(
+                                                                    Get.toNamed(
                                                                       ListingDetailPageWidget
-                                                                          .routeName,
-                                                                      queryParameters:
-                                                                          {
-                                                                        'product':
-                                                                            serializeParam(
-                                                                          columnProductsRecord,
-                                                                          ParamType
-                                                                              .Document,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                      extra: <String,
+                                                                          .routePath,
+                                                                      arguments: <String,
                                                                           dynamic>{
                                                                         'product':
                                                                             columnProductsRecord,
@@ -5032,7 +4939,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context.pop();
+                                          Get.back();
                                         },
                                         child: Icon(
                                           Icons.arrow_back,

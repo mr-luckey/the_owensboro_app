@@ -588,7 +588,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -809,7 +809,7 @@ class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pop();
+                                    Get.back();
                                   },
                                   child: Icon(
                                     Icons.arrow_back,

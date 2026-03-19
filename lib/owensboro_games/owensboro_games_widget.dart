@@ -85,7 +85,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -474,7 +474,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pop();
+                                      Get.back();
                                     },
                                     child: Icon(
                                       Icons.arrow_back,

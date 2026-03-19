@@ -654,7 +654,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -1046,7 +1046,7 @@ class _EventsEntertainmentScreenCopyCopyWidgetState
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pop();
+                                        Get.back();
                                       },
                                       child: Icon(
                                         Icons.arrow_back,

@@ -713,7 +713,8 @@ class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
                               ),
                             );
 
-                            Get.offAllNamed(AdminDashboardScreenWidget.routePath);
+                            Get.offAllNamed(
+                                AdminDashboardScreenWidget.routePath);
 
                             safeSetState(() {
                               _model.textController1?.clear();

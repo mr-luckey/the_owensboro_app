@@ -590,7 +590,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -859,7 +859,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    context.pop();
+                                    Get.back();
                                   },
                                   child: Icon(
                                     Icons.arrow_back,

@@ -112,7 +112,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(

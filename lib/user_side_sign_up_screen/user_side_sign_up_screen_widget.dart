@@ -1012,7 +1012,8 @@ class _UserSideSignUpScreenWidgetState
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () async {
-                                    Get.toNamed(UserSideLoginScreenWidget.routePath);
+                                    Get.toNamed(
+                                        UserSideLoginScreenWidget.routePath);
                                   },
                               )
                             ],

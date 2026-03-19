@@ -643,7 +643,7 @@ class _ListingPageWidgetState extends State<ListingPageWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -1026,7 +1026,7 @@ class _ListingPageWidgetState extends State<ListingPageWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pop();
+                                        Get.back();
                                       },
                                       child: Icon(
                                         Icons.arrow_back,

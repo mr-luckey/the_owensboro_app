@@ -617,7 +617,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(
@@ -1007,7 +1007,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  context.pop();
+                                                  Get.back();
                                                 },
                                                 child: Icon(
                                                   Icons.arrow_back,
@@ -1399,18 +1399,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                                   0.0),
                                                       child: FFButtonWidget(
                                                         onPressed: () async {
-                                                          context.pushNamed(
+                                                          Get.toNamed(
                                                             ListingDetailPageWidget
-                                                                .routeName,
-                                                            queryParameters: {
-                                                              'product':
-                                                                  serializeParam(
-                                                                gridViewProductsRecord,
-                                                                ParamType
-                                                                    .Document,
-                                                              ),
-                                                            }.withoutNulls,
-                                                            extra: <String,
+                                                                .routePath,
+                                                            arguments: <String,
                                                                 dynamic>{
                                                               'product':
                                                                   gridViewProductsRecord,
@@ -1648,17 +1640,11 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
+                                                    Get.toNamed(
                                                       ListingDetailPageWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'product':
-                                                            serializeParam(
-                                                          columnProductsRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
+                                                          .routePath,
+                                                      arguments: <String,
+                                                          dynamic>{
                                                         'product':
                                                             columnProductsRecord,
                                                       },
@@ -1832,20 +1818,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                                   FFButtonWidget(
                                                                 onPressed:
                                                                     () async {
-                                                                  context
-                                                                      .pushNamed(
+                                                                  Get.toNamed(
                                                                     ListingDetailPageWidget
-                                                                        .routeName,
-                                                                    queryParameters:
-                                                                        {
-                                                                      'product':
-                                                                          serializeParam(
-                                                                        columnProductsRecord,
-                                                                        ParamType
-                                                                            .Document,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                    extra: <String,
+                                                                        .routePath,
+                                                                    arguments: <String,
                                                                         dynamic>{
                                                                       'product':
                                                                           columnProductsRecord,
@@ -2072,17 +2048,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      context.pushNamed(
+                                                      Get.toNamed(
                                                         ListingDetailPageWidget
-                                                            .routeName,
-                                                        queryParameters: {
-                                                          'product':
-                                                              serializeParam(
-                                                            rowProductsRecord,
-                                                            ParamType.Document,
-                                                          ),
-                                                        }.withoutNulls,
-                                                        extra: <String,
+                                                            .routePath,
+                                                        arguments: <String,
                                                             dynamic>{
                                                           'product':
                                                               rowProductsRecord,
@@ -2249,20 +2218,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                                     FFButtonWidget(
                                                                   onPressed:
                                                                       () async {
-                                                                    context
-                                                                        .pushNamed(
+                                                                    Get.toNamed(
                                                                       ListingDetailPageWidget
-                                                                          .routeName,
-                                                                      queryParameters:
-                                                                          {
-                                                                        'product':
-                                                                            serializeParam(
-                                                                          rowProductsRecord,
-                                                                          ParamType
-                                                                              .Document,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                      extra: <String,
+                                                                          .routePath,
+                                                                      arguments: <String,
                                                                           dynamic>{
                                                                         'product':
                                                                             rowProductsRecord,
@@ -2470,15 +2429,9 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            context.pushNamed(
-                                              ListingDetailPageWidget.routeName,
-                                              queryParameters: {
-                                                'product': serializeParam(
-                                                  columnProductsRecord,
-                                                  ParamType.Document,
-                                                ),
-                                              }.withoutNulls,
-                                              extra: <String, dynamic>{
+                                            Get.toNamed(
+                                              ListingDetailPageWidget.routePath,
+                                              arguments: <String, dynamic>{
                                                 'product': columnProductsRecord,
                                               },
                                             );
@@ -2686,18 +2639,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                             10.0),
                                                         child: FFButtonWidget(
                                                           onPressed: () async {
-                                                            context.pushNamed(
+                                                            Get.toNamed(
                                                               ListingDetailPageWidget
-                                                                  .routeName,
-                                                              queryParameters: {
-                                                                'product':
-                                                                    serializeParam(
-                                                                  columnProductsRecord,
-                                                                  ParamType
-                                                                      .Document,
-                                                                ),
-                                                              }.withoutNulls,
-                                                              extra: <String,
+                                                                  .routePath,
+                                                              arguments: <String,
                                                                   dynamic>{
                                                                 'product':
                                                                     columnProductsRecord,
@@ -3745,7 +3690,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pop();
+                                      Get.back();
                                     },
                                     child: Icon(
                                       Icons.arrow_back,

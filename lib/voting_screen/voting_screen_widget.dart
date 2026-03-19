@@ -516,7 +516,7 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
                         size: 24.0,
                       ),
                       onPressed: () async {
-                        context.pop();
+                        Get.back();
                       },
                     ),
                     Padding(

@@ -3862,6 +3862,7 @@
 //     return oldDelegate.child != child || oldDelegate.height != height;
 //   }
 // }
+import 'package:get/get.dart';
 import 'package:the_owensboro_app/widgets/app_end_drawer.dart';
 
 import '/auth/base_auth_user_provider.dart';
@@ -3918,7 +3919,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
       setDarkModeSetting(context, ThemeMode.light);
       if (scaffoldKey.currentState!.isDrawerOpen ||
           scaffoldKey.currentState!.isEndDrawerOpen) {
-        Navigator.pop(context);
+        Get.back();
       }
 
       _model.selectedTab = 'HOME';
@@ -4568,7 +4569,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             _model.selectedTab = 'HOME';
                             safeSetState(() {});
 
-                            context.pushNamed(HomePageDynamicWidget.routeName);
+                            Get.toNamed(HomePageDynamicWidget.routePath);
                           },
                           child: Container(
                             width: 100.0,
@@ -4628,8 +4629,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                               _model.selectedTab = 'Wheel of Adventure';
                               safeSetState(() {});
                               if (loggedIn) {
-                                context.pushNamed(
-                                    WheelAdventureScreenWidget.routeName);
+                                Get.toNamed(
+                                    WheelAdventureScreenWidget.routePath);
 
                                 return;
                               } else {
@@ -4726,7 +4727,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             _model.selectedTab = 'CUSTOMER SERVICE';
                             safeSetState(() {});
 
-                            context.pushNamed(ContactUsWidget.routeName);
+                            Get.toNamed(ContactUsWidget.routePath);
                           },
                           child: Container(
                             width: 200.0,
@@ -4781,7 +4782,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed(PrivacyPageWidget.routeName);
+                            Get.toNamed(PrivacyPageWidget.routePath);
                           },
                           child: Container(
                             width: 180.0,
@@ -5020,16 +5021,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                         hoverColor: Colors.transparent,
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
-                                          context.pushNamed(
+                                          Get.toNamed(
                                             EventsEntertainmentScreenCopyWidget
-                                                .routeName,
-                                            queryParameters: {
-                                              'catagories': serializeParam(
-                                                columnCatagoriesRecord,
-                                                ParamType.Document,
-                                              ),
-                                            }.withoutNulls,
-                                            extra: <String, dynamic>{
+                                                .routePath,
+                                            arguments: <String, dynamic>{
                                               'catagories':
                                                   columnCatagoriesRecord,
                                             },
@@ -5226,17 +5221,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
+                                                    Get.toNamed(
                                                       EventsEntertainmentScreenCopyWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'catagories':
-                                                            serializeParam(
-                                                          gridViewCatagoriesRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
+                                                          .routePath,
+                                                      arguments:
+                                                          <String, dynamic>{
                                                         'catagories':
                                                             gridViewCatagoriesRecord,
                                                       },
@@ -5369,17 +5358,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    context.pushNamed(
+                                                    Get.toNamed(
                                                       EventsEntertainmentScreenCopyWidget
-                                                          .routeName,
-                                                      queryParameters: {
-                                                        'catagories':
-                                                            serializeParam(
-                                                          gridViewCatagoriesRecord,
-                                                          ParamType.Document,
-                                                        ),
-                                                      }.withoutNulls,
-                                                      extra: <String, dynamic>{
+                                                          .routePath,
+                                                      arguments:
+                                                          <String, dynamic>{
                                                         'catagories':
                                                             gridViewCatagoriesRecord,
                                                       },

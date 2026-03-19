@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '/auth/base_auth_user_provider.dart';
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
@@ -85,7 +87,7 @@ class _ViewAllReviewsScreenWidgetState
                   size: 24.0,
                 ),
                 onPressed: () async {
-                  context.pop();
+                  Get.back();
                 },
               ),
               Padding(
