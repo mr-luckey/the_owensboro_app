@@ -18,7 +18,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'contact_us_model.dart';
-import '/components/bottom_nav_bar_widget.dart';
 import '/widgets/app_end_drawer.dart';
 export 'contact_us_model.dart';
 

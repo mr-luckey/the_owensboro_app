@@ -11,8 +11,8 @@ import '/components/wrrite_review_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/components/bottom_nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/widgets/main_navigation_bar.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -47,6 +47,36 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
   late ListingDetailPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  String _normalizeExternalUrl(String value) {
+    final trimmed = value.trim();
+    if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      return trimmed;
+    }
+    return 'https://$trimmed';
+  }
+
+  String _firstProductStringValue(List<String> keys) {
+    final data = widget.product?.snapshotData;
+    if (data == null) {
+      return '';
+    }
+    for (final key in keys) {
+      final value = data[key];
+      if (value is String && value.trim().isNotEmpty) {
+        return value.trim();
+      }
+    }
+    return '';
+  }
+
+  Future<void> _openExternalOrHome(String rawUrl) async {
+    if (rawUrl.isEmpty) {
+      Get.toNamed(HomePageDynamicWidget.routePath);
+      return;
+    }
+    await launchURL(_normalizeExternalUrl(rawUrl));
+  }
 
   @override
   void initState() {
@@ -1354,19 +1384,23 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  await Clipboard.setData(
-                                                      ClipboardData(
-                                                          text: valueOrDefault<
-                                                              String>(
+                                                  final address =
+                                                      valueOrDefault<String>(
                                                     widget!.product
                                                         ?.productLocation,
                                                     'productLocation',
-                                                  )));
+                                                  ).trim();
+                                                  await Clipboard.setData(
+                                                      ClipboardData(
+                                                          text: address));
+                                                  await launchURL(
+                                                    'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
+                                                  );
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     SnackBar(
                                                       content: Text(
-                                                        'Address Copied',
+                                                        'Address copied and map opened',
                                                         style: TextStyle(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -1383,7 +1417,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                   );
                                                 },
                                                 child: Icon(
-                                                  Icons.copy_all,
+                                                  Icons.map,
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .secondaryBackground,
@@ -1558,15 +1592,21 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
+                                                final phoneNumber =
+                                                    iconProductsRecord
+                                                        .contactInfo
+                                                        .trim();
                                                 await Clipboard.setData(
                                                     ClipboardData(
-                                                        text: iconProductsRecord
-                                                            .contactInfo));
+                                                        text: phoneNumber));
+                                                await launchURL(
+                                                  'tel:${Uri.encodeComponent(phoneNumber)}',
+                                                );
                                                 ScaffoldMessenger.of(context)
                                                     .showSnackBar(
                                                   SnackBar(
                                                     content: Text(
-                                                      'Phone Number Copied',
+                                                      'Phone Number copied and dialer opened',
                                                       style: TextStyle(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
@@ -1583,7 +1623,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 );
                                               },
                                               child: Icon(
-                                                Icons.copy_all,
+                                                Icons.dialpad,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
@@ -1683,6 +1723,143 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         ),
                                       ),
                                     ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await launchURL(
+                                              'https://www.google.com',
+                                            );
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(
+                                                Icons.language,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                size: 24.0,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        8.0, 0.0, 0.0, 0.0),
+                                                child: Text(
+                                                  'Visit Us',
+                                                  style:
+                                                      FlutterFlowTheme.of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font:
+                                                                GoogleFonts.inter(
+                                                              fontWeight:
+                                                                  FontWeight.w500,
+                                                              fontStyle: FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                            ),
+                                                            color:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                            fontStyle: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                          ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 12.0, 0.0, 0.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await launchURL(
+                                                'https://www.facebook.com',
+                                              );
+                                            },
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(
+                                                  Icons.facebook,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 24.0,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    'Visit Facebook',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font:
+                                                              GoogleFonts.inter(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .fontStyle,
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          decoration:
+                                                              TextDecoration
+                                                                  .underline,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -4518,119 +4695,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                   ),
                   Align(
                     alignment: AlignmentDirectional(0.0, 1.0),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width * 0.9,
-                        height: 60.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).dashboardSelection,
-                          borderRadius: BorderRadius.circular(100.0),
-                        ),
-                        child: BottomNavBarWidget(
-                          onHomeTap: () async {
-                            Get.toNamed(HomePageDynamicWidget.routePath);
-                          },
-                          onSpinTap: () async {
-                            _model.selectedTab = 'Wheel of Adventure';
-                            safeSetState(() {});
-                            if (loggedIn) {
-                              Get.toNamed(WheelAdventureScreenWidget.routePath);
-
-                              if (scaffoldKey.currentState!.isDrawerOpen ||
-                                  scaffoldKey
-                                      .currentState!.isEndDrawerOpen) {
-                                Get.back();
-                              }
-
-                              return;
-                            } else {
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(dialogContext).unfocus();
-                                        FocusManager.instance.primaryFocus
-                                            ?.unfocus();
-                                      },
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.3,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.35,
-                                        child: AlertLoginSignUpWidget(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-
-                              return;
-                            }
-                          },
-                          onGamesTap: () async {
-                            safeSetState(() {});
-                            if (loggedIn) {
-                              Get.toNamed(OwensboroGamesWidget.routePath);
-
-                              if (scaffoldKey.currentState!.isDrawerOpen ||
-                                  scaffoldKey
-                                      .currentState!.isEndDrawerOpen) {
-                                Get.back();
-                              }
-
-                              safeSetState(() {});
-                              return;
-                            } else {
-                              await showDialog(
-                                context: context,
-                                builder: (dialogContext) {
-                                  return Dialog(
-                                    elevation: 0,
-                                    insetPadding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    alignment: AlignmentDirectional(0.0, 0.0)
-                                        .resolve(Directionality.of(context)),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        FocusScope.of(dialogContext).unfocus();
-                                        FocusManager.instance.primaryFocus
-                                            ?.unfocus();
-                                      },
-                                      child: Container(
-                                        height:
-                                            MediaQuery.sizeOf(context).height *
-                                                0.3,
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                0.35,
-                                        child: AlertLoginSignUpWidget(),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-
-                              return;
-                            }
-                          },
-                          onContactTap: () async {
-                            Get.toNamed(ContactUsWidget.routePath);
-                          },
-                        ),
-                      ),
-                    ),
+                    child: const MainNavigationBar(currentIndex: 0),
                   ),
                 ],
               ),

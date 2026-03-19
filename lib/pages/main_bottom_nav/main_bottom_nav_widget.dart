@@ -15,7 +15,8 @@ class MainBottomNavWidget extends StatelessWidget {
   static String routeName = 'MainBottomNav';
   static String routePath = '/mainBottomNav';
 
-  final RxInt _currentIndex = 0.obs;
+  final RxInt _currentIndex =
+      ((Get.arguments as Map<String, dynamic>?)?['tabIndex'] as int? ?? 0).obs;
 
   final List<Widget> _tabs = const <Widget>[
     HomePageDynamicWidget(),
@@ -52,7 +53,7 @@ class MainBottomNavWidget extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.casino),
-              label: 'Spin',
+              label: 'Spins',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.games),

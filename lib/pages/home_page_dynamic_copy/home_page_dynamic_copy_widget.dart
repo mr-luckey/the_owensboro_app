@@ -8,7 +8,7 @@ import '/components/logout_alert_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/components/bottom_nav_bar_widget.dart';
+import '/widgets/main_navigation_bar.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
@@ -3549,73 +3549,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.9,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).dashboardSelection,
-                      borderRadius: BorderRadius.circular(100.0),
-                    ),
-                    child: BottomNavBarWidget(
-                      onHomeTap: () async {
-                        Get.toNamed(HomePageDynamicCopyWidget.routePath);
-                      },
-                      onSpinTap: () async {
-                        _model.selectedTab = 'Wheel of Adventure';
-                        safeSetState(() {});
-                        if (loggedIn) {
-                          Get.toNamed(WheelAdventureScreenWidget.routePath);
-
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
-                            Get.back();
-                          }
-
-                          _model.selectedTab = '.';
-                          safeSetState(() {});
-                          return;
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (dialogContext) {
-                              return Dialog(
-                                elevation: 0,
-                                insetPadding: EdgeInsets.zero,
-                                backgroundColor: Colors.transparent,
-                                alignment: AlignmentDirectional(0.0, 0.0)
-                                    .resolve(Directionality.of(context)),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    FocusScope.of(dialogContext).unfocus();
-                                    FocusManager.instance.primaryFocus
-                                        ?.unfocus();
-                                  },
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.3,
-                                    width: MediaQuery.sizeOf(context).width *
-                                        0.35,
-                                    child: AlertLoginSignUpWidget(),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-
-                          return;
-                        }
-                      },
-                      onGamesTap: () async {
-                        Get.toNamed(OwensboroGamesWidget.routePath);
-                      },
-                      onContactTap: () async {
-                        Get.toNamed(ContactUsWidget.routePath);
-                      },
-                    ),
-                  ),
-                ),
+                child: const MainNavigationBar(currentIndex: 0),
               ),
             ],
           ),
