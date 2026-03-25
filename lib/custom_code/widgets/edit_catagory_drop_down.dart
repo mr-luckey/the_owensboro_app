@@ -26,7 +26,7 @@ import 'package:flutter/material.dart';
 //   State<EditCatagoryDropDown> createState() => _EditCatagoryDropDownState();
 // }
 
-// class _EditCatagoryDropDownState extends State<EditCatagoryDropDown> {
+// class _EditCatagoryDropDownState extends State<EditCatagoryDropDown> with GetxStatefulStateMixin {
 //   DocumentReference? selectedCategoryRef;
 //   late CollectionReference categoriesCollection;
 
@@ -83,7 +83,7 @@ import 'package:flutter/material.dart';
 //             isExpanded: true,
 //             icon: const SizedBox(),
 //             onChanged: (DocumentReference? newRef) {
-//               setState(() {
+//               safeSetState(() {
 //                 widget.selectedRef = newRef;
 //                 selectedCategoryRef = newRef;
 
@@ -244,7 +244,7 @@ class EditCatagoryDropDown extends StatefulWidget {
   State<EditCatagoryDropDown> createState() => _EditCatagoryDropDownState();
 }
 
-class _EditCatagoryDropDownState extends State<EditCatagoryDropDown> {
+class _EditCatagoryDropDownState extends State<EditCatagoryDropDown> with GetxStatefulStateMixin {
   DocumentReference? selectedCategoryRef;
   late CollectionReference categoriesCollection;
 
@@ -299,7 +299,7 @@ class _EditCatagoryDropDownState extends State<EditCatagoryDropDown> {
             isExpanded: true,
             icon: const SizedBox(),
             onChanged: (DocumentReference? newRef) {
-              setState(() {
+              safeSetState(() {
                 selectedCategoryRef = newRef;
                 print("selectedCategoryRef: ${selectedCategoryRef?.path}");
                 FFAppState().selectedCatagoryReference = selectedCategoryRef;

@@ -25,6 +25,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'controller/events_entertainment_screen_copy_controller.dart';
 import 'events_entertainment_screen_copy_model.dart';
 export 'events_entertainment_screen_copy_model.dart';
 
@@ -44,34 +45,16 @@ class EventsEntertainmentScreenCopyWidget extends StatefulWidget {
       _EventsEntertainmentScreenCopyWidgetState();
 }
 
-class _EventsEntertainmentScreenCopyWidgetState
-    extends State<EventsEntertainmentScreenCopyWidget>
-    with TickerProviderStateMixin {
-  late EventsEntertainmentScreenCopyModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _EventsEntertainmentScreenCopyWidgetState extends State<EventsEntertainmentScreenCopyWidget> with TickerProviderStateMixin {
+  late EventsEntertainmentScreenCopyController _controller;
 
   final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EventsEntertainmentScreenCopyModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
+    _controller = Get.find<EventsEntertainmentScreenCopyController>();
+    _controller.initModel(context);
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -86,20 +69,19 @@ class _EventsEntertainmentScreenCopyWidgetState
         ],
       ),
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<SubCatagoriesRecord>>(
+    return GetBuilder<EventsEntertainmentScreenCopyController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return StreamBuilder<List<SubCatagoriesRecord>>(
       stream: querySubCatagoriesRecord(
         queryBuilder: (subCatagoriesRecord) => subCatagoriesRecord
             .where(
@@ -136,7 +118,7 @@ class _EventsEntertainmentScreenCopyWidgetState
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Scaffold(
-            key: scaffoldKey,
+            key: controller.scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             endDrawer: Drawer(
               elevation: 16.0,
@@ -163,8 +145,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (scaffoldKey.currentState!.isDrawerOpen ||
-                                  scaffoldKey.currentState!.isEndDrawerOpen) {
+                              if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                  controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                                 Get.back();
                               }
                             },
@@ -184,8 +166,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
                             Get.toNamed(HomePageDynamicWidget.routePath);
                           },
@@ -200,7 +182,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color: _model.selectedTab == 'HOME'
+                                  color: model.selectedTab == 'HOME'
                                       ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -223,8 +205,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
                                 Get.toNamed(
                                     WheelAdventureScreenWidget.routePath);
@@ -275,7 +257,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: _model.selectedTab ==
+                                    color: model.selectedTab ==
                                             'Wheel of Adventure'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
@@ -299,8 +281,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.selectedTab = 'CUSTOMER SERVICES';
-                            safeSetState(() {});
+                            model.selectedTab = 'CUSTOMER SERVICES';
+                            controller.notifyUi();
 
                             Get.toNamed(ContactUsWidget.routePath);
                           },
@@ -316,7 +298,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                         .fontStyle,
                                   ),
                                   color:
-                                      _model.selectedTab == 'CUSTOMER SERVICES'
+                                      model.selectedTab == 'CUSTOMER SERVICES'
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -743,9 +725,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _model.isSelected = true;
-                                _model.selectedTab = 'HOME';
-                                safeSetState(() {});
+                                model.isSelected = true;
+                                model.selectedTab = 'HOME';
+                                controller.notifyUi();
 
                                 Get.toNamed(HomePageDynamicWidget.routePath);
                               },
@@ -754,7 +736,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                 height: 40.0,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _model.selectedTab == 'HOME'
+                                    color: model.selectedTab == 'HOME'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .primaryBackground,
@@ -805,9 +787,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  _model.isSelected = true;
-                                  _model.selectedTab = 'Wheel of Adventure';
-                                  safeSetState(() {});
+                                  model.isSelected = true;
+                                  model.selectedTab = 'Wheel of Adventure';
+                                  controller.notifyUi();
                                   if (loggedIn) {
                                     Get.toNamed(
                                         WheelAdventureScreenWidget.routePath);
@@ -854,7 +836,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                   height: 40.0,
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: _model.selectedTab ==
+                                      color: model.selectedTab ==
                                               'Wheel of Adventure'
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
@@ -907,9 +889,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                _model.isSelected = true;
-                                _model.selectedTab = 'CUSTOMER SERVICE';
-                                safeSetState(() {});
+                                model.isSelected = true;
+                                model.selectedTab = 'CUSTOMER SERVICE';
+                                controller.notifyUi();
 
                                 Get.toNamed(ContactUsWidget.routePath);
                               },
@@ -918,7 +900,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                 height: 40.0,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: _model.selectedTab ==
+                                    color: model.selectedTab ==
                                             'CUSTOMER SERVICE'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
@@ -3280,7 +3262,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                             ),
                           ),
                           Form(
-                            key: _model.formKey,
+                            key: model.formKey,
                             autovalidateMode: AutovalidateMode.disabled,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -3365,9 +3347,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController1,
+                                                  model.textController1,
                                               focusNode:
-                                                  _model.textFieldFocusNode1,
+                                                  model.textFieldFocusNode1,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3514,7 +3496,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController1Validator
                                                   .asValidator(context),
                                             ),
@@ -3574,9 +3556,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController2,
+                                                  model.textController2,
                                               focusNode:
-                                                  _model.textFieldFocusNode2,
+                                                  model.textFieldFocusNode2,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3723,7 +3705,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController2Validator
                                                   .asValidator(context),
                                             ),
@@ -3783,9 +3765,9 @@ class _EventsEntertainmentScreenCopyWidgetState
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController3,
+                                                  model.textController3,
                                               focusNode:
-                                                  _model.textFieldFocusNode3,
+                                                  model.textFieldFocusNode3,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3933,7 +3915,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController3Validator
                                                   .asValidator(context),
                                             ),
@@ -3948,8 +3930,8 @@ class _EventsEntertainmentScreenCopyWidgetState
                                       0.0, 20.0, 0.0, 0.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (_model.formKey.currentState == null ||
-                                          !_model.formKey.currentState!
+                                      if (model.formKey.currentState == null ||
+                                          !model.formKey.currentState!
                                               .validate()) {
                                         return;
                                       }
@@ -3957,10 +3939,10 @@ class _EventsEntertainmentScreenCopyWidgetState
                                       await ContactUsRecord.collection
                                           .doc()
                                           .set(createContactUsRecordData(
-                                            name: _model.textController1.text,
-                                            email: _model.textController2.text,
+                                            name: model.textController1.text,
+                                            email: model.textController2.text,
                                             message:
-                                                _model.textController3.text,
+                                                model.textController3.text,
                                             timestamp: getCurrentTimestamp,
                                           ));
                                       ScaffoldMessenger.of(context)
@@ -4642,7 +4624,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    scaffoldKey.currentState!.openEndDrawer();
+                                    controller.scaffoldKey.currentState!.openEndDrawer();
                                   },
                                   child: Icon(
                                     Icons.menu,
@@ -4694,7 +4676,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                     ),
                                   ],
                                   carouselController:
-                                      _model.carouselController ??=
+                                      model.carouselController ??=
                                           CarouselSliderController(),
                                   options: CarouselOptions(
                                     initialPage: 1,
@@ -4712,7 +4694,7 @@ class _EventsEntertainmentScreenCopyWidgetState
                                     autoPlayCurve: Curves.linear,
                                     pauseAutoPlayInFiniteScroll: true,
                                     onPageChanged: (index, _) =>
-                                        _model.carouselCurrentIndex = index,
+                                        model.carouselCurrentIndex = index,
                                   ),
                                 ),
                               ),
@@ -4787,6 +4769,8 @@ class _EventsEntertainmentScreenCopyWidgetState
             ),
           ),
         );
+      },
+    );
       },
     );
   }

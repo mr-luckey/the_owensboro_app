@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -13,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/widgets/app_end_drawer.dart';
+import 'controller/home_page_controller.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -27,77 +29,39 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late HomePageController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.selectedTab = 'HOME';
-      safeSetState(() {});
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
-
-    _model.textController5 ??= TextEditingController();
-    _model.textFieldFocusNode5 ??= FocusNode();
-
-    _model.textController6 ??= TextEditingController();
-    _model.textFieldFocusNode6 ??= FocusNode();
-
-    _model.switchValue = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<HomePageController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<HomePageController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: AppEndDrawer(
-          scaffoldKey: scaffoldKey,
-          selectedTab: _model.selectedTab,
+          scaffoldKey: controller.scaffoldKey,
+          selectedTab: model.selectedTab,
           onSelectedTabChanged: (value) {
-            _model.selectedTab = value;
-            safeSetState(() {});
+            model.selectedTab = value;
+            controller.notifyUi();
           },
           showThemeSwitch: true,
-          themeSwitchValue: _model.switchValue ?? false,
+          themeSwitchValue: model.switchValue ?? false,
           onThemeSwitchChanged: (newValue) async {
-            safeSetState(() => _model.switchValue = newValue);
-            if (newValue) {
-              setDarkModeSetting(context, ThemeMode.dark);
-            } else {
-              setDarkModeSetting(context, ThemeMode.light);
-            }
+            controller.onThemeSwitchChanged(context, newValue);
           },
         ),
         // endDrawer: Drawer(
@@ -122,9 +86,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                 padding: EdgeInsetsDirectional.fromSTEB(
         //                     10.0, 20.0, 0.0, 0.0),
         //                 child: Switch.adaptive(
-        //                   value: _model.switchValue!,
+        //                   value: model.switchValue!,
         //                   onChanged: (newValue) async {
-        //                     safeSetState(() => _model.switchValue = newValue!);
+        //                     model.switchValue = newValue!;
+        //                     controller.notifyUi();
         //                     if (newValue!) {
         //                       setDarkModeSetting(context, ThemeMode.dark);
         //                     } else {
@@ -151,8 +116,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                     hoverColor: Colors.transparent,
         //                     highlightColor: Colors.transparent,
         //                     onTap: () async {
-        //                       if (scaffoldKey.currentState!.isDrawerOpen ||
-        //                           scaffoldKey.currentState!.isEndDrawerOpen) {
+        //                       if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+        //                           controller.scaffoldKey.currentState!.isEndDrawerOpen) {
         //                         Get.back();
         //                       }
         //                     },
@@ -174,8 +139,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //               hoverColor: Colors.transparent,
         //               highlightColor: Colors.transparent,
         //               onTap: () async {
-        //                 _model.selectedTab = 'HOME';
-        //                 safeSetState(() {});
+        //                 model.selectedTab = 'HOME';
+        //                 controller.notifyUi();
 
         //                 Get.toNamed(HomePageWidget.routePath);
         //               },
@@ -188,7 +153,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                             .bodyMedium
         //                             .fontStyle,
         //                       ),
-        //                       color: _model.selectedTab == 'HOME'
+        //                       color: model.selectedTab == 'HOME'
         //                           ? FlutterFlowTheme.of(context).primary
         //                           : FlutterFlowTheme.of(context)
         //                               .secondaryBackground,
@@ -211,8 +176,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                 hoverColor: Colors.transparent,
         //                 highlightColor: Colors.transparent,
         //                 onTap: () async {
-        //                   _model.selectedTab = 'Wheel of Adventure';
-        //                   safeSetState(() {});
+        //                   model.selectedTab = 'Wheel of Adventure';
+        //                   controller.notifyUi();
         //                   await showDialog(
         //                     context: context,
         //                     builder: (dialogContext) {
@@ -252,7 +217,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                               .fontStyle,
         //                         ),
         //                         color:
-        //                             _model.selectedTab == 'Wheel of Adventure'
+        //                             model.selectedTab == 'Wheel of Adventure'
         //                                 ? FlutterFlowTheme.of(context).primary
         //                                 : FlutterFlowTheme.of(context)
         //                                     .secondaryBackground,
@@ -275,8 +240,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //               hoverColor: Colors.transparent,
         //               highlightColor: Colors.transparent,
         //               onTap: () async {
-        //                 _model.selectedTab = 'CUSTOMER SERVICES';
-        //                 safeSetState(() {});
+        //                 model.selectedTab = 'CUSTOMER SERVICES';
+        //                 controller.notifyUi();
 
         //                 Get.toNamed(ContactUsWidget.routePath);
         //               },
@@ -289,7 +254,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         //                             .bodyMedium
         //                             .fontStyle,
         //                       ),
-        //                       color: _model.selectedTab == 'CUSTOMER SERVICES'
+        //                       color: model.selectedTab == 'CUSTOMER SERVICES'
         //                           ? FlutterFlowTheme.of(context).primary
         //                           : FlutterFlowTheme.of(context)
         //                               .secondaryBackground,
@@ -347,9 +312,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
                             Get.toNamed(HomePageWidget.routePath);
                           },
@@ -358,7 +323,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'HOME'
+                                color: model.selectedTab == 'HOME'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -407,9 +372,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.isSelected = true;
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.isSelected = true;
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
                                 Get.toNamed(
                                     WheelAdventureScreenWidget.routePath);
@@ -454,7 +419,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: _model.selectedTab == 'VOTING'
+                                  color: model.selectedTab == 'VOTING'
                                       ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
                                           .primaryBackground,
@@ -505,18 +470,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'CUSTOMER SERVICE';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'CUSTOMER SERVICE';
+                            controller.notifyUi();
 
-                            Get.toNamed(ContactUsWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 3},
+                            );
                           },
                           child: Container(
                             width: 200.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'CUSTOMER SERVICE'
+                                color: model.selectedTab == 'CUSTOMER SERVICE'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -617,7 +585,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
+                              controller.scaffoldKey.currentState!.openEndDrawer();
                             },
                             child: Icon(
                               Icons.menu,
@@ -706,7 +674,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.mouseRegionHovered1 == true
+                            color: model.mouseRegionHovered1 == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -721,7 +689,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               Icon(
                                 Icons.event_note_sharp,
-                                color: _model.mouseRegionHovered1 == true
+                                color: model.mouseRegionHovered1 == true
                                     ? FlutterFlowTheme.of(context)
                                         .secondaryBackground
                                     : FlutterFlowTheme.of(context).primary,
@@ -745,7 +713,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .fontStyle,
                                           ),
                                           color:
-                                              _model.mouseRegionHovered1 == true
+                                              model.mouseRegionHovered1 == true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
                                                   : FlutterFlowTheme.of(context)
@@ -767,10 +735,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered1 = true);
+                      model.mouseRegionHovered1 = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered1 = false);
+                      model.mouseRegionHovered1 = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -792,7 +762,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.mouseRegionHovered2 == true
+                            color: model.mouseRegionHovered2 == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -807,7 +777,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               Icon(
                                 Icons.food_bank,
-                                color: _model.mouseRegionHovered2 == true
+                                color: model.mouseRegionHovered2 == true
                                     ? FlutterFlowTheme.of(context)
                                         .secondaryBackground
                                     : FlutterFlowTheme.of(context).primary,
@@ -831,7 +801,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .fontStyle,
                                           ),
                                           color:
-                                              _model.mouseRegionHovered2 == true
+                                              model.mouseRegionHovered2 == true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
                                                   : FlutterFlowTheme.of(context)
@@ -853,10 +823,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered2 = true);
+                      model.mouseRegionHovered2 = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered2 = false);
+                      model.mouseRegionHovered2 = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -878,7 +850,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.hotelsModelsHovered == true
+                            color: model.hotelsModelsHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -893,7 +865,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             children: [
                               Icon(
                                 Icons.home,
-                                color: _model.hotelsModelsHovered == true
+                                color: model.hotelsModelsHovered == true
                                     ? FlutterFlowTheme.of(context)
                                         .secondaryBackground
                                     : FlutterFlowTheme.of(context).primary,
@@ -917,7 +889,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .fontStyle,
                                           ),
                                           color:
-                                              _model.hotelsModelsHovered == true
+                                              model.hotelsModelsHovered == true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
                                                   : FlutterFlowTheme.of(context)
@@ -939,10 +911,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.hotelsModelsHovered = true);
+                      model.hotelsModelsHovered = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.hotelsModelsHovered = false);
+                      model.hotelsModelsHovered = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -964,7 +938,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.realorsHovered == true
+                            color: model.realorsHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -994,7 +968,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: _model.realorsHovered == true
+                                          color: model.realorsHovered == true
                                               ? FlutterFlowTheme.of(context)
                                                   .secondaryBackground
                                               : FlutterFlowTheme.of(context)
@@ -1016,10 +990,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.realorsHovered = true);
+                      model.realorsHovered = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.realorsHovered = false);
+                      model.realorsHovered = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1041,7 +1017,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.coffeeHovered == true
+                            color: model.coffeeHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -1071,7 +1047,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: _model.coffeeHovered == true
+                                          color: model.coffeeHovered == true
                                               ? FlutterFlowTheme.of(context)
                                                   .secondaryBackground
                                               : FlutterFlowTheme.of(context)
@@ -1093,10 +1069,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.coffeeHovered = true);
+                      model.coffeeHovered = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.coffeeHovered = false);
+                      model.coffeeHovered = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1118,7 +1096,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.parksOutdoorAdventuresHovered == true
+                            color: model.parksOutdoorAdventuresHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -1149,7 +1127,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .fontStyle,
                                           ),
                                           color:
-                                              _model.parksOutdoorAdventuresHovered ==
+                                              model.parksOutdoorAdventuresHovered ==
                                                       true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
@@ -1172,12 +1150,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(
-                          () => _model.parksOutdoorAdventuresHovered = true);
+                      model.parksOutdoorAdventuresHovered = true;
+                      controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(
-                          () => _model.parksOutdoorAdventuresHovered = false);
+                      model.parksOutdoorAdventuresHovered = false;
+                      controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1199,7 +1177,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.barsHovered == true
+                            color: model.barsHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -1229,7 +1207,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: _model.barsHovered == true
+                                          color: model.barsHovered == true
                                               ? FlutterFlowTheme.of(context)
                                                   .secondaryBackground
                                               : FlutterFlowTheme.of(context)
@@ -1251,10 +1229,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.barsHovered = true);
+                      model.barsHovered = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.barsHovered = false);
+                      model.barsHovered = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1276,7 +1256,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.shoppingHovered == true
+                            color: model.shoppingHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -1306,7 +1286,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          color: _model.shoppingHovered == true
+                                          color: model.shoppingHovered == true
                                               ? FlutterFlowTheme.of(context)
                                                   .secondaryBackground
                                               : FlutterFlowTheme.of(context)
@@ -1328,10 +1308,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.shoppingHovered = true);
+                      model.shoppingHovered = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.shoppingHovered = false);
+                      model.shoppingHovered = false;
+                            controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1353,7 +1335,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           width: MediaQuery.sizeOf(context).width * 0.9,
                           height: 50.0,
                           decoration: BoxDecoration(
-                            color: _model.religiousOrganzationsHovered == true
+                            color: model.religiousOrganzationsHovered == true
                                 ? FlutterFlowTheme.of(context).primary
                                 : FlutterFlowTheme.of(context)
                                     .primaryBackground,
@@ -1384,7 +1366,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     .fontStyle,
                                           ),
                                           color:
-                                              _model.religiousOrganzationsHovered ==
+                                              model.religiousOrganzationsHovered ==
                                                       true
                                                   ? FlutterFlowTheme.of(context)
                                                       .secondaryBackground
@@ -1407,12 +1389,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(
-                          () => _model.religiousOrganzationsHovered = true);
+                      model.religiousOrganzationsHovered = true;
+                      controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(
-                          () => _model.religiousOrganzationsHovered = false);
+                      model.religiousOrganzationsHovered = false;
+                      controller.notifyUi();
                     }),
                   ),
                   MouseRegion(
@@ -1481,10 +1463,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ),
                     ),
                     onEnter: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered3 = true);
+                      model.mouseRegionHovered3 = true;
+                            controller.notifyUi();
                     }),
                     onExit: ((event) async {
-                      safeSetState(() => _model.mouseRegionHovered3 = false);
+                      model.mouseRegionHovered3 = false;
+                            controller.notifyUi();
                     }),
                   ),
                   Padding(
@@ -3324,9 +3308,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController1,
+                                                  model.textController1,
                                               focusNode:
-                                                  _model.textFieldFocusNode1,
+                                                  model.textFieldFocusNode1,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3473,7 +3457,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController1Validator
                                                   .asValidator(context),
                                             ),
@@ -3533,9 +3517,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController2,
+                                                  model.textController2,
                                               focusNode:
-                                                  _model.textFieldFocusNode2,
+                                                  model.textFieldFocusNode2,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3682,7 +3666,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController2Validator
                                                   .asValidator(context),
                                             ),
@@ -3742,9 +3726,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController3,
+                                                  model.textController3,
                                               focusNode:
-                                                  _model.textFieldFocusNode3,
+                                                  model.textFieldFocusNode3,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -3892,7 +3876,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController3Validator
                                                   .asValidator(context),
                                             ),
@@ -4214,9 +4198,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController4,
+                                                  model.textController4,
                                               focusNode:
-                                                  _model.textFieldFocusNode4,
+                                                  model.textFieldFocusNode4,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4363,7 +4347,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController4Validator
                                                   .asValidator(context),
                                             ),
@@ -4423,9 +4407,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController5,
+                                                  model.textController5,
                                               focusNode:
-                                                  _model.textFieldFocusNode5,
+                                                  model.textFieldFocusNode5,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4572,7 +4556,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController5Validator
                                                   .asValidator(context),
                                             ),
@@ -4632,9 +4616,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             width: 200.0,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController6,
+                                                  model.textController6,
                                               focusNode:
-                                                  _model.textFieldFocusNode6,
+                                                  model.textFieldFocusNode6,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4782,7 +4766,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController6Validator
                                                   .asValidator(context),
                                             ),
@@ -5167,6 +5151,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

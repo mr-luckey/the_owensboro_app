@@ -6,9 +6,9 @@ import 'dart:ui';
 import '/index.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/login_screen_controller.dart';
 import 'login_screen_model.dart';
 export 'login_screen_model.dart';
 
@@ -23,52 +23,37 @@ class LoginScreenWidget extends StatefulWidget {
 }
 
 class _LoginScreenWidgetState extends State<LoginScreenWidget> {
-  late LoginScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late LoginScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.emailTextController ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.passwordTextController ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<LoginScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<LoginScreenController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Form(
-              key: _model.formKey,
+              key: model.formKey,
               autovalidateMode: AutovalidateMode.disabled,
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
@@ -173,8 +158,8 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                               child: Container(
                                 width: 200.0,
                                 child: TextFormField(
-                                  controller: _model.emailTextController,
-                                  focusNode: _model.textFieldFocusNode1,
+                                  controller: model.emailTextController,
+                                  focusNode: model.textFieldFocusNode1,
                                   autofocus: false,
                                   obscureText: false,
                                   decoration: InputDecoration(
@@ -285,7 +270,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primary,
                                   enableInteractiveSelection: true,
-                                  validator: _model.emailTextControllerValidator
+                                  validator: model.emailTextControllerValidator
                                       .asValidator(context),
                                 ),
                               ),
@@ -345,10 +330,10 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                               child: Container(
                                 width: 200.0,
                                 child: TextFormField(
-                                  controller: _model.passwordTextController,
-                                  focusNode: _model.textFieldFocusNode2,
+                                  controller: model.passwordTextController,
+                                  focusNode: model.textFieldFocusNode2,
                                   autofocus: false,
-                                  obscureText: !_model.passwordVisibility,
+                                  obscureText: !model.passwordVisibility,
                                   decoration: InputDecoration(
                                     isDense: true,
                                     labelStyle: FlutterFlowTheme.of(context)
@@ -432,13 +417,13 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                     filled: true,
                                     suffixIcon: InkWell(
                                       onTap: () async {
-                                        safeSetState(() =>
-                                            _model.passwordVisibility =
-                                                !_model.passwordVisibility);
+                                        model.passwordVisibility =
+                                            !model.passwordVisibility;
+                                        controller.notifyUi();
                                       },
                                       focusNode: FocusNode(skipTraversal: true),
                                       child: Icon(
-                                        _model.passwordVisibility
+                                        model.passwordVisibility
                                             ? Icons.visibility_outlined
                                             : Icons.visibility_off_outlined,
                                         color: FlutterFlowTheme.of(context)
@@ -473,7 +458,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                   cursorColor:
                                       FlutterFlowTheme.of(context).primary,
                                   enableInteractiveSelection: true,
-                                  validator: _model
+                                  validator: model
                                       .passwordTextControllerValidator
                                       .asValidator(context),
                                 ),
@@ -488,16 +473,17 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          _model.form1 = true;
-                          if (_model.formKey.currentState == null ||
-                              !_model.formKey.currentState!.validate()) {
-                            safeSetState(() => _model.form1 = false);
+                          model.form1 = true;
+                          if (model.formKey.currentState == null ||
+                              !model.formKey.currentState!.validate()) {
+                            model.form1 = false;
+                            controller.notifyUi();
                             return;
                           }
                           final user = await authManager.signInWithEmail(
                             context,
-                            _model.emailTextController.text,
-                            _model.passwordTextController.text,
+                            model.emailTextController.text,
+                            model.passwordTextController.text,
                           );
                           if (user == null) {
                             return;
@@ -520,12 +506,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
 
                           Get.offAllNamed(AdminDashboardScreenWidget.routePath);
 
-                          safeSetState(() {
-                            _model.emailTextController?.clear();
-                            _model.passwordTextController?.clear();
-                          });
-
-                          safeSetState(() {});
+                          model.emailTextController?.clear();
+                          model.passwordTextController?.clear();
+                          controller.notifyUi();
                         },
                         text: 'Login',
                         options: FFButtonOptions(
@@ -571,6 +554,8 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

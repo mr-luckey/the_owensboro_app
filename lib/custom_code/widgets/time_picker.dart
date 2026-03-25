@@ -36,7 +36,7 @@ class TimePicker extends StatefulWidget {
   State<TimePicker> createState() => _TimePickerState();
 }
 
-class _TimePickerState extends State<TimePicker> {
+class _TimePickerState extends State<TimePicker> with GetxStatefulStateMixin {
   TimeOfDay? startTime;
   TimeOfDay? endTime;
 
@@ -106,7 +106,7 @@ class _TimePickerState extends State<TimePicker> {
       );
 
       if (pickedEnd != null) {
-        setState(() {
+        safeSetState(() {
           startTime = pickedStart;
           endTime = pickedEnd;
           final localizations = MaterialLocalizations.of(context);

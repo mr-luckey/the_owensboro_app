@@ -27,8 +27,12 @@ class _AddSubCatagoryAlertWidgetState extends State<AddSubCatagoryAlertWidget> {
 
   @override
   void setState(VoidCallback callback) {
-    super.setState(callback);
+    if (!mounted) {
+      return;
+    }
+    callback();
     _model.onUpdate();
+    Get.forceAppUpdate();
   }
 
   @override

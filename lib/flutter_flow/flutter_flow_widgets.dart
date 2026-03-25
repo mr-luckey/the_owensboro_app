@@ -1,6 +1,9 @@
+import 'dart:ui' as ui;
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class FFButtonOptions {
   const FFButtonOptions({
@@ -74,7 +77,8 @@ class FFButtonWidget extends StatefulWidget {
   State<FFButtonWidget> createState() => _FFButtonWidgetState();
 }
 
-class _FFButtonWidgetState extends State<FFButtonWidget> {
+class _FFButtonWidgetState extends State<FFButtonWidget>
+    with GetxStatefulStateMixin {
   bool loading = false;
   late FocusNode _internalFocusNode;
 
@@ -130,12 +134,12 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
                 if (loading) {
                   return;
                 }
-                setState(() => loading = true);
+                safeSetState(() => loading = true);
                 try {
                   await widget.onPressed!();
                 } finally {
                   if (mounted) {
-                    setState(() => loading = false);
+                    safeSetState(() => loading = false);
                   }
                 }
               }
@@ -307,7 +311,7 @@ double? _getTextWidth(String? text, TextStyle? style, int maxLines) =>
     text != null
         ? (TextPainter(
             text: TextSpan(text: text, style: style),
-            textDirection: TextDirection.ltr,
+            textDirection: ui.TextDirection.ltr,
             maxLines: maxLines,
           )..layout())
             .size
@@ -343,7 +347,8 @@ class FFFocusIndicator extends StatefulWidget {
   State<FFFocusIndicator> createState() => _FFFocusIndicatorState();
 }
 
-class _FFFocusIndicatorState extends State<FFFocusIndicator> {
+class _FFFocusIndicatorState extends State<FFFocusIndicator>
+    with GetxStatefulStateMixin {
   late FocusNode _focusNode;
   bool _hasFocus = false;
 
@@ -363,7 +368,7 @@ class _FFFocusIndicatorState extends State<FFFocusIndicator> {
 
   void _onFocusChange() {
     if (mounted) {
-      setState(() {
+      safeSetState(() {
         _hasFocus = _focusNode.hasFocus;
       });
     }

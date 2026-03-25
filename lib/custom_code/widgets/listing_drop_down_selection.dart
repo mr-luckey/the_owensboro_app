@@ -25,7 +25,7 @@ class ListingDropDownSelection extends StatefulWidget {
       _ListingDropDownSelectionState();
 }
 
-class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
+class _ListingDropDownSelectionState extends State<ListingDropDownSelection> with GetxStatefulStateMixin {
   String? selectedCategoryName;
   String? selectedCategoryId;
   DocumentReference? selectedCategoryRef;
@@ -45,7 +45,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
   }
 
   getSubCategories(DocumentReference categoryRef) async {
-    setState(() {
+    safeSetState(() {
       isLoadingSubCategories = true;
     });
 
@@ -55,7 +55,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
           .where('catagoriesRef', isEqualTo: categoryRef)
           .get();
 
-      setState(() {
+      safeSetState(() {
         subCategories = subCategorySnapshot.docs.map((doc) {
           return {
             'id': doc.id,
@@ -78,7 +78,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
         getProductsByCategory(categoryRef);
       }
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         isLoadingSubCategories = false;
       });
       print("Error loading subcategories: $e");
@@ -86,7 +86,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
   }
 
   getProductsByCategory(DocumentReference categoryRef) async {
-    setState(() {
+    safeSetState(() {
       isLoadingProducts = true;
       products = [];
       selectedProductName = null;
@@ -98,7 +98,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
           .where('catagoryRef', isEqualTo: categoryRef)
           .get();
 
-      setState(() {
+      safeSetState(() {
         products = productSnapshot.docs.map((doc) {
           return {
             'id': doc.id,
@@ -114,7 +114,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
       print(
           "Products for category ${categoryRef.path}: ${products.length} products found");
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         isLoadingProducts = false;
       });
       print("Error loading products by category: $e");
@@ -122,7 +122,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
   }
 
   getProductsBySubCategory(DocumentReference subCategoryRef) async {
-    setState(() {
+    safeSetState(() {
       isLoadingProducts = true;
       products = [];
       selectedProductName = null;
@@ -134,7 +134,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
           .where('subCatagoryRef', isEqualTo: subCategoryRef)
           .get();
 
-      setState(() {
+      safeSetState(() {
         products = productSnapshot.docs.map((doc) {
           return {
             'id': doc.id,
@@ -150,7 +150,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
       print(
           "Products for subcategory ${subCategoryRef.path}: ${products.length} products found");
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         isLoadingProducts = false;
       });
       print("Error loading products by subcategory: $e");
@@ -203,7 +203,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
                 icon: SizedBox(),
                 isExpanded: true,
                 onChanged: (String? newValue) async {
-                  setState(() {
+                  safeSetState(() {
                     selectedCategoryName = newValue;
 
                     var selectedCategory = categories.firstWhere(
@@ -266,7 +266,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
               icon: SizedBox(),
               isExpanded: true,
               onChanged: (String? newValue) async {
-                setState(() {
+                safeSetState(() {
                   selectedSubCategoryName = newValue;
                   selectedProductName = null;
 
@@ -328,7 +328,7 @@ class _ListingDropDownSelectionState extends State<ListingDropDownSelection> {
               icon: SizedBox(),
               isExpanded: true,
               onChanged: (String? newValue) {
-                setState(() {
+                safeSetState(() {
                   selectedProductName = newValue;
 
                   var selectedProduct = products.firstWhere(

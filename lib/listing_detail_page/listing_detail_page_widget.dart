@@ -19,11 +19,11 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/listing_detail_page_controller.dart';
 import 'listing_detail_page_model.dart';
 export 'listing_detail_page_model.dart';
 
@@ -44,9 +44,7 @@ class ListingDetailPageWidget extends StatefulWidget {
 }
 
 class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
-  late ListingDetailPageModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late ListingDetailPageController _controller;
 
   String _normalizeExternalUrl(String value) {
     final trimmed = value.trim();
@@ -56,64 +54,35 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
     return 'https://$trimmed';
   }
 
-  String _firstProductStringValue(List<String> keys) {
-    final data = widget.product?.snapshotData;
-    if (data == null) {
-      return '';
+  /// Returns a usable absolute URL for [launchURL], or null when missing/blank.
+  String? _launchableTrimmedUrl(String? raw) {
+    final trimmed = raw?.trim();
+    if (trimmed == null || trimmed.isEmpty) {
+      return null;
     }
-    for (final key in keys) {
-      final value = data[key];
-      if (value is String && value.trim().isNotEmpty) {
-        return value.trim();
-      }
-    }
-    return '';
-  }
-
-  Future<void> _openExternalOrHome(String rawUrl) async {
-    if (rawUrl.isEmpty) {
-      Get.toNamed(HomePageDynamicWidget.routePath);
-      return;
-    }
-    await launchURL(_normalizeExternalUrl(rawUrl));
+    return _normalizeExternalUrl(trimmed);
   }
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ListingDetailPageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<ListingDetailPageController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ReviewsRecord>>(
+    return GetBuilder<ListingDetailPageController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return StreamBuilder<List<ReviewsRecord>>(
       stream: queryReviewsRecord(
         queryBuilder: (reviewsRecord) => reviewsRecord.where(
           'productRef',
-          isEqualTo: widget!.product?.reference,
+          isEqualTo: widget.product?.reference,
         ),
         limit: 2,
       ),
@@ -143,7 +112,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Scaffold(
-            key: scaffoldKey,
+            key: controller.scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             endDrawer: Drawer(
               elevation: 16.0,
@@ -170,8 +139,8 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (scaffoldKey.currentState!.isDrawerOpen ||
-                                  scaffoldKey.currentState!.isEndDrawerOpen) {
+                              if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                  controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                                 Get.back();
                               }
                             },
@@ -191,8 +160,8 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
                             Get.toNamed(HomePageDynamicWidget.routePath);
                           },
@@ -207,7 +176,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  color: _model.selectedTab == 'HOME'
+                                  color: model.selectedTab == 'HOME'
                                       ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
                                           .secondaryBackground,
@@ -230,8 +199,8 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
                                 Get.toNamed(WheelAdventureScreenWidget.routePath);
 
@@ -281,7 +250,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: _model.selectedTab ==
+                                    color: model.selectedTab ==
                                             'Wheel of Adventure'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
@@ -305,8 +274,8 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.selectedTab = 'CUSTOMER SERVICES';
-                            safeSetState(() {});
+                            model.selectedTab = 'CUSTOMER SERVICES';
+                            controller.notifyUi();
 
                             Get.toNamed(ContactUsWidget.routePath);
                           },
@@ -322,7 +291,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         .fontStyle,
                                   ),
                                   color:
-                                      _model.selectedTab == 'CUSTOMER SERVICES'
+                                      model.selectedTab == 'CUSTOMER SERVICES'
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondaryBackground,
@@ -1109,7 +1078,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      scaffoldKey.currentState!.openEndDrawer();
+                                      controller.scaffoldKey.currentState!.openEndDrawer();
                                     },
                                     child: Icon(
                                       Icons.menu,
@@ -1170,7 +1139,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                               height: double.infinity,
                                               child: custom_widgets.ImageWidget(
                                                 imageUrl:
-                                                    widget!.product?.imageUrl,
+                                                    widget.product?.imageUrl,
                                                 width: double.infinity,
                                                 height: double.infinity,
                                               ),
@@ -1200,7 +1169,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                           width: 500.0,
                                           height: 500.0,
                                           child: custom_widgets.ImageWidget(
-                                            imageUrl: widget!.product?.imageUrl,
+                                            imageUrl: widget.product?.imageUrl,
                                             width: 500.0,
                                             height: 500.0,
                                           ),
@@ -1228,7 +1197,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                             0.0, 30.0, 0.0, 0.0),
                                         child: Text(
                                           valueOrDefault<String>(
-                                            widget!.product?.productName,
+                                            widget.product?.productName,
                                             'productName',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -1267,7 +1236,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                           0.0, 10.0, 0.0, 0.0),
                                       child: Text(
                                         valueOrDefault<String>(
-                                          widget!.product?.productName,
+                                          widget.product?.productName,
                                           'productName',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -1339,7 +1308,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                         5.0, 0.0, 0.0, 0.0),
                                                 child: Text(
                                                   valueOrDefault<String>(
-                                                    widget!.product
+                                                    widget.product
                                                         ?.productLocation,
                                                     'N/A',
                                                   ),
@@ -1377,52 +1346,45 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(5.0, 0.0, 0.0, 0.0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  final address =
-                                                      valueOrDefault<String>(
-                                                    widget!.product
-                                                        ?.productLocation,
-                                                    'productLocation',
-                                                  ).trim();
-                                                  await Clipboard.setData(
-                                                      ClipboardData(
-                                                          text: address));
-                                                  await launchURL(
-                                                    'https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(address)}',
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final locationLaunch =
+                                                      _launchableTrimmedUrl(
+                                                    widget.product?.locationUrl,
                                                   );
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                      content: Text(
-                                                        'Address copied and map opened',
-                                                        style: TextStyle(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                        ),
-                                                      ),
-                                                      duration: Duration(
-                                                          milliseconds: 4000),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
+                                                  if (locationLaunch == null) {
+                                                    return Icon(
+                                                      Icons.map,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground
+                                                          .withValues(
+                                                              alpha: 0.35),
+                                                      size: 24.0,
+                                                    );
+                                                  }
+                                                  return InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await launchURL(
+                                                          locationLaunch);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.map,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      size: 24.0,
                                                     ),
                                                   );
                                                 },
-                                                child: Icon(
-                                                  Icons.map,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  size: 24.0,
-                                                ),
                                               ),
                                             ),
                                           ],
@@ -1443,7 +1405,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         child: FutureBuilder<ProductsRecord>(
                                           future:
                                               ProductsRecord.getDocumentOnce(
-                                                  widget!.product!.reference),
+                                                  widget.product!.reference),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
                                             if (!snapshot.hasData) {
@@ -1560,7 +1522,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         child: FutureBuilder<ProductsRecord>(
                                           future:
                                               ProductsRecord.getDocumentOnce(
-                                                  widget!.product!.reference),
+                                                  widget.product!.reference),
                                           builder: (context, snapshot) {
                                             // Customize what your widget looks like when it's loading.
                                             if (!snapshot.hasData) {
@@ -1658,7 +1620,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 reviewsRecord.where(
                                               'productRef',
                                               isEqualTo:
-                                                  widget!.product?.reference,
+                                                  widget.product?.reference,
                                             ),
                                           ),
                                           builder: (context, snapshot) {
@@ -1725,142 +1687,170 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 0.0),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await launchURL(
-                                              'https://www.google.com',
-                                            );
-                                          },
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Icon(
-                                                Icons.language,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 24.0,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 0.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Visit Us',
-                                                  style:
-                                                      FlutterFlowTheme.of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            font:
-                                                                GoogleFonts.inter(
-                                                              fontWeight:
-                                                                  FontWeight.w500,
-                                                              fontStyle: FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                            ),
-                                                            color:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .textColor,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                            fontStyle: FlutterFlowTheme
-                                                                    .of(context)
+                                Builder(
+                                  builder: (context) {
+                                    final websiteLaunch =
+                                        _launchableTrimmedUrl(
+                                      widget.product?.websiteUrl,
+                                    );
+                                    final facebookLaunch =
+                                        _launchableTrimmedUrl(
+                                      widget.product?.facebookUrl,
+                                    );
+                                    if (websiteLaunch == null &&
+                                        facebookLaunch == null) {
+                                      return const SizedBox.shrink();
+                                    }
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 10.0, 0.0, 0.0),
+                                      child: Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            if (websiteLaunch != null)
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await launchURL(websiteLaunch);
+                                                },
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.language,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primary,
+                                                      size: 24.0,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Visit Us',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyMedium
-                                                                .fontStyle,
-                                                          ),
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: FlutterFlowTheme
+                                                                          .of(
+                                                                              context)
+                                                                      .textColor,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                  fontStyle: FlutterFlowTheme.of(context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 12.0, 0.0, 0.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              await launchURL(
-                                                'https://www.facebook.com',
-                                              );
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  Icons.facebook,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 0.0, 0.0),
-                                                  child: Text(
-                                                    'Visit Facebook',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          font:
-                                                              GoogleFonts.inter(
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                            fontStyle: FlutterFlowTheme
-                                                                    .of(context)
+                                            if (websiteLaunch != null &&
+                                                facebookLaunch != null)
+                                              const SizedBox(height: 12.0),
+                                            if (facebookLaunch != null)
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  await launchURL(
+                                                      facebookLaunch);
+                                                },
+                                                child: Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.facebook,
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primary,
+                                                      size: 24.0,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Visit Facebook',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyMedium
-                                                                .fontStyle,
-                                                          ),
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .textColor,
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          decoration:
-                                                              TextDecoration
-                                                                  .underline,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                  ),
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .inter(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: FlutterFlowTheme
+                                                                          .of(
+                                                                              context)
+                                                                      .textColor,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                  fontStyle: FlutterFlowTheme.of(context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ),
-                                          ),
+                                              ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -1914,7 +1904,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 StreamBuilder<CatagoriesRecord>(
                                               stream:
                                                   CatagoriesRecord.getDocument(
-                                                      widget!.product!
+                                                      widget.product!
                                                           .catagoryRef!),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -2070,7 +2060,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 Expanded(
                                                   child: Text(
                                                     valueOrDefault<String>(
-                                                      widget!.product?.about,
+                                                      widget.product?.about,
                                                       'about',
                                                     ),
                                                     style: FlutterFlowTheme.of(
@@ -2207,7 +2197,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                             0.0, 0.0),
                                                     child: Text(
                                                       valueOrDefault<String>(
-                                                        widget!.product?.about,
+                                                        widget.product?.about,
                                                         'about',
                                                       ),
                                                       textAlign:
@@ -2341,7 +2331,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                   -1.0, 0.0),
                                               child: Text(
                                                 valueOrDefault<String>(
-                                                  widget!.product?.time,
+                                                  widget.product?.time,
                                                   'N/A',
                                                 ),
                                                 textAlign: TextAlign.start,
@@ -2464,7 +2454,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                             0.0, 0.0),
                                                     child: Text(
                                                       valueOrDefault<String>(
-                                                        widget!.product?.time,
+                                                        widget.product?.time,
                                                         'N/A',
                                                       ),
                                                       textAlign:
@@ -3098,7 +3088,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                                                 height: MediaQuery.sizeOf(context).height * 0.45,
                                                                                 width: MediaQuery.sizeOf(context).width * 0.35,
                                                                                 child: EditWriteReviewWidget(
-                                                                                  products: widget!.product!,
+                                                                                  products: widget.product!,
                                                                                   review: listingDetailPageVarItem,
                                                                                 ),
                                                                               ),
@@ -3197,7 +3187,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                                                   height: MediaQuery.sizeOf(context).height * 0.3,
                                                                                   width: MediaQuery.sizeOf(context).width * 0.35,
                                                                                   child: DeleteReviewWidget(
-                                                                                    products: widget!.product!,
+                                                                                    products: widget.product!,
                                                                                     review: listingDetailPageVarItem,
                                                                                   ),
                                                                                 ),
@@ -3418,7 +3408,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                       queryBuilder: (reviewsRecord) =>
                                           reviewsRecord.where(
                                         'productRef',
-                                        isEqualTo: widget!.product?.reference,
+                                        isEqualTo: widget.product?.reference,
                                       ),
                                       limit: 2,
                                     ),
@@ -3561,7 +3551,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                                                   height: MediaQuery.sizeOf(context).height * 0.45,
                                                                                   width: MediaQuery.sizeOf(context).width * 0.35,
                                                                                   child: EditWriteReviewWidget(
-                                                                                    products: widget!.product!,
+                                                                                    products: widget.product!,
                                                                                     review: columnReviewsRecord,
                                                                                   ),
                                                                                 ),
@@ -3657,7 +3647,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                                                     height: MediaQuery.sizeOf(context).height * 0.3,
                                                                                     width: MediaQuery.sizeOf(context).width * 0.35,
                                                                                     child: DeleteReviewWidget(
-                                                                                      products: widget!.product!,
+                                                                                      products: widget.product!,
                                                                                       review: columnReviewsRecord,
                                                                                     ),
                                                                                   ),
@@ -3873,7 +3863,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                Get.toNamed(ViewAllReviewsScreenWidget.routePath, arguments: {'product': widget!.product});
+                                Get.toNamed(ViewAllReviewsScreenWidget.routePath, arguments: {'product': widget.product});
                               },
                               child: Text(
                                 'View All',
@@ -3982,7 +3972,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                             ),
                           ),
                           Form(
-                            key: _model.formKey,
+                            key: model.formKey,
                             autovalidateMode: AutovalidateMode.disabled,
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -4035,9 +4025,9 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 0.8,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController1,
+                                                  model.textController1,
                                               focusNode:
-                                                  _model.textFieldFocusNode1,
+                                                  model.textFieldFocusNode1,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4185,7 +4175,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController1Validator
                                                   .asValidator(context),
                                             ),
@@ -4237,9 +4227,9 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 0.8,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController2,
+                                                  model.textController2,
                                               focusNode:
-                                                  _model.textFieldFocusNode2,
+                                                  model.textFieldFocusNode2,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4387,7 +4377,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController2Validator
                                                   .asValidator(context),
                                             ),
@@ -4439,9 +4429,9 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                 0.8,
                                             child: TextFormField(
                                               controller:
-                                                  _model.textController3,
+                                                  model.textController3,
                                               focusNode:
-                                                  _model.textFieldFocusNode3,
+                                                  model.textFieldFocusNode3,
                                               autofocus: false,
                                               obscureText: false,
                                               decoration: InputDecoration(
@@ -4591,7 +4581,7 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               enableInteractiveSelection: true,
-                                              validator: _model
+                                              validator: model
                                                   .textController3Validator
                                                   .asValidator(context),
                                             ),
@@ -4605,9 +4595,9 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         0.0, 35.0, 0.0, 100.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        if (_model.formKey.currentState ==
+                                        if (model.formKey.currentState ==
                                                 null ||
-                                            !_model.formKey.currentState!
+                                            !model.formKey.currentState!
                                                 .validate()) {
                                           return;
                                         }
@@ -4615,11 +4605,11 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
                                         await ContactUsRecord.collection
                                             .doc()
                                             .set(createContactUsRecordData(
-                                              name: _model.textController1.text,
+                                              name: model.textController1.text,
                                               email:
-                                                  _model.textController2.text,
+                                                  model.textController2.text,
                                               message:
-                                                  _model.textController3.text,
+                                                  model.textController3.text,
                                               timestamp: getCurrentTimestamp,
                                             ));
                                         ScaffoldMessenger.of(context)
@@ -4702,6 +4692,8 @@ class _ListingDetailPageWidgetState extends State<ListingDetailPageWidget> {
             ),
           ),
         );
+      },
+    );
       },
     );
   }

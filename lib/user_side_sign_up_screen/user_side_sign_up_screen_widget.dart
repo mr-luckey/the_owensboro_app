@@ -8,9 +8,9 @@ import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/user_side_sign_up_screen_controller.dart';
 import 'user_side_sign_up_screen_model.dart';
 export 'user_side_sign_up_screen_model.dart';
 
@@ -25,53 +25,31 @@ class UserSideSignUpScreenWidget extends StatefulWidget {
       _UserSideSignUpScreenWidgetState();
 }
 
-class _UserSideSignUpScreenWidgetState
-    extends State<UserSideSignUpScreenWidget> {
-  late UserSideSignUpScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _UserSideSignUpScreenWidgetState extends State<UserSideSignUpScreenWidget> {
+  late UserSideSignUpScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => UserSideSignUpScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.emailTextController ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.passwordTextController ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<UserSideSignUpScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<UserSideSignUpScreenController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).blackColor,
@@ -85,7 +63,7 @@ class _UserSideSignUpScreenWidgetState
           child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Form(
-              key: _model.formKey,
+              key: model.formKey,
               autovalidateMode: AutovalidateMode.disabled,
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
@@ -194,8 +172,8 @@ class _UserSideSignUpScreenWidgetState
                                 child: Container(
                                   width: 200.0,
                                   child: TextFormField(
-                                    controller: _model.textController1,
-                                    focusNode: _model.textFieldFocusNode1,
+                                    controller: model.textController1,
+                                    focusNode: model.textFieldFocusNode1,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -312,7 +290,7 @@ class _UserSideSignUpScreenWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.textController1Validator
+                                    validator: model.textController1Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -372,8 +350,8 @@ class _UserSideSignUpScreenWidgetState
                                 child: Container(
                                   width: 200.0,
                                   child: TextFormField(
-                                    controller: _model.textController2,
-                                    focusNode: _model.textFieldFocusNode2,
+                                    controller: model.textController2,
+                                    focusNode: model.textFieldFocusNode2,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -490,7 +468,7 @@ class _UserSideSignUpScreenWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.textController2Validator
+                                    validator: model.textController2Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -550,8 +528,8 @@ class _UserSideSignUpScreenWidgetState
                                 child: Container(
                                   width: 200.0,
                                   child: TextFormField(
-                                    controller: _model.emailTextController,
-                                    focusNode: _model.textFieldFocusNode3,
+                                    controller: model.emailTextController,
+                                    focusNode: model.textFieldFocusNode3,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -668,7 +646,7 @@ class _UserSideSignUpScreenWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model
+                                    validator: model
                                         .emailTextControllerValidator
                                         .asValidator(context),
                                   ),
@@ -729,10 +707,10 @@ class _UserSideSignUpScreenWidgetState
                                 child: Container(
                                   width: 200.0,
                                   child: TextFormField(
-                                    controller: _model.passwordTextController,
-                                    focusNode: _model.textFieldFocusNode4,
+                                    controller: model.passwordTextController,
+                                    focusNode: model.textFieldFocusNode4,
                                     autofocus: false,
-                                    obscureText: !_model.passwordVisibility,
+                                    obscureText: !model.passwordVisibility,
                                     decoration: InputDecoration(
                                       isDense: true,
                                       labelStyle: FlutterFlowTheme.of(context)
@@ -820,14 +798,14 @@ class _UserSideSignUpScreenWidgetState
                                       filled: true,
                                       suffixIcon: InkWell(
                                         onTap: () async {
-                                          safeSetState(() =>
-                                              _model.passwordVisibility =
-                                                  !_model.passwordVisibility);
+                                          model.passwordVisibility =
+                                              !model.passwordVisibility;
+                                          controller.notifyUi();
                                         },
                                         focusNode:
                                             FocusNode(skipTraversal: true),
                                         child: Icon(
-                                          _model.passwordVisibility
+                                          model.passwordVisibility
                                               ? Icons.visibility_outlined
                                               : Icons.visibility_off_outlined,
                                           color: FlutterFlowTheme.of(context)
@@ -864,7 +842,7 @@ class _UserSideSignUpScreenWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model
+                                    validator: model
                                         .passwordTextControllerValidator
                                         .asValidator(context),
                                   ),
@@ -879,17 +857,18 @@ class _UserSideSignUpScreenWidgetState
                             EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            _model.form1 = true;
-                            if (_model.formKey.currentState == null ||
-                                !_model.formKey.currentState!.validate()) {
-                              safeSetState(() => _model.form1 = false);
+                            model.form1 = true;
+                            if (model.formKey.currentState == null ||
+                                !model.formKey.currentState!.validate()) {
+                              model.form1 = false;
+                              controller.notifyUi();
                               return;
                             }
                             final user =
                                 await authManager.createAccountWithEmail(
                               context,
-                              _model.emailTextController.text,
-                              _model.passwordTextController.text,
+                              model.emailTextController.text,
+                              model.passwordTextController.text,
                             );
                             if (user == null) {
                               return;
@@ -898,10 +877,10 @@ class _UserSideSignUpScreenWidgetState
                             await UsersRecord.collection
                                 .doc(user.uid)
                                 .update(createUsersRecordData(
-                                  email: _model.emailTextController.text,
-                                  displayName: _model.textController1.text,
-                                  fullName: _model.textController1.text,
-                                  phoneNumber: _model.textController2.text,
+                                  email: model.emailTextController.text,
+                                  displayName: model.textController1.text,
+                                  fullName: model.textController1.text,
+                                  phoneNumber: model.textController2.text,
                                 ));
 
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -921,13 +900,10 @@ class _UserSideSignUpScreenWidgetState
 
                             Get.offAllNamed(HomePageDynamicWidget.routePath);
 
-                            safeSetState(() {
-                              _model.textController1?.clear();
-                              _model.emailTextController?.clear();
-                              _model.passwordTextController?.clear();
-                            });
-
-                            safeSetState(() {});
+                            model.textController1?.clear();
+                            model.emailTextController?.clear();
+                            model.passwordTextController?.clear();
+                            controller.notifyUi();
                           },
                           text: 'Sign Up',
                           options: FFButtonOptions(
@@ -1047,6 +1023,8 @@ class _UserSideSignUpScreenWidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

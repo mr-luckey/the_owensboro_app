@@ -28,7 +28,7 @@ class EditListingWidgetNew extends StatefulWidget {
   State<EditListingWidgetNew> createState() => _EditListingWidgetNewState();
 }
 
-class _EditListingWidgetNewState extends State<EditListingWidgetNew> {
+class _EditListingWidgetNewState extends State<EditListingWidgetNew> with GetxStatefulStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -58,7 +58,7 @@ class CatagoryListingDropDown extends StatefulWidget {
       _CatagoryListingDropDownState();
 }
 
-class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> {
+class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> with GetxStatefulStateMixin {
   DocumentReference? selectedCategoryRef;
   late CollectionReference categoriesCollection;
   Future<QuerySnapshot>? _categoriesFuture; // ✅ Store future
@@ -86,7 +86,7 @@ class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> {
   }
 
   void refreshCategories() {
-    setState(() {
+    safeSetState(() {
       _categoriesFuture = getCategories();
     });
   }
@@ -187,7 +187,7 @@ class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> {
               child: Icon(Icons.arrow_drop_down, color: Color(0xffFC6E50)),
             ),
             onChanged: (DocumentReference? newRef) {
-              setState(() {
+              safeSetState(() {
                 selectedCategoryRef = newRef;
                 print("selectedCategoryRef: ${selectedCategoryRef?.path}");
                 FFAppState().selectedListingCatagoryRef = selectedCategoryRef;
@@ -239,7 +239,7 @@ class SubCatagoryListing extends StatefulWidget {
   State<SubCatagoryListing> createState() => _SubCatagoryListingState();
 }
 
-class _SubCatagoryListingState extends State<SubCatagoryListing> {
+class _SubCatagoryListingState extends State<SubCatagoryListing> with GetxStatefulStateMixin {
   DocumentReference? selectedSubCategoryRef;
   late CollectionReference categoriesCollection;
   Future<QuerySnapshot>? _subCategoriesFuture; // ✅ Store future
@@ -278,7 +278,7 @@ class _SubCatagoryListingState extends State<SubCatagoryListing> {
   }
 
   void refreshSubCategories() {
-    setState(() {
+    safeSetState(() {
       _subCategoriesFuture = getSubCategories();
     });
   }
@@ -379,7 +379,7 @@ class _SubCatagoryListingState extends State<SubCatagoryListing> {
               child: Icon(Icons.arrow_drop_down, color: Color(0xffFC6E50)),
             ),
             onChanged: (DocumentReference? newRef) {
-              setState(() {
+              safeSetState(() {
                 selectedSubCategoryRef = newRef;
                 print(
                     "selectedSubCategoryRef: ${selectedSubCategoryRef?.path}");

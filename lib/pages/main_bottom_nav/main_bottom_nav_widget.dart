@@ -7,22 +7,21 @@ import '/pages/wheel_adventure_screen/wheel_adventure_screen_widget.dart';
 import '/owensboro_games/owensboro_games_widget.dart';
 import '/contact_us/contact_us_widget.dart';
 
+import 'controller/main_bottom_nav_controller.dart';
+
 /// Main shell with a single bottom navigation bar that switches
 /// between Home, Spin, Games, and Contact tabs.
-class MainBottomNavWidget extends StatelessWidget {
-  MainBottomNavWidget({super.key});
+class MainBottomNavWidget extends GetView<MainBottomNavController> {
+  const MainBottomNavWidget({super.key});
 
   static String routeName = 'MainBottomNav';
   static String routePath = '/mainBottomNav';
 
-  final RxInt _currentIndex =
-      ((Get.arguments as Map<String, dynamic>?)?['tabIndex'] as int? ?? 0).obs;
-
-  final List<Widget> _tabs = const <Widget>[
-    HomePageDynamicWidget(),
-    WheelAdventureScreenWidget(),
-    OwensboroGamesWidget(),
-    ContactUsWidget(),
+  static final List<Widget> _tabs = <Widget>[
+    const HomePageDynamicWidget(),
+    const WheelAdventureScreenWidget(),
+    const OwensboroGamesWidget(),
+    const ContactUsWidget(),
   ];
 
   @override
@@ -31,21 +30,16 @@ class MainBottomNavWidget extends StatelessWidget {
       () => Scaffold(
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: IndexedStack(
-          index: _currentIndex.value,
+          index: controller.currentIndex.value,
           children: _tabs,
         ),
         bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex.value,
+          currentIndex: controller.currentIndex.value,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: FlutterFlowTheme.of(context).textColor,
           unselectedItemColor: FlutterFlowTheme.of(context).secondaryBackground,
           backgroundColor: FlutterFlowTheme.of(context).dashboardSelection,
-          onTap: (int index) {
-            if (index == _currentIndex.value) {
-              return;
-            }
-            _currentIndex.value = index;
-          },
+          onTap: controller.onTabTapped,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),

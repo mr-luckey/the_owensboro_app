@@ -146,6 +146,21 @@ class ProductsRecord extends FirestoreRecord {
   String get time => _time ?? '';
   bool hasTime() => _time != null;
 
+  // "locationUrl" field.
+  String? _locationUrl;
+  String get locationUrl => _locationUrl ?? '';
+  bool hasLocationUrl() => _locationUrl != null;
+
+  // "websiteUrl" field.
+  String? _websiteUrl;
+  String get websiteUrl => _websiteUrl ?? '';
+  bool hasWebsiteUrl() => _websiteUrl != null;
+
+  // "facebookUrl" field.
+  String? _facebookUrl;
+  String get facebookUrl => _facebookUrl ?? '';
+  bool hasFacebookUrl() => _facebookUrl != null;
+
   void _initializeFields() {
     _catagoryRef = snapshotData['catagoryRef'] as DocumentReference?;
     _subCatagoryRef = snapshotData['subCatagoryRef'] as DocumentReference?;
@@ -173,6 +188,9 @@ class ProductsRecord extends FirestoreRecord {
     _startTimeString = snapshotData['startTimeString'] as String?;
     _endTimeString = snapshotData['endTimeString'] as String?;
     _time = snapshotData['time'] as String?;
+    _locationUrl = snapshotData['locationUrl'] as String?;
+    _websiteUrl = snapshotData['websiteUrl'] as String?;
+    _facebookUrl = snapshotData['facebookUrl'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -234,6 +252,9 @@ Map<String, dynamic> createProductsRecordData({
   String? startTimeString,
   String? endTimeString,
   String? time,
+  String? locationUrl,
+  String? websiteUrl,
+  String? facebookUrl,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -261,6 +282,9 @@ Map<String, dynamic> createProductsRecordData({
       'startTimeString': startTimeString,
       'endTimeString': endTimeString,
       'time': time,
+      'locationUrl': locationUrl,
+      'websiteUrl': websiteUrl,
+      'facebookUrl': facebookUrl,
     }.withoutNulls,
   );
 
@@ -298,7 +322,10 @@ class ProductsRecordDocumentEquality implements Equality<ProductsRecord> {
         e1?.order == e2?.order &&
         e1?.startTimeString == e2?.startTimeString &&
         e1?.endTimeString == e2?.endTimeString &&
-        e1?.time == e2?.time;
+        e1?.time == e2?.time &&
+        e1?.locationUrl == e2?.locationUrl &&
+        e1?.websiteUrl == e2?.websiteUrl &&
+        e1?.facebookUrl == e2?.facebookUrl;
   }
 
   @override
@@ -328,7 +355,10 @@ class ProductsRecordDocumentEquality implements Equality<ProductsRecord> {
         e?.order,
         e?.startTimeString,
         e?.endTimeString,
-        e?.time
+        e?.time,
+        e?.locationUrl,
+        e?.websiteUrl,
+        e?.facebookUrl
       ]);
 
   @override

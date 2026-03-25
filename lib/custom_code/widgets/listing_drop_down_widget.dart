@@ -24,7 +24,7 @@ class ListingDropDownWidget extends StatefulWidget {
   State<ListingDropDownWidget> createState() => _ListingDropDownWidgetState();
 }
 
-class _ListingDropDownWidgetState extends State<ListingDropDownWidget> {
+class _ListingDropDownWidgetState extends State<ListingDropDownWidget> with GetxStatefulStateMixin {
   String? selectedCategoryName;
   String? selectedCategoryId;
   DocumentReference? selectedCategoryRef;
@@ -44,7 +44,7 @@ class _ListingDropDownWidgetState extends State<ListingDropDownWidget> {
         .where('catagoriesRef', isEqualTo: categoryRef)
         .get();
 
-    setState(() {
+    safeSetState(() {
       subCategories = subCategorySnapshot.docs.map((doc) {
         return {'id': doc.id, 'name': doc['name'], 'reference': doc.reference};
       }).toList();
@@ -106,7 +106,7 @@ class _ListingDropDownWidgetState extends State<ListingDropDownWidget> {
                       ),
                       icon: SizedBox(),
                       onChanged: (String? newValue) async {
-                        setState(() {
+                        safeSetState(() {
                           selectedCategoryName = newValue;
 
                           var selectedCategory = categories.firstWhere(
@@ -175,7 +175,7 @@ class _ListingDropDownWidgetState extends State<ListingDropDownWidget> {
                       ),
                       icon: SizedBox(),
                       onChanged: (String? newValue) {
-                        setState(() {
+                        safeSetState(() {
                           selectedSubCategoryName = newValue;
                           var selectedSubCategory = subCategories.firstWhere(
                               (subCategory) => subCategory['name'] == newValue,

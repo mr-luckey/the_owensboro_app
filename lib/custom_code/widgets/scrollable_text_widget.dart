@@ -32,7 +32,7 @@ class ScrollableTextWidget extends StatefulWidget {
   State<ScrollableTextWidget> createState() => _ScrollableTextWidgetState();
 }
 
-class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
+class _ScrollableTextWidgetState extends State<ScrollableTextWidget> with GetxStatefulStateMixin {
   List<Map<String, dynamic>> bannerItems = [];
 
   final ScrollController _scrollController = ScrollController();
@@ -71,14 +71,14 @@ class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
         });
       }
 
-      setState(() {
+      safeSetState(() {
         bannerItems = items;
       });
 
       if (items.isNotEmpty) startAutoScroll();
     } catch (e) {
       print("Error fetching banners: $e");
-      setState(() {
+      safeSetState(() {
         bannerItems = [];
       });
     }

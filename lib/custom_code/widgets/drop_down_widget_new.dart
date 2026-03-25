@@ -24,7 +24,7 @@ class DropDownWidgetNew extends StatefulWidget {
   State<DropDownWidgetNew> createState() => _DropDownWidgetNewState();
 }
 
-class _DropDownWidgetNewState extends State<DropDownWidgetNew> {
+class _DropDownWidgetNewState extends State<DropDownWidgetNew> with GetxStatefulStateMixin {
   String? selectedCategoryName;
   String? selectedCategoryId;
   DocumentReference? selectedCategoryRef;
@@ -64,7 +64,7 @@ class _DropDownWidgetNewState extends State<DropDownWidgetNew> {
   /// Handle dropdown selection changes
   void _onCategoryChanged(
       String? newValue, List<Map<String, dynamic>> categories) {
-    setState(() {
+    safeSetState(() {
       selectedCategoryName = newValue;
 
       var selectedCategory = categories.firstWhere(

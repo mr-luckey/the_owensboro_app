@@ -19,7 +19,7 @@ class EditCatagoryScreenWidget extends StatefulWidget {
       _EditCatagoryScreenWidgetState();
 }
 
-class _EditCatagoryScreenWidgetState extends State<EditCatagoryScreenWidget> {
+class _EditCatagoryScreenWidgetState extends State<EditCatagoryScreenWidget> with GetxStatefulStateMixin {
   late EditCatagoryScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

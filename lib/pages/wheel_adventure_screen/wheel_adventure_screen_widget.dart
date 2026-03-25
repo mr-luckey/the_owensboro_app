@@ -13,12 +13,13 @@ import '/widgets/app_end_drawer.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'controller/wheel_adventure_screen_controller.dart';
 import 'wheel_adventure_screen_model.dart';
 export 'wheel_adventure_screen_model.dart';
 
@@ -33,68 +34,38 @@ class WheelAdventureScreenWidget extends StatefulWidget {
       _WheelAdventureScreenWidgetState();
 }
 
-class _WheelAdventureScreenWidgetState
-    extends State<WheelAdventureScreenWidget> {
-  late WheelAdventureScreenModel _model;
+class _WheelAdventureScreenWidgetState extends State<WheelAdventureScreenWidget> {
+  late WheelAdventureScreenController _controller;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  /// One key per widget instance (tab + pushed route each need their own).
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => WheelAdventureScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.selectedTab = 'Wheel of Adventure';
-      safeSetState(() {});
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
-
-    _model.textController5 ??= TextEditingController();
-    _model.textFieldFocusNode5 ??= FocusNode();
-
-    _model.textController6 ??= TextEditingController();
-    _model.textFieldFocusNode6 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<WheelAdventureScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<WheelAdventureScreenController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: _scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: AppEndDrawer(
-          scaffoldKey: scaffoldKey,
-          selectedTab: _model.selectedTab,
+          scaffoldKey: _scaffoldKey,
+          selectedTab: model.selectedTab,
           onSelectedTabChanged: (value) {
-            _model.selectedTab = value;
-            safeSetState(() {});
+            model.selectedTab = value;
+            controller.notifyUi();
           },
         ),
         appBar: MediaQuery.sizeOf(context).width >= 450.0
@@ -155,18 +126,21 @@ class _WheelAdventureScreenWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
-                            Get.toNamed(HomePageDynamicWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 0},
+                            );
                           },
                           child: Container(
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'HOME'
+                                color: model.selectedTab == 'HOME'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -214,18 +188,21 @@ class _WheelAdventureScreenWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'CUSTOMER SERVICE';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'CUSTOMER SERVICE';
+                            controller.notifyUi();
 
-                            Get.toNamed(ContactUsWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 3},
+                            );
                           },
                           child: Container(
                             width: 200.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'CUSTOMER SERVICE'
+                                color: model.selectedTab == 'CUSTOMER SERVICE'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -437,7 +414,7 @@ class _WheelAdventureScreenWidgetState
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         Form(
-                                          key: _model.formKey1,
+                                          key: model.formKey1,
                                           autovalidateMode:
                                               AutovalidateMode.disabled,
                                           child: Column(
@@ -561,9 +538,9 @@ class _WheelAdventureScreenWidgetState
                                                         child: Container(
                                                           width: 200.0,
                                                           child: TextFormField(
-                                                            controller: _model
+                                                            controller: model
                                                                 .textController1,
-                                                            focusNode: _model
+                                                            focusNode: model
                                                                 .textFieldFocusNode1,
                                                             autofocus: false,
                                                             obscureText: false,
@@ -710,7 +687,7 @@ class _WheelAdventureScreenWidgetState
                                                                     .primaryText,
                                                             enableInteractiveSelection:
                                                                 true,
-                                                            validator: _model
+                                                            validator: model
                                                                 .textController1Validator
                                                                 .asValidator(
                                                                     context),
@@ -782,9 +759,9 @@ class _WheelAdventureScreenWidgetState
                                                         child: Container(
                                                           width: 200.0,
                                                           child: TextFormField(
-                                                            controller: _model
+                                                            controller: model
                                                                 .textController2,
-                                                            focusNode: _model
+                                                            focusNode: model
                                                                 .textFieldFocusNode2,
                                                             autofocus: false,
                                                             obscureText: false,
@@ -931,7 +908,7 @@ class _WheelAdventureScreenWidgetState
                                                                     .primaryText,
                                                             enableInteractiveSelection:
                                                                 true,
-                                                            validator: _model
+                                                            validator: model
                                                                 .textController2Validator
                                                                 .asValidator(
                                                                     context),
@@ -1003,9 +980,9 @@ class _WheelAdventureScreenWidgetState
                                                         child: Container(
                                                           width: 200.0,
                                                           child: TextFormField(
-                                                            controller: _model
+                                                            controller: model
                                                                 .textController3,
-                                                            focusNode: _model
+                                                            focusNode: model
                                                                 .textFieldFocusNode3,
                                                             autofocus: false,
                                                             obscureText: false,
@@ -1153,7 +1130,7 @@ class _WheelAdventureScreenWidgetState
                                                                     .primaryText,
                                                             enableInteractiveSelection:
                                                                 true,
-                                                            validator: _model
+                                                            validator: model
                                                                 .textController3Validator
                                                                 .asValidator(
                                                                     context),
@@ -1170,10 +1147,10 @@ class _WheelAdventureScreenWidgetState
                                                         0.0, 20.0, 0.0, 0.0),
                                                 child: FFButtonWidget(
                                                   onPressed: () async {
-                                                    if (_model.formKey1
+                                                    if (model.formKey1
                                                                 .currentState ==
                                                             null ||
-                                                        !_model.formKey1
+                                                        !model.formKey1
                                                             .currentState!
                                                             .validate()) {
                                                       return;
@@ -1184,13 +1161,13 @@ class _WheelAdventureScreenWidgetState
                                                         .doc()
                                                         .set(
                                                             createContactUsRecordData(
-                                                          name: _model
+                                                          name: model
                                                               .textController1
                                                               .text,
-                                                          email: _model
+                                                          email: model
                                                               .textController2
                                                               .text,
-                                                          message: _model
+                                                          message: model
                                                               .textController3
                                                               .text,
                                                           timestamp:
@@ -1483,7 +1460,7 @@ class _WheelAdventureScreenWidgetState
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0.0, 0.0, 0.0, 100.0),
                                     child: Form(
-                                      key: _model.formKey2,
+                                      key: model.formKey2,
                                       autovalidateMode:
                                           AutovalidateMode.disabled,
                                       child: Column(
@@ -1620,9 +1597,9 @@ class _WheelAdventureScreenWidgetState
                                                     child: Container(
                                                       width: 200.0,
                                                       child: TextFormField(
-                                                        controller: _model
+                                                        controller: model
                                                             .textController4,
-                                                        focusNode: _model
+                                                        focusNode: model
                                                             .textFieldFocusNode4,
                                                         autofocus: false,
                                                         obscureText: false,
@@ -1778,7 +1755,7 @@ class _WheelAdventureScreenWidgetState
                                                                 .primaryText,
                                                         enableInteractiveSelection:
                                                             true,
-                                                        validator: _model
+                                                        validator: model
                                                             .textController4Validator
                                                             .asValidator(
                                                                 context),
@@ -1847,9 +1824,9 @@ class _WheelAdventureScreenWidgetState
                                                     child: Container(
                                                       width: 200.0,
                                                       child: TextFormField(
-                                                        controller: _model
+                                                        controller: model
                                                             .textController5,
-                                                        focusNode: _model
+                                                        focusNode: model
                                                             .textFieldFocusNode5,
                                                         autofocus: false,
                                                         obscureText: false,
@@ -2005,7 +1982,7 @@ class _WheelAdventureScreenWidgetState
                                                                 .primaryText,
                                                         enableInteractiveSelection:
                                                             true,
-                                                        validator: _model
+                                                        validator: model
                                                             .textController5Validator
                                                             .asValidator(
                                                                 context),
@@ -2074,9 +2051,9 @@ class _WheelAdventureScreenWidgetState
                                                     child: Container(
                                                       width: 200.0,
                                                       child: TextFormField(
-                                                        controller: _model
+                                                        controller: model
                                                             .textController6,
-                                                        focusNode: _model
+                                                        focusNode: model
                                                             .textFieldFocusNode6,
                                                         autofocus: false,
                                                         obscureText: false,
@@ -2233,7 +2210,7 @@ class _WheelAdventureScreenWidgetState
                                                                 .primaryText,
                                                         enableInteractiveSelection:
                                                             true,
-                                                        validator: _model
+                                                        validator: model
                                                             .textController6Validator
                                                             .asValidator(
                                                                 context),
@@ -2250,10 +2227,10 @@ class _WheelAdventureScreenWidgetState
                                                     0.0, 20.0, 0.0, 0.0),
                                             child: FFButtonWidget(
                                               onPressed: () async {
-                                                if (_model.formKey2
+                                                if (model.formKey2
                                                             .currentState ==
                                                         null ||
-                                                    !_model
+                                                    !model
                                                         .formKey2.currentState!
                                                         .validate()) {
                                                   return;
@@ -2263,11 +2240,11 @@ class _WheelAdventureScreenWidgetState
                                                     .doc()
                                                     .set(
                                                         createContactUsRecordData(
-                                                      name: _model
+                                                      name: model
                                                           .textController4.text,
-                                                      email: _model
+                                                      email: model
                                                           .textController5.text,
-                                                      message: _model
+                                                      message: model
                                                           .textController6.text,
                                                       timestamp:
                                                           getCurrentTimestamp,
@@ -2420,7 +2397,7 @@ class _WheelAdventureScreenWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
+                              _scaffoldKey.currentState?.openEndDrawer();
                             },
                             child: Icon(
                               Icons.menu,
@@ -2513,6 +2490,8 @@ class _WheelAdventureScreenWidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

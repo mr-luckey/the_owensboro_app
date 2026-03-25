@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:collection/collection.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'dart:math' show pow, pi, sin;
@@ -29,6 +30,19 @@ export 'package:cloud_firestore/cloud_firestore.dart'
     show DocumentReference, FirebaseFirestore;
 export 'package:page_transition/page_transition.dart';
 export 'nav/nav.dart';
+
+/// Replaces Flutter [State.setState] with a GetX-driven refresh (no
+/// [super.setState]). Use with `State` subclasses that call [safeSetState].
+mixin GetxStatefulStateMixin<T extends StatefulWidget> on State<T> {
+  @override
+  void setState(VoidCallback fn) {
+    if (!mounted) {
+      return;
+    }
+    fn();
+    Get.forceAppUpdate();
+  }
+}
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
@@ -369,12 +383,14 @@ extension ListDivideExt<T extends Widget> on Iterable<T> {
 }
 
 extension StatefulWidgetExtensions on State<StatefulWidget> {
-  /// Check if the widget exist before safely setting state.
+  /// Dispatches to [setState] ([GetxStatefulStateMixin] or widget override)
+  /// so FlutterFlow [FlutterFlowModel.onUpdate] still runs where overridden.
   void safeSetState(VoidCallback fn) {
-    if (mounted) {
-      // ignore: invalid_use_of_protected_member
-      setState(fn);
+    if (!mounted) {
+      return;
     }
+    // ignore: invalid_use_of_protected_member
+    setState(fn);
   }
 }
 

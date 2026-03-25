@@ -36,7 +36,7 @@ class SubCatagoryIconPicker extends StatefulWidget {
   State<SubCatagoryIconPicker> createState() => _SubCatagoryIconPickerState();
 }
 
-class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
+class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> with GetxStatefulStateMixin {
   File? _selectedFile;
   String? _svgContent;
   bool _isUploading = false;
@@ -63,7 +63,7 @@ class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
       if (kIsWeb) {
         if (file.bytes != null) {
           final svgData = String.fromCharCodes(file.bytes!);
-          setState(() {
+          safeSetState(() {
             _svgContent = svgData;
             _hasPickedNewImage = true;
           });
@@ -74,7 +74,7 @@ class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
       } else if (file.path != null) {
         final pickedFile = File(file.path!);
         final svgData = await pickedFile.readAsString();
-        setState(() {
+        safeSetState(() {
           _selectedFile = pickedFile;
           _svgContent = svgData;
           _hasPickedNewImage = true;
@@ -88,7 +88,7 @@ class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
 
   Future<void> _uploadSvgToFirebase(
       Uint8List fileBytes, String fileName) async {
-    setState(() => _isUploading = true);
+    safeSetState(() => _isUploading = true);
 
     try {
       // Create a reference to Firebase Storage
@@ -103,7 +103,7 @@ class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
       // Get the download URL
       final url = await uploadTask.ref.getDownloadURL();
 
-      setState(() {
+      safeSetState(() {
         _downloadUrl = url;
         _isUploading = false;
       });
@@ -113,7 +113,7 @@ class _SubCatagoryIconPickerState extends State<SubCatagoryIconPicker> {
 
       print('✅ Uploaded successfully! Download URL: $url');
     } catch (e) {
-      setState(() => _isUploading = false);
+      safeSetState(() => _isUploading = false);
       print('❌ Upload failed: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

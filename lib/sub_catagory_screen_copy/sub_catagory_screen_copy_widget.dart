@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -5,6 +7,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/sub_catagory_screen_copy_controller.dart';
 import 'sub_catagory_screen_copy_model.dart';
 export 'sub_catagory_screen_copy_model.dart';
 
@@ -19,45 +22,31 @@ class SubCatagoryScreenCopyWidget extends StatefulWidget {
       _SubCatagoryScreenCopyWidgetState();
 }
 
-class _SubCatagoryScreenCopyWidgetState
-    extends State<SubCatagoryScreenCopyWidget> {
-  late SubCatagoryScreenCopyModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _SubCatagoryScreenCopyWidgetState extends State<SubCatagoryScreenCopyWidget> {
+  late SubCatagoryScreenCopyController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SubCatagoryScreenCopyModel());
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<SubCatagoryScreenCopyController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<SubCatagoryScreenCopyController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: MediaQuery.sizeOf(context).width >= 450.0
             ? AppBar(
@@ -1588,8 +1577,8 @@ class _SubCatagoryScreenCopyWidgetState
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.8,
                                   child: TextFormField(
-                                    controller: _model.textController1,
-                                    focusNode: _model.textFieldFocusNode1,
+                                    controller: model.textController1,
+                                    focusNode: model.textFieldFocusNode1,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -1704,7 +1693,7 @@ class _SubCatagoryScreenCopyWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.textController1Validator
+                                    validator: model.textController1Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -1746,8 +1735,8 @@ class _SubCatagoryScreenCopyWidgetState
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.8,
                                   child: TextFormField(
-                                    controller: _model.textController2,
-                                    focusNode: _model.textFieldFocusNode2,
+                                    controller: model.textController2,
+                                    focusNode: model.textFieldFocusNode2,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -1862,7 +1851,7 @@ class _SubCatagoryScreenCopyWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.textController2Validator
+                                    validator: model.textController2Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -1904,8 +1893,8 @@ class _SubCatagoryScreenCopyWidgetState
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 0.8,
                                   child: TextFormField(
-                                    controller: _model.textController3,
-                                    focusNode: _model.textFieldFocusNode3,
+                                    controller: model.textController3,
+                                    focusNode: model.textFieldFocusNode3,
                                     autofocus: false,
                                     obscureText: false,
                                     decoration: InputDecoration(
@@ -2021,7 +2010,7 @@ class _SubCatagoryScreenCopyWidgetState
                                     cursorColor: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     enableInteractiveSelection: true,
-                                    validator: _model.textController3Validator
+                                    validator: model.textController3Validator
                                         .asValidator(context),
                                   ),
                                 ),
@@ -2081,6 +2070,8 @@ class _SubCatagoryScreenCopyWidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

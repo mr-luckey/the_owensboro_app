@@ -25,7 +25,7 @@ class ListingDropDownWidgetNew extends StatefulWidget {
       _ListingDropDownWidgetNewState();
 }
 
-class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
+class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> with GetxStatefulStateMixin {
   String? selectedCategoryName;
   String? selectedCategoryId;
   DocumentReference? selectedCategoryRef;
@@ -52,7 +52,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
 
   Future<void> getSubCategories(DocumentReference categoryRef) async {
     // ✅ Add loading state
-    setState(() {
+    safeSetState(() {
       _isLoadingSubCategories = true;
     });
 
@@ -62,7 +62,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
           .where('catagoriesRef', isEqualTo: categoryRef)
           .get();
 
-      setState(() {
+      safeSetState(() {
         subCategories = subCategorySnapshot.docs.map((doc) {
           return {
             'id': doc.id,
@@ -83,7 +83,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
 
       print("Subcategories for category ${categoryRef.path}: $subCategories");
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         _isLoadingSubCategories = false;
         subCategories = [];
       });
@@ -93,7 +93,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
 
   // ✅ Method to refresh categories if needed
   void refreshCategories() {
-    setState(() {
+    safeSetState(() {
       _categoriesFuture = getCategories();
     });
   }
@@ -203,7 +203,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
                             color: Color(0xffFC6E50)),
                       ),
                       onChanged: (String? newValue) async {
-                        setState(() {
+                        safeSetState(() {
                           selectedCategoryName = newValue;
 
                           var selectedCategory = categories.firstWhere(
@@ -309,7 +309,7 @@ class _ListingDropDownWidgetNewState extends State<ListingDropDownWidgetNew> {
                             color: Color(0xffFC6E50)),
                       ),
                       onChanged: (String? newValue) {
-                        setState(() {
+                        safeSetState(() {
                           selectedSubCategoryName = newValue;
                           var selectedSubCategory = subCategories.firstWhere(
                               (subCategory) => subCategory['name'] == newValue,

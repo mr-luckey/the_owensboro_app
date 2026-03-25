@@ -23,7 +23,7 @@ class AdminListingScreenWidget extends StatefulWidget {
       _AdminListingScreenWidgetState();
 }
 
-class _AdminListingScreenWidgetState extends State<AdminListingScreenWidget> {
+class _AdminListingScreenWidgetState extends State<AdminListingScreenWidget> with GetxStatefulStateMixin {
   late AdminListingScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

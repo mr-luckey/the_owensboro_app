@@ -30,8 +30,12 @@ class _DeleteReviewWidgetState extends State<DeleteReviewWidget> {
 
   @override
   void setState(VoidCallback callback) {
-    super.setState(callback);
+    if (!mounted) {
+      return;
+    }
+    callback();
     _model.onUpdate();
+    Get.forceAppUpdate();
   }
 
   @override

@@ -31,7 +31,7 @@ class ContactUsWidget extends StatefulWidget {
   State<ContactUsWidget> createState() => _ContactUsWidgetState();
 }
 
-class _ContactUsWidgetState extends State<ContactUsWidget> {
+class _ContactUsWidgetState extends State<ContactUsWidget> with GetxStatefulStateMixin {
   late ContactUsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

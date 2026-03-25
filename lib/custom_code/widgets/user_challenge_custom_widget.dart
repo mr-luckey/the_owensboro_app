@@ -34,7 +34,7 @@ class UserChallengeCustomWidget extends StatefulWidget {
       _UserChallengeCustomWidgetState();
 }
 
-class _UserChallengeCustomWidgetState extends State<UserChallengeCustomWidget> {
+class _UserChallengeCustomWidgetState extends State<UserChallengeCustomWidget> with GetxStatefulStateMixin {
   String? recentChallenge;
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class VideoAndAddReview extends StatefulWidget {
   State<VideoAndAddReview> createState() => _VideoAndAddReviewState();
 }
 
-class _VideoAndAddReviewState extends State<VideoAndAddReview> {
+class _VideoAndAddReviewState extends State<VideoAndAddReview> with GetxStatefulStateMixin {
   final TextEditingController _reviewController = TextEditingController();
   bool _isLoading = false;
 
@@ -110,7 +110,7 @@ class _VideoAndAddReviewState extends State<VideoAndAddReview> {
     }
 
     try {
-      setState(() {
+      safeSetState(() {
         _isLoading = true;
       });
 
@@ -136,13 +136,13 @@ class _VideoAndAddReviewState extends State<VideoAndAddReview> {
       );
 
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
         // _selectedRating = 0;
       });
     } catch (e) {
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
       });
       log("e ${e.toString()}");
@@ -439,7 +439,7 @@ class AddReview extends StatefulWidget {
   State<AddReview> createState() => _AddReviewState();
 }
 
-class _AddReviewState extends State<AddReview> {
+class _AddReviewState extends State<AddReview> with GetxStatefulStateMixin {
   bool _isLoading = false;
   int _selectedRating = 0;
 
@@ -464,7 +464,7 @@ class _AddReviewState extends State<AddReview> {
     }
 
     try {
-      setState(() {
+      safeSetState(() {
         _isLoading = true;
       });
 
@@ -491,13 +491,13 @@ class _AddReviewState extends State<AddReview> {
       );
 
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
         _selectedRating = 0;
       });
     } catch (e) {
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
       });
       log("e ${e.toString()}");
@@ -543,7 +543,7 @@ class _AddReviewState extends State<AddReview> {
       children: List.generate(5, (index) {
         return GestureDetector(
           onTap: () {
-            setState(() {
+            safeSetState(() {
               _selectedRating = index + 1;
             });
           },
@@ -691,7 +691,7 @@ class VideoPlayer extends StatefulWidget {
   State<VideoPlayer> createState() => _VideoPlayerState();
 }
 
-class _VideoPlayerState extends State<VideoPlayer> {
+class _VideoPlayerState extends State<VideoPlayer> with GetxStatefulStateMixin {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _isInitialized = false;
@@ -755,11 +755,11 @@ class _VideoPlayerState extends State<VideoPlayer> {
         autoInitialize: true,
       );
 
-      setState(() {
+      safeSetState(() {
         _isInitialized = true;
       });
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         _hasError = true;
       });
     }
@@ -937,7 +937,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
               const SizedBox(height: 24),
               ElevatedButton.icon(
                 onPressed: () {
-                  setState(() {
+                  safeSetState(() {
                     _hasError = false;
                     _isInitialized = false;
                   });
@@ -973,7 +973,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
 //   State<ReviewsSection> createState() => _ReviewsSectionState();
 // }
 
-// class _ReviewsSectionState extends State<ReviewsSection> {
+// class _ReviewsSectionState extends State<ReviewsSection> with GetxStatefulStateMixin {
 //   bool _showAllComments = false;
 
 //   @override
@@ -1119,7 +1119,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
 //                           child: Center(
 //                             child: ElevatedButton(
 //                               onPressed: () {
-//                                 setState(() {
+//                                 safeSetState(() {
 //                                   _showAllComments = !_showAllComments;
 //                                 });
 //                               },
@@ -1180,7 +1180,7 @@ class ReviewsSection extends StatefulWidget {
   State<ReviewsSection> createState() => _ReviewsSectionState();
 }
 
-class _ReviewsSectionState extends State<ReviewsSection> {
+class _ReviewsSectionState extends State<ReviewsSection> with GetxStatefulStateMixin {
   bool _showAllComments = false;
   bool _isLoading = true;
   String? _challengeID;
@@ -1201,20 +1201,20 @@ class _ReviewsSectionState extends State<ReviewsSection> {
 
       if (snapshot.docs.isNotEmpty) {
         DocumentSnapshot mostRecentChallenge = snapshot.docs.first;
-        setState(() {
+        safeSetState(() {
           _challengeID = mostRecentChallenge.id;
           Challenge().challengeID = mostRecentChallenge.id;
           _isLoading = false;
         });
         log("challengeID $_challengeID");
       } else {
-        setState(() {
+        safeSetState(() {
           _isLoading = false;
         });
         log("No challenges found!");
       }
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
       });
       log("Error fetching challenge: $e");
@@ -1360,7 +1360,7 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        setState(() {
+                        safeSetState(() {
                           _showAllComments = !_showAllComments;
                         });
                       },

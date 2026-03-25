@@ -3,14 +3,10 @@ import '/auth/base_auth_user_provider.dart';
 import '/backend/backend.dart';
 import '/components/alert_login_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'events_entertainment_screen_model.dart';
+import 'controller/events_entertainment_screen_controller.dart';
 export 'events_entertainment_screen_model.dart';
 
 class EventsEntertainmentScreenWidget extends StatefulWidget {
@@ -29,37 +25,29 @@ class EventsEntertainmentScreenWidget extends StatefulWidget {
       _EventsEntertainmentScreenWidgetState();
 }
 
-class _EventsEntertainmentScreenWidgetState
-    extends State<EventsEntertainmentScreenWidget> {
-  late EventsEntertainmentScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _EventsEntertainmentScreenWidgetState extends State<EventsEntertainmentScreenWidget> {
+  late EventsEntertainmentScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EventsEntertainmentScreenModel());
-
-    _model.switchValue = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<EventsEntertainmentScreenController>();
+    _controller.initModel(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _controller.notifyUi());
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<EventsEntertainmentScreenController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
@@ -83,14 +71,9 @@ class _EventsEntertainmentScreenWidgetState
                         padding: EdgeInsetsDirectional.fromSTEB(
                             10.0, 20.0, 0.0, 0.0),
                         child: Switch.adaptive(
-                          value: _model.switchValue!,
+                          value: model.switchValue ?? false,
                           onChanged: (newValue) async {
-                            safeSetState(() => _model.switchValue = newValue!);
-                            if (newValue!) {
-                              setDarkModeSetting(context, ThemeMode.dark);
-                            } else {
-                              setDarkModeSetting(context, ThemeMode.light);
-                            }
+                            controller.onThemeSwitchChanged(context, newValue);
                           },
                           activeColor: FlutterFlowTheme.of(context).primary,
                           activeTrackColor:
@@ -112,8 +95,8 @@ class _EventsEntertainmentScreenWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (scaffoldKey.currentState!.isDrawerOpen ||
-                                  scaffoldKey.currentState!.isEndDrawerOpen) {
+                              if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                  controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                                 Get.back();
                               }
                             },
@@ -135,8 +118,8 @@ class _EventsEntertainmentScreenWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'HOME';
-                        safeSetState(() {});
+                        model.selectedTab = 'HOME';
+                        controller.notifyUi();
 
                         Get.toNamed(HomePageWidget.routePath);
                       },
@@ -149,7 +132,7 @@ class _EventsEntertainmentScreenWidgetState
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'HOME'
+                              color: model.selectedTab == 'HOME'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -172,8 +155,8 @@ class _EventsEntertainmentScreenWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
+                          model.selectedTab = 'Wheel of Adventure';
+                          controller.notifyUi();
                           if (loggedIn) {
                             Get.toNamed(WheelAdventureScreenWidget.routePath);
 
@@ -222,7 +205,7 @@ class _EventsEntertainmentScreenWidgetState
                                       .fontStyle,
                                 ),
                                 color:
-                                    _model.selectedTab == 'Wheel of Adventure'
+                                    model.selectedTab == 'Wheel of Adventure'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -245,8 +228,8 @@ class _EventsEntertainmentScreenWidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'CUSTOMER SERVICES';
-                        safeSetState(() {});
+                        model.selectedTab = 'CUSTOMER SERVICES';
+                        controller.notifyUi();
 
                         Get.toNamed(ContactUsWidget.routePath);
                       },
@@ -259,7 +242,7 @@ class _EventsEntertainmentScreenWidgetState
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'CUSTOMER SERVICES'
+                              color: model.selectedTab == 'CUSTOMER SERVICES'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -316,9 +299,9 @@ class _EventsEntertainmentScreenWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
                             Get.toNamed(HomePageWidget.routePath);
                           },
@@ -327,7 +310,7 @@ class _EventsEntertainmentScreenWidgetState
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'HOME'
+                                color: model.selectedTab == 'HOME'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -376,9 +359,9 @@ class _EventsEntertainmentScreenWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.isSelected = true;
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.isSelected = true;
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
                                 Get.toNamed(WheelAdventureScreenWidget.routePath);
 
@@ -423,7 +406,7 @@ class _EventsEntertainmentScreenWidgetState
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color:
-                                      _model.selectedTab == 'Wheel of Adventure'
+                                      model.selectedTab == 'Wheel of Adventure'
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .primaryBackground,
@@ -474,9 +457,9 @@ class _EventsEntertainmentScreenWidgetState
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'CUSTOMER SERVICE';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'CUSTOMER SERVICE';
+                            controller.notifyUi();
 
                             Get.toNamed(ContactUsWidget.routePath);
                           },
@@ -485,7 +468,7 @@ class _EventsEntertainmentScreenWidgetState
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'CUSTOMER SERVICE'
+                                color: model.selectedTab == 'CUSTOMER SERVICE'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -536,6 +519,8 @@ class _EventsEntertainmentScreenWidgetState
               )
             : null,
       ),
+    );
+      },
     );
   }
 }

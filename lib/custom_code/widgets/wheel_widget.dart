@@ -34,7 +34,7 @@ class WheelWidget extends StatefulWidget {
   State<WheelWidget> createState() => _WheelWidgetState();
 }
 
-class _WheelWidgetState extends State<WheelWidget> {
+class _WheelWidgetState extends State<WheelWidget> with GetxStatefulStateMixin {
   StreamController<int> controller = StreamController<int>.broadcast();
 
   late CollectionReference categoriesCollection;
@@ -60,7 +60,7 @@ class _WheelWidgetState extends State<WheelWidget> {
   //   categoriesCollection = FirebaseFirestore.instance.collection('Catagories');
   //   QuerySnapshot snapshot = await categoriesCollection.get();
 
-  //   setState(() {
+  //   safeSetState(() {
   //     options =
   //         snapshot.docs.map((doc) => doc['catagoryName'].toString()).toList();
   //     isLoadingCategories = false;
@@ -71,7 +71,7 @@ class _WheelWidgetState extends State<WheelWidget> {
     categoriesCollection = FirebaseFirestore.instance.collection('Catagories');
     QuerySnapshot snapshot = await categoriesCollection.get();
 
-    setState(() {
+    safeSetState(() {
       options =
           snapshot.docs.map((doc) => doc['catagoryName'].toString()).toList();
       isLoadingCategories = false;
@@ -116,7 +116,7 @@ class _WheelWidgetState extends State<WheelWidget> {
   //       categoryCheckboxes[category] = false;
   //     }
   //   }
-  //   setState(() {});
+  //   safeSetState(() {});
   // }
   Future<void> loadCategories() async {
     // Load all available categories from the firestore
@@ -211,7 +211,7 @@ class _WheelWidgetState extends State<WheelWidget> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
+                    safeSetState(() {
                       categoryCheckboxes = tempCheckboxes;
                       selectedCategories = categoryCheckboxes.entries
                           .where((entry) => entry.value == true)
@@ -288,7 +288,7 @@ class _WheelWidgetState extends State<WheelWidget> {
   //               ),
   //               ElevatedButton(
   //                 onPressed: () {
-  //                   setState(() {
+  //                   safeSetState(() {
   //                     categoryCheckboxes = tempCheckboxes;
   //                     selectedCategories = categoryCheckboxes.entries
   //                         .where((entry) => entry.value == true)
@@ -400,7 +400,7 @@ class _WheelWidgetState extends State<WheelWidget> {
                                     //       selectedValue!);
                                     // }
 
-                                    // setState(() {
+                                    // safeSetState(() {
                                     //   isSpinning = false;
                                     // });
                                     print(
@@ -414,7 +414,7 @@ class _WheelWidgetState extends State<WheelWidget> {
                                           selectedValue!);
                                     }
 
-                                    setState(() {
+                                    safeSetState(() {
                                       isSpinning = false;
                                     });
                                   },
@@ -456,7 +456,7 @@ class _WheelWidgetState extends State<WheelWidget> {
                                 // if (isSpinning || wheelCategories.isEmpty)
                                 //   return;
 
-                                // setState(() {
+                                // safeSetState(() {
                                 //   isSpinning = true;
                                 // });
 
@@ -469,7 +469,7 @@ class _WheelWidgetState extends State<WheelWidget> {
                                 if (isSpinning || wheelCategories.isEmpty)
                                   return;
 
-                                setState(() {
+                                safeSetState(() {
                                   isSpinning = true;
                                 });
 

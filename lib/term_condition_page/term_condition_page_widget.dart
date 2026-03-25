@@ -11,9 +11,9 @@ import 'dart:ui';
 import '/index.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/term_condition_page_controller.dart';
 import 'term_condition_page_model.dart';
 export 'term_condition_page_model.dart';
 
@@ -29,39 +29,30 @@ class TermConditionPageWidget extends StatefulWidget {
 }
 
 class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
-  late TermConditionPageModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late TermConditionPageController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TermConditionPageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<TermConditionPageController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<TermConditionPageController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
@@ -88,8 +79,8 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
+                          if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                              controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                             Get.back();
                           }
                         },
@@ -141,13 +132,13 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
+                          model.selectedTab = 'Wheel of Adventure';
+                          controller.notifyUi();
                           if (loggedIn) {
                             Get.toNamed(WheelAdventureScreenWidget.routePath);
 
-                            if (scaffoldKey.currentState!.isDrawerOpen ||
-                                scaffoldKey.currentState!.isEndDrawerOpen) {
+                            if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                               Get.back();
                             }
 
@@ -886,7 +877,7 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
+                              controller.scaffoldKey.currentState!.openEndDrawer();
                             },
                             child: Icon(
                               Icons.menu,
@@ -1791,6 +1782,8 @@ class _TermConditionPageWidgetState extends State<TermConditionPageWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

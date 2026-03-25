@@ -24,7 +24,7 @@ class AdminCatagoryScreenWidget extends StatefulWidget {
       _AdminCatagoryScreenWidgetState();
 }
 
-class _AdminCatagoryScreenWidgetState extends State<AdminCatagoryScreenWidget> {
+class _AdminCatagoryScreenWidgetState extends State<AdminCatagoryScreenWidget> with GetxStatefulStateMixin {
   late AdminCatagoryScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

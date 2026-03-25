@@ -18,7 +18,7 @@ class EditScreenWidget extends StatefulWidget {
   State<EditScreenWidget> createState() => _EditScreenWidgetState();
 }
 
-class _EditScreenWidgetState extends State<EditScreenWidget> {
+class _EditScreenWidgetState extends State<EditScreenWidget> with GetxStatefulStateMixin {
   late EditScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

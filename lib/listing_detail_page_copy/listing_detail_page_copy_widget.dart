@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/listing_detail_page_copy_controller.dart';
 import 'listing_detail_page_copy_model.dart';
 export 'listing_detail_page_copy_model.dart';
 
@@ -20,36 +23,31 @@ class ListingDetailPageCopyWidget extends StatefulWidget {
       _ListingDetailPageCopyWidgetState();
 }
 
-class _ListingDetailPageCopyWidgetState
-    extends State<ListingDetailPageCopyWidget> {
-  late ListingDetailPageCopyModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _ListingDetailPageCopyWidgetState extends State<ListingDetailPageCopyWidget> {
+  late ListingDetailPageCopyController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ListingDetailPageCopyModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<ListingDetailPageCopyController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<ListingDetailPageCopyController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: MediaQuery.sizeOf(context).width >= 450.0
             ? AppBar(
@@ -1031,16 +1029,17 @@ class _ListingDetailPageCopyWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   RatingBar.builder(
-                                    onRatingUpdate: (newValue) => safeSetState(
-                                        () =>
-                                            _model.ratingBarValue1 = newValue),
+                                    onRatingUpdate: (newValue) {
+                                      model.ratingBarValue1 = newValue;
+                                      controller.notifyUi();
+                                    },
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star_rounded,
                                       color:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
                                     direction: Axis.horizontal,
-                                    initialRating: _model.ratingBarValue1 ??=
+                                    initialRating: model.ratingBarValue1 ??=
                                         3.0,
                                     unratedColor:
                                         FlutterFlowTheme.of(context).textColor,
@@ -1162,16 +1161,17 @@ class _ListingDetailPageCopyWidgetState
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   RatingBar.builder(
-                                    onRatingUpdate: (newValue) => safeSetState(
-                                        () =>
-                                            _model.ratingBarValue2 = newValue),
+                                    onRatingUpdate: (newValue) {
+                                      model.ratingBarValue2 = newValue;
+                                      controller.notifyUi();
+                                    },
                                     itemBuilder: (context, index) => Icon(
                                       Icons.star_rounded,
                                       color:
                                           FlutterFlowTheme.of(context).primary,
                                     ),
                                     direction: Axis.horizontal,
-                                    initialRating: _model.ratingBarValue2 ??=
+                                    initialRating: model.ratingBarValue2 ??=
                                         3.0,
                                     unratedColor:
                                         FlutterFlowTheme.of(context).textColor,
@@ -1322,6 +1322,8 @@ class _ListingDetailPageCopyWidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

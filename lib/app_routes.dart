@@ -2,7 +2,30 @@ import 'package:get/get.dart';
 
 import '/backend/backend.dart';
 import '/index.dart';
+import '/pages/events_entertainment_screen/controller/events_entertainment_screen_binding.dart';
+import '/pages/events_entertainment_screen_copy/controller/events_entertainment_screen_copy_binding.dart';
+import '/pages/events_entertainment_screen_copy_copy/controller/events_entertainment_screen_copy_copy_binding.dart';
+import '/pages/home_page/controller/home_page_binding.dart';
+import '/pages/home_page_dynamic/controller/home_page_dynamic_binding.dart';
+import '/pages/home_page_dynamic_copy/controller/home_page_dynamic_copy_binding.dart';
+import '/pages/home_page_with_data/controller/home_page_with_data_binding.dart';
+import '/pages/main_bottom_nav/controller/main_bottom_nav_binding.dart';
+import '/pages/wheel_adventure_screen/controller/wheel_adventure_screen_binding.dart';
 import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
+import '/challenge_screen/controller/challenge_screen_binding.dart';
+import '/listing_detail_page/controller/listing_detail_page_binding.dart';
+import '/listing_detail_page_copy/controller/listing_detail_page_copy_binding.dart';
+import '/listing_detail_page_copy2/controller/listing_detail_page_copy2_binding.dart';
+import '/listing_page/controller/listing_page_binding.dart';
+import '/login_screen/controller/login_screen_binding.dart';
+import '/owensboro_games/controller/owensboro_games_binding.dart';
+import '/sub_catagory_screen/controller/sub_catagory_screen_binding.dart';
+import '/sub_catagory_screen_copy/controller/sub_catagory_screen_copy_binding.dart';
+import '/term_condition_page/controller/term_condition_page_binding.dart';
+import '/user_side_login_screen/controller/user_side_login_screen_binding.dart';
+import '/user_side_sign_up_screen/controller/user_side_sign_up_screen_binding.dart';
+import '/view_all_reviews_screen/controller/view_all_reviews_screen_binding.dart';
+import '/voting_screen/controller/voting_screen_binding.dart';
 
 /// Central GetX route names (paths). Use these for [Get.toNamed], [Get.offNamed], etc.
 class AppRoutes {
@@ -65,11 +88,13 @@ class AppPages {
   static final List<GetPage<dynamic>> pages = <GetPage<dynamic>>[
     GetPage<void>(
       name: MainBottomNavWidget.routePath,
-      page: () => MainBottomNavWidget(),
+      page: () => const MainBottomNavWidget(),
+      binding: MainBottomNavBinding(),
     ),
     GetPage<void>(
       name: HomePageWidget.routePath,
       page: () => const HomePageWidget(),
+      binding: HomePageBinding(),
     ),
     GetPage<void>(
       name: EventsEntertainmentScreenWidget.routePath,
@@ -79,10 +104,12 @@ class AppPages {
           catagories: args?['catagories'] as CatagoriesRecord?,
         );
       },
+      binding: EventsEntertainmentScreenBinding(),
     ),
     GetPage<void>(
       name: LoginScreenWidget.routePath,
       page: () => const LoginScreenWidget(),
+      binding: LoginScreenBinding(),
     ),
     GetPage<void>(
       name: SignUpScreenWidget.routePath,
@@ -96,10 +123,12 @@ class AppPages {
           subCatagoriesRef: args?['subCatagoriesRef'] as SubCatagoriesRecord?,
         );
       },
+      binding: SubCatagoryScreenBinding(),
     ),
     GetPage<void>(
       name: SubCatagoryScreenCopyWidget.routePath,
       page: () => const SubCatagoryScreenCopyWidget(),
+      binding: SubCatagoryScreenCopyBinding(),
     ),
     GetPage<void>(
       name: ListingDetailPageWidget.routePath,
@@ -109,14 +138,17 @@ class AppPages {
           product: args?['product'] as ProductsRecord?,
         );
       },
+      binding: ListingDetailPageBinding(),
     ),
     GetPage<void>(
       name: ListingDetailPageCopyWidget.routePath,
       page: () => const ListingDetailPageCopyWidget(),
+      binding: ListingDetailPageCopyBinding(),
     ),
     GetPage<void>(
       name: VotingScreenWidget.routePath,
       page: () => const VotingScreenWidget(),
+      binding: VotingScreenBinding(),
     ),
     GetPage<void>(
       name: AdminDashboardScreenWidget.routePath,
@@ -141,10 +173,12 @@ class AppPages {
     GetPage<void>(
       name: WheelAdventureScreenWidget.routePath,
       page: () => const WheelAdventureScreenWidget(),
+      binding: WheelAdventureScreenBinding(),
     ),
     GetPage<void>(
       name: HomePageDynamicWidget.routePath,
       page: () => const HomePageDynamicWidget(),
+      binding: HomePageDynamicBinding(),
     ),
     GetPage<void>(
       name: EventsEntertainmentScreenCopyWidget.routePath,
@@ -154,18 +188,22 @@ class AppPages {
           catagories: args?['catagories'] as CatagoriesRecord?,
         );
       },
+      binding: EventsEntertainmentScreenCopyBinding(),
     ),
     GetPage<void>(
       name: UserSideLoginScreenWidget.routePath,
       page: () => const UserSideLoginScreenWidget(),
+      binding: UserSideLoginScreenBinding(),
     ),
     GetPage<void>(
       name: UserSideSignUpScreenWidget.routePath,
       page: () => const UserSideSignUpScreenWidget(),
+      binding: UserSideSignUpScreenBinding(),
     ),
     GetPage<void>(
       name: HomePageWithDataWidget.routePath,
       page: () => const HomePageWithDataWidget(),
+      binding: HomePageWithDataBinding(),
     ),
     GetPage<void>(
       name: NewscreenWidget.routePath,
@@ -179,6 +217,7 @@ class AppPages {
           product: args?['product'] as ProductsRecord?,
         );
       },
+      binding: ViewAllReviewsScreenBinding(),
     ),
     GetPage<void>(
       name: EditScreenWidget.routePath,
@@ -195,6 +234,7 @@ class AppPages {
     GetPage<void>(
       name: TermConditionPageWidget.routePath,
       page: () => const TermConditionPageWidget(),
+      binding: TermConditionPageBinding(),
     ),
     GetPage<void>(
       name: PrivacyPageCopyWidget.routePath,
@@ -208,14 +248,17 @@ class AppPages {
           subCatagoriesRef: args?['subCatagoriesRef'] as SubCatagoriesRecord?,
         );
       },
+      binding: ListingPageBinding(),
     ),
     GetPage<void>(
       name: ChallengeScreenWidget.routePath,
       page: () => const ChallengeScreenWidget(),
+      binding: ChallengeScreenBinding(),
     ),
     GetPage<void>(
       name: OwensboroGamesWidget.routePath,
       page: () => const OwensboroGamesWidget(),
+      binding: OwensboroGamesBinding(),
     ),
     GetPage<void>(
       name: ListingDetailPageCopy2Widget.routePath,
@@ -225,10 +268,12 @@ class AppPages {
           product: args?['product'] as ProductsRecord?,
         );
       },
+      binding: ListingDetailPageCopy2Binding(),
     ),
     GetPage<void>(
       name: HomePageDynamicCopyWidget.routePath,
       page: () => const HomePageDynamicCopyWidget(),
+      binding: HomePageDynamicCopyBinding(),
     ),
     GetPage<void>(
       name: EventsEntertainmentScreenCopyCopyWidget.routePath,
@@ -238,6 +283,7 @@ class AppPages {
           catagories: args?['catagories'] as CatagoriesRecord?,
         );
       },
+      binding: EventsEntertainmentScreenCopyCopyBinding(),
     ),
     GetPage<void>(
       name: AdminDashboardScreenCopyWidget.routePath,

@@ -22,7 +22,7 @@ class SignUpScreenWidget extends StatefulWidget {
   State<SignUpScreenWidget> createState() => _SignUpScreenWidgetState();
 }
 
-class _SignUpScreenWidgetState extends State<SignUpScreenWidget> {
+class _SignUpScreenWidgetState extends State<SignUpScreenWidget> with GetxStatefulStateMixin {
   late SignUpScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

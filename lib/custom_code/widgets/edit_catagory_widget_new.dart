@@ -26,7 +26,7 @@ class EditCatagoryWidgetNew extends StatefulWidget {
   State<EditCatagoryWidgetNew> createState() => _EditCatagoryWidgetNewState();
 }
 
-class _EditCatagoryWidgetNewState extends State<EditCatagoryWidgetNew> {
+class _EditCatagoryWidgetNewState extends State<EditCatagoryWidgetNew> with GetxStatefulStateMixin {
   DocumentReference? selectedCategoryRef;
   late CollectionReference categoriesCollection;
   Future<QuerySnapshot>? _categoriesFuture;
@@ -57,7 +57,7 @@ class _EditCatagoryWidgetNewState extends State<EditCatagoryWidgetNew> {
 
   // Method to refresh the data
   void refreshCategories() {
-    setState(() {
+    safeSetState(() {
       _categoriesFuture = getCategories();
     });
   }
@@ -144,7 +144,7 @@ class _EditCatagoryWidgetNewState extends State<EditCatagoryWidgetNew> {
                 child: Icon(Icons.arrow_drop_down, color: Color(0xffFC6E50)),
               ),
               onChanged: (DocumentReference? newRef) {
-                setState(() {
+                safeSetState(() {
                   // ✅ Added setState to trigger rebuild
                   selectedCategoryRef = newRef;
                   print("selectedCategoryRef: ${selectedCategoryRef?.path}");

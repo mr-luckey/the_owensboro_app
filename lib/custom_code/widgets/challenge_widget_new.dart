@@ -40,7 +40,7 @@ class ChallengeWidgetNew extends StatefulWidget {
   State<ChallengeWidgetNew> createState() => _ChallengeWidgetNewState();
 }
 
-class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
+class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> with GetxStatefulStateMixin {
   bool _isLoading = true;
   @override
   void initState() {
@@ -66,7 +66,7 @@ class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
             challengeName != newChallengeName ||
             challengeId != newChallengeId) {
           if (mounted) {
-            setState(() {
+            safeSetState(() {
               videoUrl = newVideoUrl;
               challengeName = newChallengeName;
               challengeId = newChallengeId;
@@ -74,7 +74,7 @@ class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
             });
           }
         } else if (_isLoading) {
-          setState(() => _isLoading = false);
+          safeSetState(() => _isLoading = false);
         }
       }
     });
@@ -207,7 +207,7 @@ class _ChallengeWidgetNewState extends State<ChallengeWidgetNew> {
     //                                           .doc(challengeId)
     //                                           .delete();
 
-    //                                       setState(() {});
+    //                                       safeSetState(() {});
     //                                       Get.back();
     //                                     },
     //                                   ),
@@ -254,8 +254,7 @@ class ChallengeDisplayWidget extends StatefulWidget {
   State<ChallengeDisplayWidget> createState() => _ChallengeDisplayWidgetState();
 }
 
-class _ChallengeDisplayWidgetState extends State<ChallengeDisplayWidget>
-    with AutomaticKeepAliveClientMixin {
+class _ChallengeDisplayWidgetState extends State<ChallengeDisplayWidget> with GetxStatefulStateMixin, AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -350,7 +349,7 @@ class _ChallengeDisplayWidgetState extends State<ChallengeDisplayWidget>
 //   State<AdminVideoPlayer> createState() => _AdminVideoPlayerState();
 // }
 
-// class _AdminVideoPlayerState extends State<AdminVideoPlayer> {
+// class _AdminVideoPlayerState extends State<AdminVideoPlayer> with GetxStatefulStateMixin {
 //   late VideoPlayerController _videoPlayerController;
 //   ChewieController? _chewieController;
 //   bool _isInitialized = false;
@@ -386,7 +385,7 @@ class _ChallengeDisplayWidgetState extends State<ChallengeDisplayWidget>
 //       autoInitialize: true,
 //     );
 
-//     setState(() {
+//     safeSetState(() {
 //       _isInitialized = true;
 //     });
 //   }
@@ -414,8 +413,7 @@ class AdminVideoPlayer extends StatefulWidget {
   State<AdminVideoPlayer> createState() => _AdminVideoPlayerState();
 }
 
-class _AdminVideoPlayerState extends State<AdminVideoPlayer>
-    with AutomaticKeepAliveClientMixin {
+class _AdminVideoPlayerState extends State<AdminVideoPlayer> with GetxStatefulStateMixin, AutomaticKeepAliveClientMixin {
   VideoPlayerController? _videoPlayerController;
   ChewieController? _chewieController;
   bool _isInitialized = false;
@@ -464,14 +462,14 @@ class _AdminVideoPlayerState extends State<AdminVideoPlayer>
       );
 
       if (mounted && !_isDisposed) {
-        setState(() {
+        safeSetState(() {
           _isInitialized = true;
         });
       }
     } catch (e) {
       print('Error initializing video player: $e');
       if (mounted && !_isDisposed) {
-        setState(() {
+        safeSetState(() {
           _isInitialized = false;
         });
       }
@@ -511,7 +509,7 @@ class _AdminVideoPlayerState extends State<AdminVideoPlayer>
 //   State<ChallengeWidget> createState() => _ChallengeWidgetState();
 // }
 
-// class _ChallengeWidgetState extends State<ChallengeWidget> {
+// class _ChallengeWidgetState extends State<ChallengeWidget> with GetxStatefulStateMixin {
 //   String? videoUrl;
 //   String? challengeId;
 
@@ -610,7 +608,7 @@ class _AdminVideoPlayerState extends State<AdminVideoPlayer>
 //                                               .doc(challengeId)
 //                                               .delete();
 
-//                                           setState(() {});
+//                                           safeSetState(() {});
 //                                           Get.back();
 //                                         },
 //                                       ),
@@ -758,7 +756,7 @@ class AddBannerDialog extends StatefulWidget {
   State<AddBannerDialog> createState() => _AddBannerDialogState();
 }
 
-class _AddBannerDialogState extends State<AddBannerDialog> {
+class _AddBannerDialogState extends State<AddBannerDialog> with GetxStatefulStateMixin {
   final TextEditingController _bannerNameController = TextEditingController();
   final TextEditingController _challengeDescription = TextEditingController();
 
@@ -809,7 +807,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
     VideoFileWrapper? videoWrapper,
   ) async {
     try {
-      setState(() {
+      safeSetState(() {
         _isLoading = true;
       });
 
@@ -890,7 +888,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
           ),
         );
 
-        setState(() {
+        safeSetState(() {
           _isLoading = false;
         });
 
@@ -900,7 +898,7 @@ class _AddBannerDialogState extends State<AddBannerDialog> {
       log("Error: ${e.toString()}");
 
       if (mounted) {
-        setState(() {
+        safeSetState(() {
           _isLoading = false;
         });
 
@@ -1392,7 +1390,7 @@ class CustomVideoPickerWidget extends StatefulWidget {
       _CustomVideoPickerWidgetState();
 }
 
-class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
+class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> with GetxStatefulStateMixin {
   VideoFileWrapper? _videoWrapper;
   VideoPlayerController? _controller;
   final ImagePicker _picker = ImagePicker();
@@ -1417,7 +1415,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
   }
 
   Future<void> _loadInitialVideo() async {
-    setState(() => _isLoading = true);
+    safeSetState(() => _isLoading = true);
 
     try {
       // Create a wrapper to indicate this is an existing video
@@ -1430,7 +1428,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
     } catch (e) {
       _showErrorSnackbar('Failed to load video: ${e.toString()}');
     } finally {
-      setState(() => _isLoading = false);
+      safeSetState(() => _isLoading = false);
     }
   }
 
@@ -1438,10 +1436,10 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
     _controller?.dispose();
     _controller = VideoPlayerController.networkUrl(Uri.parse(url))
       ..initialize().then((_) {
-        setState(() {});
+        safeSetState(() {});
         _controller!.setLooping(true);
         _controller!.addListener(() {
-          setState(() {});
+          safeSetState(() {});
         });
       }).catchError((error) {
         _showErrorSnackbar('Failed to load video from URL');
@@ -1449,7 +1447,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
   }
 
   Future<void> _pickVideo(ImageSource source) async {
-    setState(() => _isLoading = true);
+    safeSetState(() => _isLoading = true);
 
     try {
       final XFile? pickedFile = await _picker.pickVideo(source: source);
@@ -1479,7 +1477,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
     } catch (e) {
       _showErrorSnackbar('Error: ${e.toString()}');
     } finally {
-      setState(() => _isLoading = false);
+      safeSetState(() => _isLoading = false);
     }
   }
 
@@ -1489,10 +1487,10 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
     _controller?.dispose();
     _controller = VideoPlayerController.file(_videoWrapper!.file!)
       ..initialize().then((_) {
-        setState(() {});
+        safeSetState(() {});
         _controller!.setLooping(true);
         _controller!.addListener(() {
-          setState(() {});
+          safeSetState(() {});
         });
       }).catchError((error) {
         _showErrorSnackbar('Failed to load video');
@@ -1503,10 +1501,10 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
     _controller?.dispose();
     _controller = VideoPlayerController.networkUrl(Uri.parse(file.path))
       ..initialize().then((_) {
-        setState(() {});
+        safeSetState(() {});
         _controller!.setLooping(true);
         _controller!.addListener(() {
-          setState(() {});
+          safeSetState(() {});
         });
       }).catchError((error) {
         _showErrorSnackbar('Failed to load video');
@@ -1839,7 +1837,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
               _buildIconButton(
                 icon: Icons.delete_rounded,
                 onPressed: () {
-                  setState(() {
+                  safeSetState(() {
                     _videoWrapper = null;
                     _controller?.dispose();
                     _controller = null;
@@ -1917,7 +1915,7 @@ class _CustomVideoPickerWidgetState extends State<CustomVideoPickerWidget> {
         Center(
           child: GestureDetector(
             onTap: () {
-              setState(() {
+              safeSetState(() {
                 _controller!.value.isPlaying
                     ? _controller!.pause()
                     : _controller!.play();

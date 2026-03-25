@@ -34,7 +34,7 @@ class WheelWithFilters extends StatefulWidget {
   State<WheelWithFilters> createState() => _WheelWithFiltersState();
 }
 
-class _WheelWithFiltersState extends State<WheelWithFilters> {
+class _WheelWithFiltersState extends State<WheelWithFilters> with GetxStatefulStateMixin {
   StreamController<int> controller = StreamController<int>.broadcast();
 
   // Categories data
@@ -85,7 +85,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
 
   // Initial data load
   Future<void> _loadInitialData() async {
-    setState(() {
+    safeSetState(() {
       isLoadingProducts = true;
     });
 
@@ -93,7 +93,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
     QuerySnapshot productsSnapshot =
         await FirebaseFirestore.instance.collection('Products').limit(10).get();
 
-    setState(() {
+    safeSetState(() {
       wheelProducts = productsSnapshot.docs
           .map((doc) => doc['productName'].toString())
           .toList();
@@ -106,7 +106,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
     QuerySnapshot snapshot =
         await FirebaseFirestore.instance.collection('Catagories').get();
 
-    setState(() {
+    safeSetState(() {
       allCategories =
           snapshot.docs.map((doc) => doc['catagoryName'].toString()).toList();
 
@@ -125,7 +125,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
   // Load subcategories based on selected categories
   Future<void> loadSubcategories() async {
     if (selectedCategories.isEmpty) {
-      setState(() {
+      safeSetState(() {
         allSubcategories = [];
         subcategoryCheckboxes = {};
       });
@@ -139,7 +139,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
         .toList();
 
     if (selectedCategoryRefs.isEmpty) {
-      setState(() {
+      safeSetState(() {
         allSubcategories = [];
         subcategoryCheckboxes = {};
       });
@@ -151,7 +151,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
         .where('catagoriesRef', whereIn: selectedCategoryRefs)
         .get();
 
-    setState(() {
+    safeSetState(() {
       allSubcategories =
           snapshot.docs.map((doc) => doc['name'].toString()).toList();
 
@@ -202,7 +202,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
 
     QuerySnapshot snapshot = await query.limit(10).get();
 
-    setState(() {
+    safeSetState(() {
       wheelProducts =
           snapshot.docs.map((doc) => doc['productName'].toString()).toList();
     });
@@ -279,7 +279,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
                       return;
                     }
 
-                    setState(() {
+                    safeSetState(() {
                       categoryCheckboxes = tempCheckboxes;
                       selectedCategories = categoryCheckboxes.entries
                           .where((entry) => entry.value == true)
@@ -414,7 +414,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
                       return;
                     }
 
-                    setState(() {
+                    safeSetState(() {
                       subcategoryCheckboxes = tempCheckboxes;
                       selectedSubcategories = subcategoryCheckboxes.entries
                           .where((entry) => entry.value == true)
@@ -573,7 +573,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
         if (selectedCategories.isNotEmpty || selectedSubcategories.isNotEmpty)
           TextButton(
             onPressed: () async {
-              setState(() {
+              safeSetState(() {
                 selectedCategories = [];
                 selectedSubcategories = [];
                 categoryCheckboxes = {};
@@ -626,7 +626,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
                                           );
                                         }
 
-                                        setState(() {
+                                        safeSetState(() {
                                           isSpinning = false;
                                         });
                                       },
@@ -670,7 +670,7 @@ class _WheelWithFiltersState extends State<WheelWithFilters> {
                                     if (isSpinning || wheelProducts.isEmpty)
                                       return;
 
-                                    setState(() {
+                                    safeSetState(() {
                                       isSpinning = true;
                                     });
 

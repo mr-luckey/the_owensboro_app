@@ -32,7 +32,7 @@ class UserChallengeWidget extends StatefulWidget {
   State<UserChallengeWidget> createState() => _UserChallengeWidgetState();
 }
 
-class _UserChallengeWidgetState extends State<UserChallengeWidget> {
+class _UserChallengeWidgetState extends State<UserChallengeWidget> with GetxStatefulStateMixin {
   String? recentChallenge;
 
   @override
@@ -324,7 +324,7 @@ class AddReview extends StatefulWidget {
   State<AddReview> createState() => _AddReviewState();
 }
 
-class _AddReviewState extends State<AddReview> {
+class _AddReviewState extends State<AddReview> with GetxStatefulStateMixin {
   bool _isLoading = false;
 
   final TextEditingController _reviewController = TextEditingController();
@@ -341,7 +341,7 @@ class _AddReviewState extends State<AddReview> {
     }
 
     try {
-      setState(() {
+      safeSetState(() {
         _isLoading = true;
       });
 
@@ -360,12 +360,12 @@ class _AddReviewState extends State<AddReview> {
       );
 
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
       });
     } catch (e) {
       _reviewController.clear();
-      setState(() {
+      safeSetState(() {
         _isLoading = false;
       });
       log("e ${e.toString()}");
@@ -497,7 +497,7 @@ class VideoPlayer extends StatefulWidget {
   State<VideoPlayer> createState() => _VideoPlayerState();
 }
 
-class _VideoPlayerState extends State<VideoPlayer> {
+class _VideoPlayerState extends State<VideoPlayer> with GetxStatefulStateMixin {
   late VideoPlayerController _videoPlayerController;
   ChewieController? _chewieController;
   bool _isInitialized = false;
@@ -533,7 +533,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
       autoInitialize: true,
     );
 
-    setState(() {
+    safeSetState(() {
       _isInitialized = true;
     });
   }

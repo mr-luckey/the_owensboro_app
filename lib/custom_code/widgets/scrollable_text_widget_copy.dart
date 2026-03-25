@@ -26,7 +26,7 @@ class ScrollableTextWidget extends StatefulWidget {
   State<ScrollableTextWidget> createState() => _ScrollableTextWidgetState();
 }
 
-class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
+class _ScrollableTextWidgetState extends State<ScrollableTextWidget> with GetxStatefulStateMixin {
   String concatenatedBannerNames = "";
 
   @override
@@ -48,12 +48,12 @@ class _ScrollableTextWidgetState extends State<ScrollableTextWidget> {
       String result =
           bannerNames.map((name) => "✦ $name ✦").join("\u2003\u2003\u2003");
 
-      setState(() {
+      safeSetState(() {
         concatenatedBannerNames = result;
       });
     } catch (e) {
       print("Error fetching banners: $e");
-      setState(() {
+      safeSetState(() {
         concatenatedBannerNames = "Error loading banners";
       });
     }

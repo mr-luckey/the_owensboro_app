@@ -26,7 +26,7 @@ class DropDownWidget extends StatefulWidget {
   State<DropDownWidget> createState() => _DropDownWidgetState();
 }
 
-class _DropDownWidgetState extends State<DropDownWidget> {
+class _DropDownWidgetState extends State<DropDownWidget> with GetxStatefulStateMixin {
   String? selectedCategoryName;
   String? selectedCategoryId;
   DocumentReference? selectedCategoryRef;
@@ -84,7 +84,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
                   ),
                   icon: SizedBox(),
                   onChanged: (String? newValue) {
-                    setState(() {
+                    safeSetState(() {
                       selectedCategoryName = newValue;
 
                       var selectedCategory = categories.firstWhere(

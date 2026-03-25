@@ -12,9 +12,9 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/voting_screen_controller.dart';
 import 'voting_screen_model.dart';
 export 'voting_screen_model.dart';
 
@@ -29,46 +29,37 @@ class VotingScreenWidget extends StatefulWidget {
 }
 
 class _VotingScreenWidgetState extends State<VotingScreenWidget> {
-  late VotingScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late VotingScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => VotingScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<VotingScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<VotingScreenController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: AppEndDrawer(
-          scaffoldKey: scaffoldKey,
-          selectedTab: _model.selectedTab,
+          scaffoldKey: controller.scaffoldKey,
+          selectedTab: model.selectedTab,
           onSelectedTabChanged: (value) {
-            _model.selectedTab = value;
-            safeSetState(() {});
+            model.selectedTab = value;
+            controller.notifyUi();
           },
         ),
         // endDrawer: Drawer(
@@ -873,6 +864,8 @@ class _VotingScreenWidgetState extends State<VotingScreenWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

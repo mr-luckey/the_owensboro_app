@@ -28,7 +28,7 @@ class SearchWidget extends StatefulWidget {
   State<SearchWidget> createState() => _SearchWidgetState();
 }
 
-class _SearchWidgetState extends State<SearchWidget> {
+class _SearchWidgetState extends State<SearchWidget> with GetxStatefulStateMixin {
   // List<String> selectedItems = [];
   // final TextEditingController _searchController = TextEditingController();
   // String? selectedProductDetails = ''; // Store selected product details
@@ -83,7 +83,7 @@ class _SearchWidgetState extends State<SearchWidget> {
   //     if (docSnapshot.exists) {
   //       var productData = docSnapshot.data() as Map<String, dynamic>;
 
-  //       setState(() {
+  //       safeSetState(() {
   //         selectedProductDetails = 'Name: ${productData['productName']}\n'
   //             'Price: ${productData['price']}\n'
   //             'Description: ${productData['description']}';
@@ -180,7 +180,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
       if (docSnapshot.exists) {
         var productData = docSnapshot.data() as Map<String, dynamic>;
-        setState(() {
+        safeSetState(() {
           selectedProductDetails = 'Name: ${productData['productName']}\n'
               'Price: ${productData['price']}\n'
               'Description: ${productData['description']}';

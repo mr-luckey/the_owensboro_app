@@ -36,7 +36,7 @@ class ListingImageWidget extends StatefulWidget {
   State<ListingImageWidget> createState() => _ListingImageWidgetState();
 }
 
-class _ListingImageWidgetState extends State<ListingImageWidget> {
+class _ListingImageWidgetState extends State<ListingImageWidget> with GetxStatefulStateMixin {
   final ImagePicker _picker = ImagePicker();
   File? _imageFile; // Mobile/Desktop ke liye
   XFile? _webImageFile; // Web ke liye
@@ -63,7 +63,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
       );
 
       if (pickedFile != null) {
-        setState(() {
+        safeSetState(() {
           if (kIsWeb) {
             _webImageFile = pickedFile; // Web ke liye
           } else {
@@ -80,7 +80,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
   }
 
   Future<void> _uploadImageToFirebase(XFile imageFile) async {
-    setState(() {
+    safeSetState(() {
       _isUploading = true;
       _uploadProgress = 0.0;
     });
@@ -109,7 +109,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
 
       // Upload progress track karen
       uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-        setState(() {
+        safeSetState(() {
           _uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes;
         });
       });
@@ -120,7 +120,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
       // Download URL get karen
       String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
-      setState(() {
+      safeSetState(() {
         _uploadedImageUrl = downloadUrl;
 
         FFAppState().listingImage = _uploadedImageUrl!;
@@ -134,7 +134,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
 
       // _showSuccessSnackbar('Image successfully upload ho gayi!');
     } catch (e) {
-      setState(() {
+      safeSetState(() {
         _isUploading = false;
       });
       _showErrorSnackbar('Upload error: $e');
@@ -197,7 +197,7 @@ class _ListingImageWidgetState extends State<ListingImageWidget> {
 
   // Image remove karne ka function
   void _removeImage() {
-    setState(() {
+    safeSetState(() {
       _imageFile = null;
       _webImageFile = null;
       _uploadedImageUrl = null;

@@ -30,7 +30,7 @@ class WheelMobile extends StatefulWidget {
   State<WheelMobile> createState() => _WheelMobileState();
 }
 
-class _WheelMobileState extends State<WheelMobile> {
+class _WheelMobileState extends State<WheelMobile> with GetxStatefulStateMixin {
   StreamController<int> controller = StreamController<int>.broadcast();
 
   late CollectionReference categoriesCollection;
@@ -56,7 +56,7 @@ class _WheelMobileState extends State<WheelMobile> {
   //   categoriesCollection = FirebaseFirestore.instance.collection('Catagories');
   //   QuerySnapshot snapshot = await categoriesCollection.get();
 
-  //   setState(() {
+  //   safeSetState(() {
   //     options =
   //         snapshot.docs.map((doc) => doc['catagoryName'].toString()).toList();
   //     isLoadingCategories = false;
@@ -67,7 +67,7 @@ class _WheelMobileState extends State<WheelMobile> {
     categoriesCollection = FirebaseFirestore.instance.collection('Catagories');
     QuerySnapshot snapshot = await categoriesCollection.get();
 
-    setState(() {
+    safeSetState(() {
       options =
           snapshot.docs.map((doc) => doc['catagoryName'].toString()).toList();
       isLoadingCategories = false;
@@ -112,7 +112,7 @@ class _WheelMobileState extends State<WheelMobile> {
   //       categoryCheckboxes[category] = false;
   //     }
   //   }
-  //   setState(() {});
+  //   safeSetState(() {});
   // }
   Future<void> loadCategories() async {
     // Load all available categories from the firestore
@@ -217,7 +217,7 @@ class _WheelMobileState extends State<WheelMobile> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    setState(() {
+                    safeSetState(() {
                       categoryCheckboxes = tempCheckboxes;
                       selectedCategories = categoryCheckboxes.entries
                           .where((entry) => entry.value == true)
@@ -326,7 +326,7 @@ class _WheelMobileState extends State<WheelMobile> {
                                     //       selectedValue!);
                                     // }
 
-                                    // setState(() {
+                                    // safeSetState(() {
                                     //   isSpinning = false;
                                     // });
                                     print(
@@ -340,7 +340,7 @@ class _WheelMobileState extends State<WheelMobile> {
                                           selectedValue!);
                                     }
 
-                                    setState(() {
+                                    safeSetState(() {
                                       isSpinning = false;
                                     });
                                   },
@@ -382,7 +382,7 @@ class _WheelMobileState extends State<WheelMobile> {
                                 // if (isSpinning || wheelCategories.isEmpty)
                                 //   return;
 
-                                // setState(() {
+                                // safeSetState(() {
                                 //   isSpinning = true;
                                 // });
 
@@ -395,7 +395,7 @@ class _WheelMobileState extends State<WheelMobile> {
                                 if (isSpinning || wheelCategories.isEmpty)
                                   return;
 
-                                setState(() {
+                                safeSetState(() {
                                   isSpinning = true;
                                 });
 

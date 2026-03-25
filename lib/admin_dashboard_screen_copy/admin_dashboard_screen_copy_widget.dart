@@ -42,8 +42,7 @@ class AdminDashboardScreenCopyWidget extends StatefulWidget {
       _AdminDashboardScreenCopyWidgetState();
 }
 
-class _AdminDashboardScreenCopyWidgetState
-    extends State<AdminDashboardScreenCopyWidget> {
+class _AdminDashboardScreenCopyWidgetState extends State<AdminDashboardScreenCopyWidget> with GetxStatefulStateMixin {
   late AdminDashboardScreenCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

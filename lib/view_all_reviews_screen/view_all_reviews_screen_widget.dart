@@ -12,10 +12,10 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/view_all_reviews_screen_controller.dart';
 import 'view_all_reviews_screen_model.dart';
 export 'view_all_reviews_screen_model.dart';
 
@@ -35,41 +35,31 @@ class ViewAllReviewsScreenWidget extends StatefulWidget {
       _ViewAllReviewsScreenWidgetState();
 }
 
-class _ViewAllReviewsScreenWidgetState
-    extends State<ViewAllReviewsScreenWidget> {
-  late ViewAllReviewsScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _ViewAllReviewsScreenWidgetState extends State<ViewAllReviewsScreenWidget> {
+  late ViewAllReviewsScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ViewAllReviewsScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<ViewAllReviewsScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<ViewAllReviewsScreenController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -618,6 +608,8 @@ class _ViewAllReviewsScreenWidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

@@ -26,7 +26,7 @@ class PrivacyPageWidget extends StatefulWidget {
   State<PrivacyPageWidget> createState() => _PrivacyPageWidgetState();
 }
 
-class _PrivacyPageWidgetState extends State<PrivacyPageWidget> {
+class _PrivacyPageWidgetState extends State<PrivacyPageWidget> with GetxStatefulStateMixin {
   late PrivacyPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

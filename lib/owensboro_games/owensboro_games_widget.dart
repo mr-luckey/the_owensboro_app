@@ -9,11 +9,12 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '/widgets/app_end_drawer.dart';
+import 'controller/owensboro_games_controller.dart';
 import 'owensboro_games_model.dart';
 export 'owensboro_games_model.dart';
 
@@ -28,42 +29,33 @@ class OwensboroGamesWidget extends StatefulWidget {
 }
 
 class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
-  late OwensboroGamesModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late OwensboroGamesController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => OwensboroGamesModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<OwensboroGamesController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<OwensboroGamesController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: AppEndDrawer(
-          scaffoldKey: scaffoldKey,
+          scaffoldKey: controller.scaffoldKey,
           selectedTab: null,
           onSelectedTabChanged: (value) {},
         ),
@@ -125,9 +117,12 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            safeSetState(() {});
+                            controller.notifyUi();
 
-                            Get.toNamed(HomePageDynamicWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 0},
+                            );
                           },
                           child: Container(
                             width: 100.0,
@@ -175,9 +170,12 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            safeSetState(() {});
+                            controller.notifyUi();
 
-                            Get.toNamed(ContactUsWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 3},
+                            );
                           },
                           child: Container(
                             width: 200.0,
@@ -500,7 +498,7 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                scaffoldKey.currentState!.openEndDrawer();
+                                controller.scaffoldKey.currentState!.openEndDrawer();
                               },
                               child: Icon(
                                 Icons.menu,
@@ -595,6 +593,8 @@ class _OwensboroGamesWidgetState extends State<OwensboroGamesWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

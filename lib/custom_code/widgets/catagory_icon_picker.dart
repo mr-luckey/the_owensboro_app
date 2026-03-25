@@ -35,7 +35,7 @@ class CatagoryIconPicker extends StatefulWidget {
   State<CatagoryIconPicker> createState() => _CatagoryIconPickerState();
 }
 
-class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
+class _CatagoryIconPickerState extends State<CatagoryIconPicker> with GetxStatefulStateMixin {
   File? _selectedFile;
   String? _svgContent;
   bool _isUploading = false;
@@ -69,7 +69,7 @@ class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
 
       if (kIsWeb) {
         if (file.bytes != null) {
-          setState(() {
+          safeSetState(() {
             _imageBytes = file.bytes;
             _fileExtension = extension;
             _svgContent =
@@ -81,7 +81,7 @@ class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
       } else if (file.path != null) {
         final pickedFile = File(file.path!);
         final bytes = await pickedFile.readAsBytes();
-        setState(() {
+        safeSetState(() {
           _selectedFile = pickedFile;
           _imageBytes = bytes;
           _fileExtension = extension;
@@ -111,7 +111,7 @@ class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
   }
 
   Future<void> _uploadToFirebase(Uint8List fileBytes, String fileName) async {
-    setState(() => _isUploading = true);
+    safeSetState(() => _isUploading = true);
 
     try {
       // Create a reference to Firebase Storage
@@ -126,7 +126,7 @@ class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
       // Get the download URL
       final url = await uploadTask.ref.getDownloadURL();
 
-      setState(() {
+      safeSetState(() {
         // FFAppState().selectedImagePath = url;
         widget.onUrlGenerated?.call(url);
 
@@ -136,7 +136,7 @@ class _CatagoryIconPickerState extends State<CatagoryIconPicker> {
 
       print('✅ Uploaded successfully! Download URL: $url');
     } catch (e) {
-      setState(() => _isUploading = false);
+      safeSetState(() => _isUploading = false);
       print('❌ Upload failed: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Upload failed: $e')),

@@ -20,7 +20,7 @@ class NewscreenWidget extends StatefulWidget {
   State<NewscreenWidget> createState() => _NewscreenWidgetState();
 }
 
-class _NewscreenWidgetState extends State<NewscreenWidget> {
+class _NewscreenWidgetState extends State<NewscreenWidget> with GetxStatefulStateMixin {
   late NewscreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'text_component_model.dart';
+import 'package:get/get.dart';
 export 'text_component_model.dart';
 
 class TextComponentWidget extends StatefulWidget {
@@ -20,8 +21,12 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
 
   @override
   void setState(VoidCallback callback) {
-    super.setState(callback);
+    if (!mounted) {
+      return;
+    }
+    callback();
     _model.onUpdate();
+    Get.forceAppUpdate();
   }
 
   @override

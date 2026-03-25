@@ -9,6 +9,7 @@ import '/components/logout_alert_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/owensboro_games/owensboro_games_widget.dart';
 import '/pages/home_page_dynamic/home_page_dynamic_widget.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import '/pages/wheel_adventure_screen/wheel_adventure_screen_widget.dart';
 import '/privacy_page/privacy_page_widget.dart';
 import '/term_condition_page/term_condition_page_widget.dart';
@@ -119,7 +120,10 @@ class AppEndDrawer extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     onSelectedTabChanged('HOME');
-                    Get.toNamed(HomePageDynamicWidget.routePath);
+                    Get.offAllNamed(
+                      MainBottomNavWidget.routePath,
+                      arguments: <String, dynamic>{'tabIndex': 0},
+                    );
                   },
                   child: Text(
                     'HOME',
@@ -190,7 +194,10 @@ class AppEndDrawer extends StatelessWidget {
                     onTap: () async {
                       onSelectedTabChanged('Wheel of adventure');
                       if (loggedIn) {
-                        Get.toNamed(WheelAdventureScreenWidget.routePath);
+                        Get.offAllNamed(
+                          MainBottomNavWidget.routePath,
+                          arguments: <String, dynamic>{'tabIndex': 1},
+                        );
                         _closeDrawerIfOpen();
                         return;
                       } else {
@@ -255,7 +262,10 @@ class AppEndDrawer extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     onSelectedTabChanged('CUSTOMER SERVICES');
-                    Get.toNamed(ContactUsWidget.routePath);
+                    Get.offAllNamed(
+                      MainBottomNavWidget.routePath,
+                      arguments: <String, dynamic>{'tabIndex': 3},
+                    );
                   },
                   child: Text(
                     'CUSTOMER SERVICES',
@@ -288,7 +298,10 @@ class AppEndDrawer extends StatelessWidget {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     onSelectedTabChanged('GAMES');
-                    Get.toNamed(OwensboroGamesWidget.routePath);
+                    Get.offAllNamed(
+                      MainBottomNavWidget.routePath,
+                      arguments: <String, dynamic>{'tabIndex': 2},
+                    );
                     _closeDrawerIfOpen();
                   },
                   child: Text(

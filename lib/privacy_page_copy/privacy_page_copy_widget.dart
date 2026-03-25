@@ -20,7 +20,7 @@ class PrivacyPageCopyWidget extends StatefulWidget {
   State<PrivacyPageCopyWidget> createState() => _PrivacyPageCopyWidgetState();
 }
 
-class _PrivacyPageCopyWidgetState extends State<PrivacyPageCopyWidget> {
+class _PrivacyPageCopyWidgetState extends State<PrivacyPageCopyWidget> with GetxStatefulStateMixin {
   late PrivacyPageCopyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();

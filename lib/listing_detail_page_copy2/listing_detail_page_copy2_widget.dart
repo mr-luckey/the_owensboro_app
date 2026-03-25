@@ -22,6 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/listing_detail_page_copy2_controller.dart';
 import 'listing_detail_page_copy2_model.dart';
 export 'listing_detail_page_copy2_model.dart';
 
@@ -41,47 +42,31 @@ class ListingDetailPageCopy2Widget extends StatefulWidget {
       _ListingDetailPageCopy2WidgetState();
 }
 
-class _ListingDetailPageCopy2WidgetState
-    extends State<ListingDetailPageCopy2Widget> {
-  late ListingDetailPageCopy2Model _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _ListingDetailPageCopy2WidgetState extends State<ListingDetailPageCopy2Widget> {
+  late ListingDetailPageCopy2Controller _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ListingDetailPageCopy2Model());
-
-    _model.switchValue1 = false;
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.switchValue2 = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<ListingDetailPageCopy2Controller>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<ListingDetailPageCopy2Controller>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
@@ -108,11 +93,12 @@ class _ListingDetailPageCopy2WidgetState
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 20.0, 0.0, 0.0),
                           child: Switch.adaptive(
-                            value: _model.switchValue2!,
+                            value: model.switchValue2!,
                             onChanged: (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue2 = newValue!);
-                              if (newValue!) {
+                              final v = newValue ?? false;
+                              model.switchValue2 = v;
+                              controller.notifyUi();
+                              if (v) {
                                 setDarkModeSetting(context, ThemeMode.dark);
                               } else {
                                 setDarkModeSetting(context, ThemeMode.light);
@@ -138,8 +124,8 @@ class _ListingDetailPageCopy2WidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                if (scaffoldKey.currentState!.isDrawerOpen ||
-                                    scaffoldKey.currentState!.isEndDrawerOpen) {
+                                if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                    controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                                   Get.back();
                                 }
                               },
@@ -162,8 +148,8 @@ class _ListingDetailPageCopy2WidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'HOME';
-                        safeSetState(() {});
+                        model.selectedTab = 'HOME';
+                        controller.notifyUi();
 
                         Get.toNamed(HomePageDynamicWidget.routePath);
                       },
@@ -176,7 +162,7 @@ class _ListingDetailPageCopy2WidgetState
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'HOME'
+                              color: model.selectedTab == 'HOME'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -199,8 +185,8 @@ class _ListingDetailPageCopy2WidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
+                          model.selectedTab = 'Wheel of Adventure';
+                          controller.notifyUi();
                           if (loggedIn) {
                             Get.toNamed(WheelAdventureScreenWidget.routePath);
 
@@ -249,7 +235,7 @@ class _ListingDetailPageCopy2WidgetState
                                       .fontStyle,
                                 ),
                                 color:
-                                    _model.selectedTab == 'Wheel of Adventure'
+                                    model.selectedTab == 'Wheel of Adventure'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -272,8 +258,8 @@ class _ListingDetailPageCopy2WidgetState
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'CUSTOMER SERVICES';
-                        safeSetState(() {});
+                        model.selectedTab = 'CUSTOMER SERVICES';
+                        controller.notifyUi();
 
                         Get.toNamed(ContactUsWidget.routePath);
                       },
@@ -286,7 +272,7 @@ class _ListingDetailPageCopy2WidgetState
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'CUSTOMER SERVICES'
+                              color: model.selectedTab == 'CUSTOMER SERVICES'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -975,11 +961,12 @@ class _ListingDetailPageCopy2WidgetState
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Switch.adaptive(
-                            value: _model.switchValue1!,
+                            value: model.switchValue1!,
                             onChanged: (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue1 = newValue!);
-                              if (newValue!) {
+                              final v = newValue ?? false;
+                              model.switchValue1 = v;
+                              controller.notifyUi();
+                              if (v) {
                                 setDarkModeSetting(context, ThemeMode.dark);
                               } else {
                                 setDarkModeSetting(context, ThemeMode.light);
@@ -1087,7 +1074,7 @@ class _ListingDetailPageCopy2WidgetState
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  scaffoldKey.currentState!.openEndDrawer();
+                                  controller.scaffoldKey.currentState!.openEndDrawer();
                                 },
                                 child: Icon(
                                   Icons.menu,
@@ -4531,7 +4518,7 @@ class _ListingDetailPageCopy2WidgetState
                         ),
                       ),
                       Form(
-                        key: _model.formKey,
+                        key: model.formKey,
                         autovalidateMode: AutovalidateMode.disabled,
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -4579,8 +4566,8 @@ class _ListingDetailPageCopy2WidgetState
                                             MediaQuery.sizeOf(context).width *
                                                 0.8,
                                         child: TextFormField(
-                                          controller: _model.textController1,
-                                          focusNode: _model.textFieldFocusNode1,
+                                          controller: model.textController1,
+                                          focusNode: model.textFieldFocusNode1,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -4717,7 +4704,7 @@ class _ListingDetailPageCopy2WidgetState
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           enableInteractiveSelection: true,
-                                          validator: _model
+                                          validator: model
                                               .textController1Validator
                                               .asValidator(context),
                                         ),
@@ -4764,8 +4751,8 @@ class _ListingDetailPageCopy2WidgetState
                                             MediaQuery.sizeOf(context).width *
                                                 0.8,
                                         child: TextFormField(
-                                          controller: _model.textController2,
-                                          focusNode: _model.textFieldFocusNode2,
+                                          controller: model.textController2,
+                                          focusNode: model.textFieldFocusNode2,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -4902,7 +4889,7 @@ class _ListingDetailPageCopy2WidgetState
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           enableInteractiveSelection: true,
-                                          validator: _model
+                                          validator: model
                                               .textController2Validator
                                               .asValidator(context),
                                         ),
@@ -4949,8 +4936,8 @@ class _ListingDetailPageCopy2WidgetState
                                             MediaQuery.sizeOf(context).width *
                                                 0.8,
                                         child: TextFormField(
-                                          controller: _model.textController3,
-                                          focusNode: _model.textFieldFocusNode3,
+                                          controller: model.textController3,
+                                          focusNode: model.textFieldFocusNode3,
                                           autofocus: false,
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -5088,7 +5075,7 @@ class _ListingDetailPageCopy2WidgetState
                                               FlutterFlowTheme.of(context)
                                                   .primaryText,
                                           enableInteractiveSelection: true,
-                                          validator: _model
+                                          validator: model
                                               .textController3Validator
                                               .asValidator(context),
                                         ),
@@ -5102,8 +5089,8 @@ class _ListingDetailPageCopy2WidgetState
                                     0.0, 35.0, 0.0, 100.0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    if (_model.formKey.currentState == null ||
-                                        !_model.formKey.currentState!
+                                    if (model.formKey.currentState == null ||
+                                        !model.formKey.currentState!
                                             .validate()) {
                                       return;
                                     }
@@ -5111,9 +5098,9 @@ class _ListingDetailPageCopy2WidgetState
                                     await ContactUsRecord.collection
                                         .doc()
                                         .set(createContactUsRecordData(
-                                          name: _model.textController1.text,
-                                          email: _model.textController2.text,
-                                          message: _model.textController3.text,
+                                          name: model.textController1.text,
+                                          email: model.textController2.text,
+                                          message: model.textController3.text,
                                           timestamp: getCurrentTimestamp,
                                         ));
                                     ScaffoldMessenger.of(context).showSnackBar(
@@ -5188,6 +5175,8 @@ class _ListingDetailPageCopy2WidgetState
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

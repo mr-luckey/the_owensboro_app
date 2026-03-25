@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -52,7 +55,7 @@ class MyAppScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with GetxStatefulStateMixin {
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
@@ -74,8 +77,10 @@ class _MyAppState extends State<MyApp> {
       });
     jwtTokenStream.listen((_) {});
 
-    // Preload home categories data while splash is visible.
-    _preloadHomeData();
+    // Warm categories in the background — do not await before leaving splash or
+    // a slow/hanging Firestore call can leave [initialRoute] stuck forever.
+    unawaited(_warmCategoriesCache());
+    _dismissSplashAfterFirstFrame();
   }
 
   @override
@@ -85,25 +90,32 @@ class _MyAppState extends State<MyApp> {
     super.dispose();
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
         FlutterFlowTheme.saveThemeMode(mode);
       });
 
-  Future<void> _preloadHomeData() async {
+  /// Hides splash on the next frame so we never call [safeSetState] during
+  /// [build] (avoids setState/markNeedsBuild errors with [Get.forceAppUpdate]).
+  void _dismissSplashAfterFirstFrame() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+      safeSetState(() {
+        _showSplash = false;
+      });
+    });
+  }
+
+  /// Best-effort Firestore warm-up; home screen still loads its own data if needed.
+  Future<void> _warmCategoriesCache() async {
     try {
-      // Wait for the first batch of categories used by the home grid.
       await queryCatagoriesRecord(
         queryBuilder: (catagoriesRecord) => catagoriesRecord.orderBy('order'),
-      ).first;
+      ).first.timeout(const Duration(seconds: 15));
     } catch (_) {
-      // Ignore errors; we still want to proceed to the home screen.
-    } finally {
-      if (mounted) {
-        setState(() {
-          _showSplash = false;
-        });
-      }
+      // Ignore — network/offline/timeouts should not block the app shell.
     }
   }
 

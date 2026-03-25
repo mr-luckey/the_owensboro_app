@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class FlutterFlowIconButton extends StatefulWidget {
   const FlutterFlowIconButton({
@@ -41,7 +42,7 @@ class FlutterFlowIconButton extends StatefulWidget {
   State<FlutterFlowIconButton> createState() => _FlutterFlowIconButtonState();
 }
 
-class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
+class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> with GetxStatefulStateMixin {
   bool loading = false;
   late double? iconSize;
   late Color? iconColor;
@@ -176,12 +177,12 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
                     if (loading) {
                       return;
                     }
-                    setState(() => loading = true);
+                    safeSetState(() => loading = true);
                     try {
                       await widget.onPressed!();
                     } finally {
                       if (mounted) {
-                        setState(() => loading = false);
+                        safeSetState(() => loading = false);
                       }
                     }
                   },

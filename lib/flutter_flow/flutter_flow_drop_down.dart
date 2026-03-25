@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/foundation.dart';
 import 'form_field_controller.dart';
 import 'package:flutter/material.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class FlutterFlowDropDown<T> extends StatefulWidget {
   const FlutterFlowDropDown({
@@ -86,7 +87,8 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
   State<FlutterFlowDropDown<T>> createState() => _FlutterFlowDropDownState<T>();
 }
 
-class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
+class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>>
+    with GetxStatefulStateMixin {
   bool get isMultiSelect => widget.isMultiSelect;
   FormFieldController<T?> get controller => widget.controller!;
   FormFieldController<List<T>?> get multiSelectController =>
@@ -248,7 +250,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
                         : multiSelectController.value!.add(item);
                     multiSelectController.update();
                     // This rebuilds the StatefulWidget to update the button's text.
-                    setState(() {});
+                    safeSetState(() {});
                     // This rebuilds the dropdownMenu Widget to update the check mark.
                     menuSetState(() {});
                   },

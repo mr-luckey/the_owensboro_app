@@ -12,12 +12,14 @@ import '/widgets/main_navigation_bar.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'controller/home_page_dynamic_copy_controller.dart';
 import 'home_page_dynamic_copy_model.dart';
 export 'home_page_dynamic_copy_model.dart';
 
@@ -33,65 +35,32 @@ class HomePageDynamicCopyWidget extends StatefulWidget {
 }
 
 class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
-  late HomePageDynamicCopyModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late HomePageDynamicCopyController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageDynamicCopyModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-      if (scaffoldKey.currentState!.isDrawerOpen ||
-          scaffoldKey.currentState!.isEndDrawerOpen) {
-        Get.back();
-      }
-
-      _model.selectedTab = 'HOME';
-      safeSetState(() {});
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
-
-    _model.textController5 ??= TextEditingController();
-    _model.textFieldFocusNode5 ??= FocusNode();
-
-    _model.textController6 ??= TextEditingController();
-    _model.textFieldFocusNode6 ??= FocusNode();
-
-    _model.switchValue = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
+    _controller = Get.find<HomePageDynamicCopyController>();
+    _controller.initModel(context);
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<HomePageDynamicCopyController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
@@ -118,15 +87,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 20.0, 0.0, 0.0),
                           child: Switch.adaptive(
-                            value: _model.switchValue!,
+                            value: model.switchValue ?? false,
                             onChanged: (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue = newValue!);
-                              if (newValue!) {
-                                setDarkModeSetting(context, ThemeMode.dark);
-                              } else {
-                                setDarkModeSetting(context, ThemeMode.light);
-                              }
+                              controller.onThemeSwitchChanged(context, newValue);
                             },
                             activeColor: FlutterFlowTheme.of(context).primary,
                             activeTrackColor:
@@ -148,8 +111,8 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                if (scaffoldKey.currentState!.isDrawerOpen ||
-                                    scaffoldKey.currentState!.isEndDrawerOpen) {
+                                if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                    controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                                   Get.back();
                                 }
                               },
@@ -172,8 +135,8 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'HOME';
-                        safeSetState(() {});
+                        model.selectedTab = 'HOME';
+                        controller.notifyUi();
 
                         Get.toNamed(HomePageDynamicCopyWidget.routePath);
                       },
@@ -186,7 +149,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'HOME'
+                              color: model.selectedTab == 'HOME'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -209,18 +172,21 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
+                          model.selectedTab = 'Wheel of Adventure';
+                          controller.notifyUi();
                           if (loggedIn) {
-                            Get.toNamed(WheelAdventureScreenWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 1},
+                            );
 
-                            if (scaffoldKey.currentState!.isDrawerOpen ||
-                                scaffoldKey.currentState!.isEndDrawerOpen) {
+                            if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                                controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                               Get.back();
                             }
 
-                            _model.selectedTab = '.';
-                            safeSetState(() {});
+                            model.selectedTab = '.';
+                            controller.notifyUi();
                             return;
                           } else {
                             await showDialog(
@@ -266,7 +232,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                       .fontStyle,
                                 ),
                                 color:
-                                    _model.selectedTab == 'Wheel of Adventure'
+                                    model.selectedTab == 'Wheel of Adventure'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -289,10 +255,13 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'CUSTOMER SERVICES';
-                        safeSetState(() {});
+                        model.selectedTab = 'CUSTOMER SERVICES';
+                        controller.notifyUi();
 
-                        Get.toNamed(ContactUsWidget.routePath);
+                        Get.offAllNamed(
+                          MainBottomNavWidget.routePath,
+                          arguments: <String, dynamic>{'tabIndex': 3},
+                        );
                       },
                       child: Text(
                         'CUSTOMER SERVICES',
@@ -303,7 +272,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'CUSTOMER SERVICES'
+                              color: model.selectedTab == 'CUSTOMER SERVICES'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -375,7 +344,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                             .bodyMedium
                                             .fontStyle,
                                       ),
-                                      color: _model.selectedTab ==
+                                      color: model.selectedTab ==
                                               'CUSTOMER SERVICES'
                                           ? FlutterFlowTheme.of(context).error
                                           : FlutterFlowTheme.of(context).error,
@@ -595,7 +564,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: _model.selectedTab ==
+                                    color: model.selectedTab ==
                                             'CUSTOMER SERVICES'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
@@ -638,7 +607,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: _model.selectedTab ==
+                                    color: model.selectedTab ==
                                             'CUSTOMER SERVICES'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
@@ -699,9 +668,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
                             Get.toNamed(HomePageDynamicCopyWidget.routePath);
                           },
@@ -710,7 +679,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'HOME'
+                                color: model.selectedTab == 'HOME'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -759,11 +728,14 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.isSelected = true;
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.isSelected = true;
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
-                                Get.toNamed(WheelAdventureScreenWidget.routePath);
+                                Get.offAllNamed(
+                                  MainBottomNavWidget.routePath,
+                                  arguments: <String, dynamic>{'tabIndex': 1},
+                                );
 
                                 return;
                               } else {
@@ -805,7 +777,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: _model.selectedTab == 'VOTING'
+                                  color: model.selectedTab == 'VOTING'
                                       ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
                                           .primaryBackground,
@@ -856,18 +828,21 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'CUSTOMER SERVICE';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'CUSTOMER SERVICE';
+                            controller.notifyUi();
 
-                            Get.toNamed(ContactUsWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 3},
+                            );
                           },
                           child: Container(
                             width: 200.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'CUSTOMER SERVICE'
+                                color: model.selectedTab == 'CUSTOMER SERVICE'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -1087,7 +1062,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    scaffoldKey.currentState!.openEndDrawer();
+                                    controller.scaffoldKey.currentState!.openEndDrawer();
                                   },
                                   child: Icon(
                                     Icons.menu,
@@ -1415,7 +1390,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Form(
-                                    key: _model.formKey1,
+                                    key: model.formKey1,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -1525,9 +1500,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController1,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode1,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1685,7 +1660,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController1Validator
                                                           .asValidator(context),
                                                     ),
@@ -1752,9 +1727,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController2,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode2,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -1912,7 +1887,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController2Validator
                                                           .asValidator(context),
                                                     ),
@@ -1979,9 +1954,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController3,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode3,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -2140,7 +2115,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController3Validator
                                                           .asValidator(context),
                                                     ),
@@ -2156,10 +2131,10 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (_model.formKey1
+                                              if (model.formKey1
                                                           .currentState ==
                                                       null ||
-                                                  !_model.formKey1.currentState!
+                                                  !model.formKey1.currentState!
                                                       .validate()) {
                                                 return;
                                               }
@@ -2168,11 +2143,11 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   .doc()
                                                   .set(
                                                       createContactUsRecordData(
-                                                    name: _model
+                                                    name: model
                                                         .textController1.text,
-                                                    email: _model
+                                                    email: model
                                                         .textController2.text,
-                                                    message: _model
+                                                    message: model
                                                         .textController3.text,
                                                     timestamp:
                                                         getCurrentTimestamp,
@@ -2447,7 +2422,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                 clipBehavior: Clip.none,
                                 children: [
                                   Form(
-                                    key: _model.formKey2,
+                                    key: model.formKey2,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -2546,9 +2521,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController4,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode4,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -2706,7 +2681,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController4Validator
                                                           .asValidator(context),
                                                     ),
@@ -2773,9 +2748,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController5,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode5,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -2933,7 +2908,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController5Validator
                                                           .asValidator(context),
                                                     ),
@@ -3000,9 +2975,9 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController6,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode6,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -3161,7 +3136,7 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController6Validator
                                                           .asValidator(context),
                                                     ),
@@ -3177,10 +3152,10 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (_model.formKey2
+                                              if (model.formKey2
                                                           .currentState ==
                                                       null ||
-                                                  !_model.formKey2.currentState!
+                                                  !model.formKey2.currentState!
                                                       .validate()) {
                                                 return;
                                               }
@@ -3189,11 +3164,11 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
                                                   .doc()
                                                   .set(
                                                       createContactUsRecordData(
-                                                    name: _model
+                                                    name: model
                                                         .textController4.text,
-                                                    email: _model
+                                                    email: model
                                                         .textController5.text,
-                                                    message: _model
+                                                    message: model
                                                         .textController6.text,
                                                     timestamp:
                                                         getCurrentTimestamp,
@@ -3555,6 +3530,8 @@ class _HomePageDynamicCopyWidgetState extends State<HomePageDynamicCopyWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

@@ -17,9 +17,9 @@ import 'dart:math' as math;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'controller/sub_catagory_screen_controller.dart';
 import 'sub_catagory_screen_model.dart';
 export 'sub_catagory_screen_model.dart';
 
@@ -40,48 +40,30 @@ class SubCatagoryScreenWidget extends StatefulWidget {
 }
 
 class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
-  late SubCatagoryScreenModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late SubCatagoryScreenController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SubCatagoryScreenModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<SubCatagoryScreenController>();
+    _controller.initModel(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<SubCatagoryScreenController>(
+      builder: (controller) {
+        final model = controller.model;
+        if (model == null) {
+          return const SizedBox.shrink();
+        }
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         endDrawer: Drawer(
           elevation: 16.0,
@@ -108,8 +90,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          if (scaffoldKey.currentState!.isDrawerOpen ||
-                              scaffoldKey.currentState!.isEndDrawerOpen) {
+                          if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+                              controller.scaffoldKey.currentState!.isEndDrawerOpen) {
                             Get.back();
                           }
                         },
@@ -129,8 +111,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'HOME';
-                        safeSetState(() {});
+                        model.selectedTab = 'HOME';
+                        controller.notifyUi();
 
                         Get.toNamed(HomePageDynamicWidget.routePath);
                       },
@@ -143,7 +125,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'HOME'
+                              color: model.selectedTab == 'HOME'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -166,8 +148,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          _model.selectedTab = 'Wheel of Adventure';
-                          safeSetState(() {});
+                          model.selectedTab = 'Wheel of Adventure';
+                          controller.notifyUi();
                           if (loggedIn) {
                             Get.toNamed(WheelAdventureScreenWidget.routePath);
 
@@ -214,7 +196,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    color: _model.selectedTab == 'VOTING'
+                                    color: model.selectedTab == 'VOTING'
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondaryBackground,
@@ -237,8 +219,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        _model.selectedTab = 'CUSTOMER SERVICE';
-                        safeSetState(() {});
+                        model.selectedTab = 'CUSTOMER SERVICE';
+                        controller.notifyUi();
 
                         Get.toNamed(ContactUsWidget.routePath);
                       },
@@ -251,7 +233,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                     .bodyMedium
                                     .fontStyle,
                               ),
-                              color: _model.selectedTab == 'CUSTOMER SERVICES'
+                              color: model.selectedTab == 'CUSTOMER SERVICES'
                                   ? FlutterFlowTheme.of(context).primary
                                   : FlutterFlowTheme.of(context)
                                       .secondaryBackground,
@@ -1058,7 +1040,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            scaffoldKey.currentState!
+                                            controller.scaffoldKey.currentState!
                                                 .openEndDrawer();
                                           },
                                           child: Icon(
@@ -1208,6 +1190,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                         mainAxisSpacing: 10.0,
                                         childAspectRatio: 1.0,
                                       ),
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount:
@@ -2880,7 +2864,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                           ),
                         ),
                         Form(
-                          key: _model.formKey,
+                          key: model.formKey,
                           autovalidateMode: AutovalidateMode.disabled,
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -2930,9 +2914,9 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.8,
                                           child: TextFormField(
-                                            controller: _model.textController1,
+                                            controller: model.textController1,
                                             focusNode:
-                                                _model.textFieldFocusNode1,
+                                                model.textFieldFocusNode1,
                                             autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
@@ -3071,7 +3055,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
-                                            validator: _model
+                                            validator: model
                                                 .textController1Validator
                                                 .asValidator(context),
                                           ),
@@ -3120,9 +3104,9 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.8,
                                           child: TextFormField(
-                                            controller: _model.textController2,
+                                            controller: model.textController2,
                                             focusNode:
-                                                _model.textFieldFocusNode2,
+                                                model.textFieldFocusNode2,
                                             autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
@@ -3261,7 +3245,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
-                                            validator: _model
+                                            validator: model
                                                 .textController2Validator
                                                 .asValidator(context),
                                           ),
@@ -3310,9 +3294,9 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.8,
                                           child: TextFormField(
-                                            controller: _model.textController3,
+                                            controller: model.textController3,
                                             focusNode:
-                                                _model.textFieldFocusNode3,
+                                                model.textFieldFocusNode3,
                                             autofocus: false,
                                             obscureText: false,
                                             decoration: InputDecoration(
@@ -3452,7 +3436,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .primaryText,
                                             enableInteractiveSelection: true,
-                                            validator: _model
+                                            validator: model
                                                 .textController3Validator
                                                 .asValidator(context),
                                           ),
@@ -3466,8 +3450,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                       0.0, 35.0, 0.0, 35.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      if (_model.formKey.currentState == null ||
-                                          !_model.formKey.currentState!
+                                      if (model.formKey.currentState == null ||
+                                          !model.formKey.currentState!
                                               .validate()) {
                                         return;
                                       }
@@ -3475,10 +3459,10 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                       await ContactUsRecord.collection
                                           .doc()
                                           .set(createContactUsRecordData(
-                                            name: _model.textController1.text,
-                                            email: _model.textController2.text,
+                                            name: model.textController1.text,
+                                            email: model.textController2.text,
                                             message:
-                                                _model.textController3.text,
+                                                model.textController3.text,
                                             timestamp: getCurrentTimestamp,
                                           ));
                                       ScaffoldMessenger.of(context)
@@ -3612,7 +3596,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                scaffoldKey.currentState!.openEndDrawer();
+                                controller.scaffoldKey.currentState!.openEndDrawer();
                               },
                               child: Icon(
                                 Icons.menu,
@@ -3663,7 +3647,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                   ),
                                 ),
                               ],
-                              carouselController: _model.carouselController ??=
+                              carouselController: model.carouselController ??=
                                   CarouselSliderController(),
                               options: CarouselOptions(
                                 initialPage: 1,
@@ -3681,7 +3665,7 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
                                 autoPlayCurve: Curves.linear,
                                 pauseAutoPlayInFiniteScroll: true,
                                 onPageChanged: (index, _) =>
-                                    _model.carouselCurrentIndex = index,
+                                    model.carouselCurrentIndex = index,
                               ),
                             ),
                           ),
@@ -3753,6 +3737,8 @@ class _SubCatagoryScreenWidgetState extends State<SubCatagoryScreenWidget> {
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

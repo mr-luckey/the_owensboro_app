@@ -23,7 +23,8 @@
 // import 'package:get/get.dart';
 // // import 'package:provider/provider.dart';
 // import 'package:url_launcher/url_launcher.dart';
-// import 'home_page_dynamic_model.dart';
+// import 'controller/home_page_dynamic_controller.dart';
+import 'home_page_dynamic_model.dart';
 // export 'home_page_dynamic_model.dart';
 
 // class HomePageDynamicWidget extends StatefulWidget {
@@ -38,7 +39,7 @@
 
 // class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
 //     with TickerProviderStateMixin {
-//   late HomePageDynamicModel _model;
+//   late HomePageDynamicModel model;
 
 //   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -47,41 +48,41 @@
 //   @override
 //   void initState() {
 //     super.initState();
-//     _model = createModel(context, () => HomePageDynamicModel());
+//     model = createModel(context, () => HomePageDynamicModel());
 
 //     // On page load action.
 //     SchedulerBinding.instance.addPostFrameCallback((_) async {
 //       setDarkModeSetting(context, ThemeMode.light);
-//       if (scaffoldKey.currentState!.isDrawerOpen ||
-//           scaffoldKey.currentState!.isEndDrawerOpen) {
+//       if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+//           controller.scaffoldKey.currentState!.isEndDrawerOpen) {
 //         Get.back();
 //       }
 
-//       _model.selectedTab = 'HOME';
-//       safeSetState(() {});
+//       model.selectedTab = 'HOME';
+//       controller.notifyUi();
 
 //       // Notify root app that the first home frame is ready so it can hide splash.
 //       AppStateNotifier.instance.showSplashImage = false;
-//       safeSetState(() {});
+//       controller.notifyUi();
 //     });
 
-//     _model.textController1 ??= TextEditingController();
-//     _model.textFieldFocusNode1 ??= FocusNode();
+//     model.textController1 ??= TextEditingController();
+//     model.textFieldFocusNode1 ??= FocusNode();
 
-//     _model.textController2 ??= TextEditingController();
-//     _model.textFieldFocusNode2 ??= FocusNode();
+//     model.textController2 ??= TextEditingController();
+//     model.textFieldFocusNode2 ??= FocusNode();
 
-//     _model.textController3 ??= TextEditingController();
-//     _model.textFieldFocusNode3 ??= FocusNode();
+//     model.textController3 ??= TextEditingController();
+//     model.textFieldFocusNode3 ??= FocusNode();
 
-//     _model.textController4 ??= TextEditingController();
-//     _model.textFieldFocusNode4 ??= FocusNode();
+//     model.textController4 ??= TextEditingController();
+//     model.textFieldFocusNode4 ??= FocusNode();
 
-//     _model.textController5 ??= TextEditingController();
-//     _model.textFieldFocusNode5 ??= FocusNode();
+//     model.textController5 ??= TextEditingController();
+//     model.textFieldFocusNode5 ??= FocusNode();
 
-//     _model.textController6 ??= TextEditingController();
-//     _model.textFieldFocusNode6 ??= FocusNode();
+//     model.textController6 ??= TextEditingController();
+//     model.textFieldFocusNode6 ??= FocusNode();
 
 //     animationsMap.addAll({
 //       'columnOnPageLoadAnimation': AnimationInfo(
@@ -136,8 +137,8 @@
 //                           hoverColor: Colors.transparent,
 //                           highlightColor: Colors.transparent,
 //                           onTap: () async {
-//                             if (scaffoldKey.currentState!.isDrawerOpen ||
-//                                 scaffoldKey.currentState!.isEndDrawerOpen) {
+//                             if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+//                                 controller.scaffoldKey.currentState!.isEndDrawerOpen) {
 //                               Get.back();
 //                             }
 //                           },
@@ -157,8 +158,8 @@
 //                         hoverColor: Colors.transparent,
 //                         highlightColor: Colors.transparent,
 //                         onTap: () async {
-//                           _model.selectedTab = 'HOME';
-//                           safeSetState(() {});
+//                           model.selectedTab = 'HOME';
+//                           controller.notifyUi();
 
 //                           Get.toNamed(HomePageDynamicWidget.routePath);
 //                         },
@@ -172,7 +173,7 @@
 //                                           .bodyMedium
 //                                           .fontStyle,
 //                                     ),
-//                                     color: _model.selectedTab == 'HOME'
+//                                     color: model.selectedTab == 'HOME'
 //                                         ? FlutterFlowTheme.of(context).primary
 //                                         : FlutterFlowTheme.of(context)
 //                                             .secondaryBackground,
@@ -195,18 +196,18 @@
 //                           hoverColor: Colors.transparent,
 //                           highlightColor: Colors.transparent,
 //                           onTap: () async {
-//                             _model.selectedTab = 'Wheel of Adventure';
-//                             safeSetState(() {});
+//                             model.selectedTab = 'Wheel of Adventure';
+//                             controller.notifyUi();
 //                             if (loggedIn) {
 //                               Get.toNamed(WheelAdventureScreenWidget.routePath);
 
-//                               if (scaffoldKey.currentState!.isDrawerOpen ||
-//                                   scaffoldKey.currentState!.isEndDrawerOpen) {
+//                               if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+//                                   controller.scaffoldKey.currentState!.isEndDrawerOpen) {
 //                                 Get.back();
 //                               }
 
-//                               _model.selectedTab = '.';
-//                               safeSetState(() {});
+//                               model.selectedTab = '.';
+//                               controller.notifyUi();
 //                               return;
 //                             } else {
 //                               await showDialog(
@@ -253,7 +254,7 @@
 //                                         .fontStyle,
 //                                   ),
 //                                   color:
-//                                       _model.selectedTab == 'Wheel of Adventure'
+//                                       model.selectedTab == 'Wheel of Adventure'
 //                                           ? FlutterFlowTheme.of(context).primary
 //                                           : FlutterFlowTheme.of(context)
 //                                               .secondaryBackground,
@@ -276,8 +277,8 @@
 //                         hoverColor: Colors.transparent,
 //                         highlightColor: Colors.transparent,
 //                         onTap: () async {
-//                           _model.selectedTab = 'CUSTOMER SERVICES';
-//                           safeSetState(() {});
+//                           model.selectedTab = 'CUSTOMER SERVICES';
+//                           controller.notifyUi();
 
 //                           Get.toNamed(ContactUsWidget.routePath);
 //                         },
@@ -292,7 +293,7 @@
 //                                       .bodyMedium
 //                                       .fontStyle,
 //                                 ),
-//                                 color: _model.selectedTab == 'CUSTOMER SERVICES'
+//                                 color: model.selectedTab == 'CUSTOMER SERVICES'
 //                                     ? FlutterFlowTheme.of(context).primary
 //                                     : FlutterFlowTheme.of(context)
 //                                         .secondaryBackground,
@@ -367,7 +368,7 @@
 //                                                   .bodyMedium
 //                                                   .fontStyle,
 //                                         ),
-//                                         color: _model.selectedTab ==
+//                                         color: model.selectedTab ==
 //                                                 'CUSTOMER SERVICES'
 //                                             ? FlutterFlowTheme.of(context).error
 //                                             : FlutterFlowTheme.of(context)
@@ -592,7 +593,7 @@
 //                                             .bodyMedium
 //                                             .fontStyle,
 //                                       ),
-//                                       color: _model.selectedTab ==
+//                                       color: model.selectedTab ==
 //                                               'CUSTOMER SERVICES'
 //                                           ? FlutterFlowTheme.of(context).primary
 //                                           : FlutterFlowTheme.of(context)
@@ -635,7 +636,7 @@
 //                                             .bodyMedium
 //                                             .fontStyle,
 //                                       ),
-//                                       color: _model.selectedTab ==
+//                                       color: model.selectedTab ==
 //                                               'CUSTOMER SERVICES'
 //                                           ? FlutterFlowTheme.of(context).primary
 //                                           : FlutterFlowTheme.of(context)
@@ -699,9 +700,9 @@
 //                             hoverColor: Colors.transparent,
 //                             highlightColor: Colors.transparent,
 //                             onTap: () async {
-//                               _model.isSelected = true;
-//                               _model.selectedTab = 'HOME';
-//                               safeSetState(() {});
+//                               model.isSelected = true;
+//                               model.selectedTab = 'HOME';
+//                               controller.notifyUi();
 
 //                               Get.toNamed(HomePageDynamicWidget.routePath);
 //                             },
@@ -710,7 +711,7 @@
 //                               height: 40.0,
 //                               decoration: BoxDecoration(
 //                                 border: Border.all(
-//                                   color: _model.selectedTab == 'HOME'
+//                                   color: model.selectedTab == 'HOME'
 //                                       ? FlutterFlowTheme.of(context).primary
 //                                       : FlutterFlowTheme.of(context)
 //                                           .primaryBackground,
@@ -761,9 +762,9 @@
 //                               hoverColor: Colors.transparent,
 //                               highlightColor: Colors.transparent,
 //                               onTap: () async {
-//                                 _model.isSelected = true;
-//                                 _model.selectedTab = 'Wheel of Adventure';
-//                                 safeSetState(() {});
+//                                 model.isSelected = true;
+//                                 model.selectedTab = 'Wheel of Adventure';
+//                                 controller.notifyUi();
 //                                 if (loggedIn) {
 //                                   Get.toNamed(
 //                                       WheelAdventureScreenWidget.routePath);
@@ -810,7 +811,7 @@
 //                                 height: 40.0,
 //                                 decoration: BoxDecoration(
 //                                   border: Border.all(
-//                                     color: _model.selectedTab == 'VOTING'
+//                                     color: model.selectedTab == 'VOTING'
 //                                         ? FlutterFlowTheme.of(context).primary
 //                                         : FlutterFlowTheme.of(context)
 //                                             .primaryBackground,
@@ -861,9 +862,9 @@
 //                             hoverColor: Colors.transparent,
 //                             highlightColor: Colors.transparent,
 //                             onTap: () async {
-//                               _model.isSelected = true;
-//                               _model.selectedTab = 'CUSTOMER SERVICE';
-//                               safeSetState(() {});
+//                               model.isSelected = true;
+//                               model.selectedTab = 'CUSTOMER SERVICE';
+//                               controller.notifyUi();
 
 //                               Get.toNamed(ContactUsWidget.routePath);
 //                             },
@@ -873,7 +874,7 @@
 //                               decoration: BoxDecoration(
 //                                 border: Border.all(
 //                                   color:
-//                                       _model.selectedTab == 'CUSTOMER SERVICE'
+//                                       model.selectedTab == 'CUSTOMER SERVICE'
 //                                           ? FlutterFlowTheme.of(context).primary
 //                                           : FlutterFlowTheme.of(context)
 //                                               .primaryBackground,
@@ -1127,7 +1128,7 @@
 //                                 hoverColor: Colors.transparent,
 //                                 highlightColor: Colors.transparent,
 //                                 onTap: () async {
-//                                   scaffoldKey.currentState!.openEndDrawer();
+//                                   controller.scaffoldKey.currentState!.openEndDrawer();
 //                                 },
 //                                 child: Icon(
 //                                   Icons.menu,
@@ -1179,7 +1180,7 @@
 //                                   ),
 //                                 ],
 //                                 carouselController:
-//                                     _model.carouselController ??=
+//                                     model.carouselController ??=
 //                                         CarouselSliderController(),
 //                                 options: CarouselOptions(
 //                                   initialPage: 1,
@@ -1197,7 +1198,7 @@
 //                                   autoPlayCurve: Curves.linear,
 //                                   pauseAutoPlayInFiniteScroll: true,
 //                                   onPageChanged: (index, _) =>
-//                                       _model.carouselCurrentIndex = index,
+//                                       model.carouselCurrentIndex = index,
 //                                 ),
 //                               ),
 //                             ),
@@ -1306,7 +1307,7 @@
 //                               //   hoverColor: Colors.transparent,
 //                               //   highlightColor: Colors.transparent,
 //                               //   onTap: () async {
-//                               //     scaffoldKey.currentState!.openEndDrawer();
+//                               //     controller.scaffoldKey.currentState!.openEndDrawer();
 //                               //   },
 //                               //   child: Icon(
 //                               //     Icons.menu,
@@ -1787,7 +1788,7 @@
 //                               mainAxisAlignment: MainAxisAlignment.spaceAround,
 //                               children: [
 //                                 Form(
-//                                   key: _model.formKey2,
+//                                   key: model.formKey2,
 //                                   autovalidateMode: AutovalidateMode.disabled,
 //                                   child: Column(
 //                                     mainAxisSize: MainAxisSize.max,
@@ -1896,8 +1897,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController1,
-//                                                     focusNode: _model
+//                                                         model.textController1,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode1,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -2047,7 +2048,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController1Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -2113,8 +2114,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController2,
-//                                                     focusNode: _model
+//                                                         model.textController2,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode2,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -2264,7 +2265,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController2Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -2330,8 +2331,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController3,
-//                                                     focusNode: _model
+//                                                         model.textController3,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode3,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -2482,7 +2483,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController3Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -2497,9 +2498,9 @@
 //                                             0.0, 20.0, 0.0, 0.0),
 //                                         child: FFButtonWidget(
 //                                           onPressed: () async {
-//                                             if (_model.formKey2.currentState ==
+//                                             if (model.formKey2.currentState ==
 //                                                     null ||
-//                                                 !_model.formKey2.currentState!
+//                                                 !model.formKey2.currentState!
 //                                                     .validate()) {
 //                                               return;
 //                                             }
@@ -2507,11 +2508,11 @@
 //                                             await ContactUsRecord.collection
 //                                                 .doc()
 //                                                 .set(createContactUsRecordData(
-//                                                   name: _model
+//                                                   name: model
 //                                                       .textController1.text,
-//                                                   email: _model
+//                                                   email: model
 //                                                       .textController2.text,
-//                                                   message: _model
+//                                                   message: model
 //                                                       .textController3.text,
 //                                                   timestamp:
 //                                                       getCurrentTimestamp,
@@ -2777,7 +2778,7 @@
 //                               clipBehavior: Clip.none,
 //                               children: [
 //                                 Form(
-//                                   key: _model.formKey1,
+//                                   key: model.formKey1,
 //                                   autovalidateMode: AutovalidateMode.disabled,
 //                                   child: Column(
 //                                     mainAxisSize: MainAxisSize.max,
@@ -2871,8 +2872,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController4,
-//                                                     focusNode: _model
+//                                                         model.textController4,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode4,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -3022,7 +3023,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController4Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -3088,8 +3089,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController5,
-//                                                     focusNode: _model
+//                                                         model.textController5,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode5,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -3239,7 +3240,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController5Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -3305,8 +3306,8 @@
 //                                                   width: 200.0,
 //                                                   child: TextFormField(
 //                                                     controller:
-//                                                         _model.textController6,
-//                                                     focusNode: _model
+//                                                         model.textController6,
+//                                                     focusNode: model
 //                                                         .textFieldFocusNode6,
 //                                                     autofocus: false,
 //                                                     obscureText: false,
@@ -3457,7 +3458,7 @@
 //                                                             .primaryText,
 //                                                     enableInteractiveSelection:
 //                                                         true,
-//                                                     validator: _model
+//                                                     validator: model
 //                                                         .textController6Validator
 //                                                         .asValidator(context),
 //                                                   ),
@@ -3472,9 +3473,9 @@
 //                                             0.0, 20.0, 0.0, 0.0),
 //                                         child: FFButtonWidget(
 //                                           onPressed: () async {
-//                                             if (_model.formKey1.currentState ==
+//                                             if (model.formKey1.currentState ==
 //                                                     null ||
-//                                                 !_model.formKey1.currentState!
+//                                                 !model.formKey1.currentState!
 //                                                     .validate()) {
 //                                               return;
 //                                             }
@@ -3482,11 +3483,11 @@
 //                                             await ContactUsRecord.collection
 //                                                 .doc()
 //                                                 .set(createContactUsRecordData(
-//                                                   name: _model
+//                                                   name: model
 //                                                       .textController4.text,
-//                                                   email: _model
+//                                                   email: model
 //                                                       .textController5.text,
-//                                                   message: _model
+//                                                   message: model
 //                                                       .textController6.text,
 //                                                   timestamp:
 //                                                       getCurrentTimestamp,
@@ -3879,6 +3880,7 @@ import 'dart:math';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/index.dart';
+import '/pages/main_bottom_nav/main_bottom_nav_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -3887,6 +3889,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'controller/home_page_dynamic_controller.dart';
 import 'home_page_dynamic_model.dart';
 export 'home_page_dynamic_model.dart';
 
@@ -3900,49 +3903,16 @@ class HomePageDynamicWidget extends StatefulWidget {
   State<HomePageDynamicWidget> createState() => _HomePageDynamicWidgetState();
 }
 
-class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
-    with TickerProviderStateMixin {
-  late HomePageDynamicModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget> with TickerProviderStateMixin {
+  late HomePageDynamicController _controller;
 
   final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageDynamicModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setDarkModeSetting(context, ThemeMode.light);
-      if (scaffoldKey.currentState!.isDrawerOpen ||
-          scaffoldKey.currentState!.isEndDrawerOpen) {
-        Get.back();
-      }
-
-      _model.selectedTab = 'HOME';
-      safeSetState(() {});
-    });
-
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
-
-    _model.textController5 ??= TextEditingController();
-    _model.textFieldFocusNode5 ??= FocusNode();
-
-    _model.textController6 ??= TextEditingController();
-    _model.textFieldFocusNode6 ??= FocusNode();
-
+    _controller = Get.find<HomePageDynamicController>();
+    _controller.initModel(context);
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -3957,26 +3927,25 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         ],
       ),
     });
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GetBuilder<HomePageDynamicController>(
+      builder: (controller) {
+        final model = controller.model!;
+        return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         // endDrawer: Drawer(
         //   elevation: 16.0,
@@ -4003,8 +3972,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                 hoverColor: Colors.transparent,
         //                 highlightColor: Colors.transparent,
         //                 onTap: () async {
-        //                   if (scaffoldKey.currentState!.isDrawerOpen ||
-        //                       scaffoldKey.currentState!.isEndDrawerOpen) {
+        //                   if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+        //                       controller.scaffoldKey.currentState!.isEndDrawerOpen) {
         //                     Navigator.pop(context);
         //                   }
         //                 },
@@ -4024,8 +3993,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //               hoverColor: Colors.transparent,
         //               highlightColor: Colors.transparent,
         //               onTap: () async {
-        //                 _model.selectedTab = 'HOME';
-        //                 safeSetState(() {});
+        //                 model.selectedTab = 'HOME';
+        //                 controller.notifyUi();
 
         //                 context.pushNamed(HomePageDynamicWidget.routeName);
         //               },
@@ -4038,7 +4007,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                             .bodyMedium
         //                             .fontStyle,
         //                       ),
-        //                       color: _model.selectedTab == 'HOME'
+        //                       color: model.selectedTab == 'HOME'
         //                           ? FlutterFlowTheme.of(context).primary
         //                           : FlutterFlowTheme.of(context)
         //                               .secondaryBackground,
@@ -4061,19 +4030,19 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                 hoverColor: Colors.transparent,
         //                 highlightColor: Colors.transparent,
         //                 onTap: () async {
-        //                   _model.selectedTab = 'Wheel of Adventure';
-        //                   safeSetState(() {});
+        //                   model.selectedTab = 'Wheel of Adventure';
+        //                   controller.notifyUi();
         //                   if (loggedIn) {
         //                     context.pushNamed(
         //                         WheelAdventureScreenWidget.routeName);
 
-        //                     if (scaffoldKey.currentState!.isDrawerOpen ||
-        //                         scaffoldKey.currentState!.isEndDrawerOpen) {
+        //                     if (controller.scaffoldKey.currentState!.isDrawerOpen ||
+        //                         controller.scaffoldKey.currentState!.isEndDrawerOpen) {
         //                       Navigator.pop(context);
         //                     }
 
-        //                     _model.selectedTab = '.';
-        //                     safeSetState(() {});
+        //                     model.selectedTab = '.';
+        //                     controller.notifyUi();
         //                     return;
         //                   } else {
         //                     await showDialog(
@@ -4119,7 +4088,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                               .fontStyle,
         //                         ),
         //                         color:
-        //                             _model.selectedTab == 'Wheel of Adventure'
+        //                             model.selectedTab == 'Wheel of Adventure'
         //                                 ? FlutterFlowTheme.of(context).primary
         //                                 : FlutterFlowTheme.of(context)
         //                                     .secondaryBackground,
@@ -4142,8 +4111,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //               hoverColor: Colors.transparent,
         //               highlightColor: Colors.transparent,
         //               onTap: () async {
-        //                 _model.selectedTab = 'CUSTOMER SERVICES';
-        //                 safeSetState(() {});
+        //                 model.selectedTab = 'CUSTOMER SERVICES';
+        //                 controller.notifyUi();
 
         //                 context.pushNamed(ContactUsWidget.routeName);
         //               },
@@ -4156,7 +4125,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                             .bodyMedium
         //                             .fontStyle,
         //                       ),
-        //                       color: _model.selectedTab == 'CUSTOMER SERVICES'
+        //                       color: model.selectedTab == 'CUSTOMER SERVICES'
         //                           ? FlutterFlowTheme.of(context).primary
         //                           : FlutterFlowTheme.of(context)
         //                               .secondaryBackground,
@@ -4229,7 +4198,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                                     .bodyMedium
         //                                     .fontStyle,
         //                               ),
-        //                               color: _model.selectedTab ==
+        //                               color: model.selectedTab ==
         //                                       'CUSTOMER SERVICES'
         //                                   ? FlutterFlowTheme.of(context).error
         //                                   : FlutterFlowTheme.of(context).error,
@@ -4450,7 +4419,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                                   .bodyMedium
         //                                   .fontStyle,
         //                             ),
-        //                             color: _model.selectedTab ==
+        //                             color: model.selectedTab ==
         //                                     'CUSTOMER SERVICES'
         //                                 ? FlutterFlowTheme.of(context).primary
         //                                 : FlutterFlowTheme.of(context)
@@ -4494,7 +4463,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         //                                   .bodyMedium
         //                                   .fontStyle,
         //                             ),
-        //                             color: _model.selectedTab ==
+        //                             color: model.selectedTab ==
         //                                     'CUSTOMER SERVICES'
         //                                 ? FlutterFlowTheme.of(context).primary
         //                                 : FlutterFlowTheme.of(context)
@@ -4519,11 +4488,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
         // ),
 
         endDrawer: AppEndDrawer(
-          scaffoldKey: scaffoldKey,
-          selectedTab: _model.selectedTab,
+          scaffoldKey: controller.scaffoldKey,
+          selectedTab: model.selectedTab,
           onSelectedTabChanged: (value) {
-            _model.selectedTab = value;
-            safeSetState(() {});
+            model.selectedTab = value;
+            controller.notifyUi();
           },
         ),
         appBar: MediaQuery.sizeOf(context).width >= 450.0
@@ -4564,18 +4533,21 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'HOME';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'HOME';
+                            controller.notifyUi();
 
-                            Get.toNamed(HomePageDynamicWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 0},
+                            );
                           },
                           child: Container(
                             width: 100.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'HOME'
+                                color: model.selectedTab == 'HOME'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -4624,9 +4596,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.isSelected = true;
-                              _model.selectedTab = 'Wheel of Adventure';
-                              safeSetState(() {});
+                              model.isSelected = true;
+                              model.selectedTab = 'Wheel of Adventure';
+                              controller.notifyUi();
                               if (loggedIn) {
                                 Get.toNamed(
                                     WheelAdventureScreenWidget.routePath);
@@ -4671,7 +4643,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                               height: 40.0,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: _model.selectedTab == 'VOTING'
+                                  color: model.selectedTab == 'VOTING'
                                       ? FlutterFlowTheme.of(context).primary
                                       : FlutterFlowTheme.of(context)
                                           .primaryBackground,
@@ -4722,18 +4694,21 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            _model.isSelected = true;
-                            _model.selectedTab = 'CUSTOMER SERVICE';
-                            safeSetState(() {});
+                            model.isSelected = true;
+                            model.selectedTab = 'CUSTOMER SERVICE';
+                            controller.notifyUi();
 
-                            Get.toNamed(ContactUsWidget.routePath);
+                            Get.offAllNamed(
+                              MainBottomNavWidget.routePath,
+                              arguments: <String, dynamic>{'tabIndex': 3},
+                            );
                           },
                           child: Container(
                             width: 200.0,
                             height: 40.0,
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: _model.selectedTab == 'CUSTOMER SERVICE'
+                                color: model.selectedTab == 'CUSTOMER SERVICE'
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context)
                                         .primaryBackground,
@@ -4958,7 +4933,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    scaffoldKey.currentState!.openEndDrawer();
+                                    controller.scaffoldKey.currentState!.openEndDrawer();
                                   },
                                   child: Icon(
                                     Icons.menu,
@@ -5248,10 +5223,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                 ),
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Text(
+                                            IgnorePointer(
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
                                                 gridViewCatagoriesRecord
                                                     .catagoryName,
                                                 textAlign: TextAlign.center,
@@ -5282,6 +5258,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -5382,10 +5359,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                 ),
                                               ),
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Text(
+                                            IgnorePointer(
+                                              child: Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: Text(
                                                 gridViewCatagoriesRecord
                                                     .catagoryName,
                                                 textAlign: TextAlign.center,
@@ -5416,6 +5394,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .bodyMedium
                                                               .fontStyle,
                                                     ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -5504,7 +5483,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Form(
-                                    key: _model.formKey2,
+                                    key: model.formKey2,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -5583,9 +5562,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController1,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode1,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -5747,7 +5726,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController1Validator
                                                           .asValidator(context),
                                                     ),
@@ -5779,9 +5758,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController2,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode2,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -5944,7 +5923,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController2Validator
                                                           .asValidator(context),
                                                     ),
@@ -5976,9 +5955,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController3,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode3,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -6141,7 +6120,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController3Validator
                                                           .asValidator(context),
                                                     ),
@@ -6157,10 +6136,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (_model.formKey2
+                                              if (model.formKey2
                                                           .currentState ==
                                                       null ||
-                                                  !_model.formKey2.currentState!
+                                                  !model.formKey2.currentState!
                                                       .validate()) {
                                                 return;
                                               }
@@ -6169,11 +6148,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   .doc()
                                                   .set(
                                                       createContactUsRecordData(
-                                                    name: _model
+                                                    name: model
                                                         .textController1.text,
-                                                    email: _model
+                                                    email: model
                                                         .textController2.text,
-                                                    message: _model
+                                                    message: model
                                                         .textController3.text,
                                                     timestamp:
                                                         getCurrentTimestamp,
@@ -6448,7 +6427,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 clipBehavior: Clip.none,
                                 children: [
                                   Form(
-                                    key: _model.formKey1,
+                                    key: model.formKey1,
                                     autovalidateMode: AutovalidateMode.disabled,
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -6512,9 +6491,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController4,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode4,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -6673,7 +6652,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController4Validator
                                                           .asValidator(context),
                                                     ),
@@ -6705,9 +6684,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController5,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode5,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -6867,7 +6846,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController5Validator
                                                           .asValidator(context),
                                                     ),
@@ -6899,9 +6878,9 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   child: Container(
                                                     width: 200.0,
                                                     child: TextFormField(
-                                                      controller: _model
+                                                      controller: model
                                                           .textController6,
-                                                      focusNode: _model
+                                                      focusNode: model
                                                           .textFieldFocusNode6,
                                                       autofocus: false,
                                                       obscureText: false,
@@ -7061,7 +7040,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                               .primaryText,
                                                       enableInteractiveSelection:
                                                           true,
-                                                      validator: _model
+                                                      validator: model
                                                           .textController6Validator
                                                           .asValidator(context),
                                                     ),
@@ -7077,10 +7056,10 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   0.0, 20.0, 0.0, 0.0),
                                           child: FFButtonWidget(
                                             onPressed: () async {
-                                              if (_model.formKey1
+                                              if (model.formKey1
                                                           .currentState ==
                                                       null ||
-                                                  !_model.formKey1.currentState!
+                                                  !model.formKey1.currentState!
                                                       .validate()) {
                                                 return;
                                               }
@@ -7089,11 +7068,11 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                                   .doc()
                                                   .set(
                                                       createContactUsRecordData(
-                                                    name: _model
+                                                    name: model
                                                         .textController4.text,
-                                                    email: _model
+                                                    email: model
                                                         .textController5.text,
-                                                    message: _model
+                                                    message: model
                                                         .textController6.text,
                                                     timestamp:
                                                         getCurrentTimestamp,
@@ -7500,7 +7479,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
+                              controller.scaffoldKey.currentState!.openEndDrawer();
                             },
                             child: Icon(
                               Icons.menu,
@@ -7551,7 +7530,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                                 ),
                               ),
                             ],
-                            carouselController: _model.carouselController ??=
+                            carouselController: model.carouselController ??=
                                 CarouselSliderController(),
                             options: CarouselOptions(
                               initialPage: 1,
@@ -7569,7 +7548,7 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
                               autoPlayCurve: Curves.linear,
                               pauseAutoPlayInFiniteScroll: true,
                               onPageChanged: (index, _) =>
-                                  _model.carouselCurrentIndex = index,
+                                  model.carouselCurrentIndex = index,
                             ),
                           ),
                         ),
@@ -7639,6 +7618,8 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget>
           ),
         ),
       ),
+    );
+      },
     );
   }
 }

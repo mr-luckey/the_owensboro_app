@@ -1,13 +1,12 @@
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:ui';
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'home_page_with_data_model.dart';
+import 'controller/home_page_with_data_controller.dart';
 export 'home_page_with_data_model.dart';
 
 class HomePageWithDataWidget extends StatefulWidget {
@@ -21,23 +20,13 @@ class HomePageWithDataWidget extends StatefulWidget {
 }
 
 class _HomePageWithDataWidgetState extends State<HomePageWithDataWidget> {
-  late HomePageWithDataModel _model;
-
-  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late final HomePageWithDataController _controller;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageWithDataModel());
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
+    _controller = Get.find<HomePageWithDataController>();
+    _controller.initModel(context);
   }
 
   @override
@@ -48,7 +37,7 @@ class _HomePageWithDataWidgetState extends State<HomePageWithDataWidget> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Scaffold(
-        key: scaffoldKey,
+        key: _controller.scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,

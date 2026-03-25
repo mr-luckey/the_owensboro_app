@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'no_products_components_model.dart';
+import 'package:get/get.dart';
 export 'no_products_components_model.dart';
 
 class NoProductsComponentsWidget extends StatefulWidget {
@@ -22,8 +23,12 @@ class _NoProductsComponentsWidgetState
 
   @override
   void setState(VoidCallback callback) {
-    super.setState(callback);
+    if (!mounted) {
+      return;
+    }
+    callback();
     _model.onUpdate();
+    Get.forceAppUpdate();
   }
 
   @override

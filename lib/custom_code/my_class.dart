@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:the_owensboro_app/flutter_flow/flutter_flow_util.dart';
 
 class SvgPicker extends StatefulWidget {
   final void Function(File?)? onFilePicked;
@@ -15,7 +16,7 @@ class SvgPicker extends StatefulWidget {
   State<SvgPicker> createState() => _SvgPickerState();
 }
 
-class _SvgPickerState extends State<SvgPicker> {
+class _SvgPickerState extends State<SvgPicker> with GetxStatefulStateMixin {
   File? _selectedFile;
   String? _svgContent;
   bool _isUploading = false;
@@ -34,18 +35,18 @@ class _SvgPickerState extends State<SvgPicker> {
       if (kIsWeb) {
         if (file.bytes != null) {
           final svgData = String.fromCharCodes(file.bytes!);
-          setState(() => _svgContent = svgData);
+          safeSetState(() => _svgContent = svgData);
           widget.onFilePicked?.call(null);
 
           // Upload the file to Firebase Storage
           await _uploadSvgToFirebase(file.bytes!, file.name);
 
-          setState(() {});
+          safeSetState(() {});
         }
       } else if (file.path != null) {
         final pickedFile = File(file.path!);
         final svgData = await pickedFile.readAsString();
-        setState(() {
+        safeSetState(() {
           _selectedFile = pickedFile;
           _svgContent = svgData;
         });
@@ -54,14 +55,14 @@ class _SvgPickerState extends State<SvgPicker> {
         // Upload to Firebase Storage
         await _uploadSvgToFirebase(await pickedFile.readAsBytes(), file.name);
 
-        setState(() {});
+        safeSetState(() {});
       }
     }
   }
 
   Future<void> _uploadSvgToFirebase(
       Uint8List fileBytes, String fileName) async {
-    setState(() => _isUploading = true);
+    safeSetState(() => _isUploading = true);
 
     try {
       // Create a reference to Firebase Storage
@@ -76,14 +77,14 @@ class _SvgPickerState extends State<SvgPicker> {
       // Get the download URL
       final url = await uploadTask.ref.getDownloadURL();
 
-      setState(() {
+      safeSetState(() {
         _downloadUrl = url;
         _isUploading = false;
       });
 
       print('✅ Uploaded successfully! Download URL: $url');
     } catch (e) {
-      setState(() => _isUploading = false);
+      safeSetState(() => _isUploading = false);
       print('❌ Upload failed: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Upload failed: $e')),

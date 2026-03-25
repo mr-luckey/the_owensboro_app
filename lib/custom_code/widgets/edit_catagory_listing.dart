@@ -28,7 +28,7 @@ class EditCatagoryListing extends StatefulWidget {
   State<EditCatagoryListing> createState() => _EditCatagoryListingState();
 }
 
-class _EditCatagoryListingState extends State<EditCatagoryListing> {
+class _EditCatagoryListingState extends State<EditCatagoryListing> with GetxStatefulStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,7 +60,7 @@ class CatagoryListingDropDown extends StatefulWidget {
       _CatagoryListingDropDownState();
 }
 
-class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> {
+class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> with GetxStatefulStateMixin {
   DocumentReference? selectedCategoryRef;
   late CollectionReference categoriesCollection;
 
@@ -115,7 +115,7 @@ class _CatagoryListingDropDownState extends State<CatagoryListingDropDown> {
             isExpanded: true,
             icon: const SizedBox(),
             onChanged: (DocumentReference? newRef) {
-              setState(() {
+              safeSetState(() {
                 selectedCategoryRef = newRef;
                 print("selectedCategoryRef: ${selectedCategoryRef?.path}");
                 FFAppState().selectedListingCatagoryRef = selectedCategoryRef;
@@ -156,7 +156,7 @@ class SubCatagoryListing extends StatefulWidget {
   State<SubCatagoryListing> createState() => _SubCatagoryListingState();
 }
 
-class _SubCatagoryListingState extends State<SubCatagoryListing> {
+class _SubCatagoryListingState extends State<SubCatagoryListing> with GetxStatefulStateMixin {
   DocumentReference? selectedSubCategoryRef;
   late CollectionReference categoriesCollection;
 
@@ -212,7 +212,7 @@ class _SubCatagoryListingState extends State<SubCatagoryListing> {
             isExpanded: true,
             icon: const SizedBox(),
             onChanged: (DocumentReference? newRef) {
-              setState(() {
+              safeSetState(() {
                 selectedSubCategoryRef = newRef;
                 print(
                     "selectedSubCategoryRef: ${selectedSubCategoryRef?.path}");
