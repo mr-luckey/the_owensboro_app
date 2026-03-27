@@ -7500,56 +7500,89 @@ class _HomePageDynamicWidgetState extends State<HomePageDynamicWidget> with Tick
                         Container(
                           width: double.infinity,
                           height: 200.0,
-                          child: CarouselSlider(
-                            items: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'assets/images/dji_fly_20240828_105236_25_1724872752150_photo.jpg',
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
+                          child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                            stream: FirebaseFirestore.instance
+                                .collection('HeaderImages')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 24.0,
+                                    height: 24.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }
+
+                              final imageUrls = snapshot.data!.docs
+                                  .map((doc) => doc.data()['image'])
+                                  .whereType<String>()
+                                  .where((url) => url.isNotEmpty)
+                                  .toList();
+
+                              if (imageUrls.isEmpty) {
+                                return const SizedBox.shrink();
+                              }
+
+                              return CarouselSlider(
+                                // Asset fetching commented; now loading from Firestore HeaderImages.image URLs.
+                                // items: [
+                                //   ClipRRect(
+                                //     borderRadius: BorderRadius.circular(8.0),
+                                //     child: Image.asset(
+                                //       'assets/images/dji_fly_20240828_105236_25_1724872752150_photo.jpg',
+                                //       width: 200.0,
+                                //       height: 200.0,
+                                //       fit: BoxFit.cover,
+                                //     ),
+                                //   ),
+                                // ],
+                                items: imageUrls
+                                    .map(
+                                      (imageUrl) => ClipRRect(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        child: Image.network(
+                                          imageUrl,
+                                          width: 200.0,
+                                          height: 200.0,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Container(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                                carouselController: model.carouselController ??=
+                                    CarouselSliderController(),
+                                options: CarouselOptions(
+                                  initialPage: 0,
+                                  viewportFraction: 1.0,
+                                  disableCenter: true,
+                                  enlargeCenterPage: true,
+                                  enlargeFactor: 0.25,
+                                  enableInfiniteScroll: imageUrls.length > 1,
+                                  scrollDirection: Axis.horizontal,
+                                  autoPlay: imageUrls.length > 1,
+                                  autoPlayAnimationDuration:
+                                      Duration(milliseconds: 800),
+                                  autoPlayInterval:
+                                      Duration(milliseconds: (800 + 4000)),
+                                  autoPlayCurve: Curves.linear,
+                                  pauseAutoPlayInFiniteScroll: true,
+                                  onPageChanged: (index, _) =>
+                                      model.carouselCurrentIndex = index,
                                 ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'assets/images/dji_fly_20240828_105236_25_1724872752150_photo.jpg',
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  'assets/images/dji_fly_20240828_105236_25_1724872752150_photo.jpg',
-                                  width: 200.0,
-                                  height: 200.0,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ],
-                            carouselController: model.carouselController ??=
-                                CarouselSliderController(),
-                            options: CarouselOptions(
-                              initialPage: 1,
-                              viewportFraction: 1.0,
-                              disableCenter: true,
-                              enlargeCenterPage: true,
-                              enlargeFactor: 0.25,
-                              enableInfiniteScroll: true,
-                              scrollDirection: Axis.horizontal,
-                              autoPlay: true,
-                              autoPlayAnimationDuration:
-                                  Duration(milliseconds: 800),
-                              autoPlayInterval:
-                                  Duration(milliseconds: (800 + 4000)),
-                              autoPlayCurve: Curves.linear,
-                              pauseAutoPlayInFiniteScroll: true,
-                              onPageChanged: (index, _) =>
-                                  model.carouselCurrentIndex = index,
-                            ),
+                              );
+                            },
                           ),
                         ),
                         Align(
